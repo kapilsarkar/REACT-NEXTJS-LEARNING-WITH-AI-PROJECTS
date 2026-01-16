@@ -83,3 +83,27 @@
 // Stop the loop if value is greater than 400
 
 // Store results in finalValues
+
+
+
+// Intermediate Loop Practice
+
+// 1. The Double Break: Write a for loop that iterates through [1, 2, 3, 4, 5, 6, 7, 8, 9]. Skip the number 3, and stop the loop entirely when you hit 7. Store the valid numbers in filteredNumbers.
+ 
+// 2. Object Filtering: Given an object let gadgetPrices = { "laptop": 800, "phone": 500, "tablet": 300, "watch": 200 };, use a for...in loop to create a new object affordableGadgets containing only gadgets that cost less than 600.
+
+// 3. The Reverse Loop: Write a standard for loop that iterates through ["apple", "banana", "cherry"] backwards and stores them in a new array reversedFruits.
+
+// 4. Length Watcher: Use a for...of loop to iterate through ["pineapple", "peach", "plum", "pomegranate"]. Stop the loop if the tea name starts with the letter "p" AND has more than 5 characters. Store the results in longPTeas.
+
+// 5. Nested Data: Given an array of arrays let matrix = [[1, 2], [3, 4], [5, 6]];, use a for...of loop to flatten this into a single array flatArray containing [1, 2, 3, 4, 5, 6].
+
+// 6. The Step Counter: Write a for loop that iterates from 0 to 20, but only stores every 3rd number (0, 3, 6...) in an array called steps.
+
+// 7. Key-Value Flip: Use a for...in loop to take an object { a: 1, b: 2, c: 3 } and create a new object where the keys and values are swapped (e.g., { 1: "a", 2: "b", 3: "c" }).
+
+// 8. The "Only Strings" Challenge: Iterate through [1, "hello", true, "world", 42, "js"] using any loop you prefer. Skip everything that isn't a string and store the strings in stringOnly.
+
+// 9. Early Exit with forEach (Logic Check): Use a forEach loop to iterate through [10, 20, 30, 40]. Multiply each number by 2 and push it to results. However, if the number is 30, don't multiply it—just skip it (simulating a continue).
+
+// 10. The Accumulator: Use a for...of loop to iterate through [5, 10, 15]. Instead of storing them in an array, create a variable totalSum that adds the numbers together as the loop runs.
