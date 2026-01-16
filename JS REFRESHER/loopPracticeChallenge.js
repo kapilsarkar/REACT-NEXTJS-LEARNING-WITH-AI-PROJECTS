@@ -4,10 +4,32 @@
 // ["apple", "banana", "mango", "orange", "grapes"]
 // Stop the loop when "orange" is found and store all fruits before it in an array called freshFruits./
 
+let  fruits = ["apple", "banana", "mango", "orange", "grapes"];
+let freshFruits = [];
+for(let i =0; i< fruits.length;i++){
+    if(fruits[i] === "orange"){
+        break;
+    }
+    freshFruits.push(fruits[i]);
+}
+
+console.log(freshFruits);
+
 // 2. for loop + continue
 
 // Iterate through [10, 15, 20, 25, 30]
 // Skip numbers greater than 20 and store the rest in validNumbers
+
+let number = [10, 15, 20, 25, 30];
+let validNumbers = [];
+for(let i =0; i< number.length; i++){
+    if(number[i] > 20){
+        continue;
+    }
+  validNumbers.push(number[i])
+}
+
+console.log(validNumbers);
 
 //3. for-of loop
 
@@ -15,10 +37,34 @@
 // ["react", "angular", "vue", "svelte"]
 // Stop when "vue" is found and store previous frameworks in learnedFrameworks.
 
+let frameworks = ["react", "angular", "vue", "svelte"];
+let learnedFrameworks = [];
+
+for(const lang of frameworks){
+    if(lang === "vue"){
+        break;
+    }
+
+    learnedFrameworks.push(lang)
+}
+console.log(learnedFrameworks);
+
 //4. for-of + condition
 
 // Iterate over [3, 6, 9, 12, 15]
 // Skip numbers divisible by 3 and store the rest in filteredNumbers.
+
+let numArray = [3, 6, 9, 12, 15];
+let filteredNumbers = [];
+
+for(const newNum of numArray){
+    if(newNum %3 === 0){
+        continue;
+    }
+    filteredNumbers.push(newNum)
+}
+
+console.log(filteredNumbers);
 
 //5. for-in with object
 
@@ -30,9 +76,26 @@
 //   Science: 90,
 //   History: 65
 // };
-
-
 // Loop through the object and store only subjects with marks above 80 in a new object called topSubjects.
+
+let studentMarks = {
+  Math: 85,
+  English: 72,
+  Science: 90,
+  History: 65
+};
+
+let topSubjects = {}
+
+for(const sub in studentMarks){
+    if(studentMarks[sub] <= 80){
+        continue;
+    }
+
+    topSubjects[sub] = studentMarks[sub];
+}
+
+console.log(topSubjects);
 
 // 6. for-in + break
 
