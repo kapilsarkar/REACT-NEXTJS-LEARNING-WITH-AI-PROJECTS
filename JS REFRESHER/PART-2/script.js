@@ -108,3 +108,51 @@ clickMeButton.addEventListener("click", () => {
 //       <p>Click on any tea to select it!</p>
 //     </section>
 
+const teaList = document.getElementById("teaList");
+teaList.addEventListener("click", function (event) {
+    if (event.target && event.target.matches(".teaItem")) {
+        alert("You selected :" + event.target.textContent)
+    }
+})
+
+// <!-- Example 8: Form Handling -->
+//     <section id="example-8">
+//       <h2>Form Handling</h2>
+//       <form id="feedbackForm">
+//         <label for="feedbackInput">Your Feedback:</label>
+//         <input type="text" id="feedbackInput" placeholder="Enter feedback" />
+//         <button type="submit">Submit Feedback</button>
+//       </form>
+//       <p id="feedbackDisplay"></p>
+//     </section>
+
+const feedbackForm = document.getElementById("feedbackForm");
+feedbackForm.addEventListener("submit",function(e){
+     e.preventDefault();
+     let feedback = document.getElementById("feedbackInput").value;
+     let feedbackDisplay = document.getElementById("feedbackDisplay");
+     feedbackDisplay.textContent = "Your Feedback: " + feedback;
+})
+
+// <!-- Example 9: DOM Content Loaded -->
+//     <section id="example-9">
+//       <h2>DOM Content Loaded</h2>
+//       <p id="domStatus">Waiting for DOM to load...</p>
+//     </section>
+
+document.addEventListener("DOMContentLoaded", function(){
+    const domStatus = document.getElementById("domStatus");
+    domStatus.textContent = "DOM is fully loaded!";
+})
+
+// <!-- Example 10: CSS Classes Manipulation -->
+//     <section id="example-10">
+//       <h2>CSS Classes Manipulation</h2>
+//       <p id="descriptionText">This text will change color!</p>
+//       <button id="toggleHighlight">Toggle Highlight</button>
+//     </section>
+
+document.getElementById("toggleHighlight").addEventListener("click", function () {
+    let descriptionText = document.getElementById("descriptionText");
+    descriptionText.classList.toggle("highlight");
+});
