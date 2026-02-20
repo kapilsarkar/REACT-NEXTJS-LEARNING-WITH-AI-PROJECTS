@@ -8,13 +8,35 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <div class="container">
-      <h1>To-Do List</h1>
-      <div class="input-container">
-        <input type="text" id="todo-input" placeholder="Add a new task..." />
-        <button id="add-task-btn">Add Task</button>
-      </div>
-      <ul id="todo-list"></ul>
+    <div class="dashboard">
+      <aside class="sidebar">
+        <h2>TaskFlow</h2>
+        <nav>
+          <a href="#">Dashboard</a>
+          <a href="#">All Tasks</a>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <h1>My Tasks</h1>
+        </header>
+
+        <section class="task-card">
+          <div class="input-container">
+            <input
+              type="text"
+              id="todo-input"
+              placeholder="Add a new task..."
+            />
+            <button id="add-task-btn">Add</button>
+          </div>
+          <div class="actions">
+            <button id="clear-all-btn" class="clear-btn">Clear All</button>
+          </div>
+          <ul id="todo-list"></ul>
+        </section>
+      </main>
     </div>
   </body>
 </html>
