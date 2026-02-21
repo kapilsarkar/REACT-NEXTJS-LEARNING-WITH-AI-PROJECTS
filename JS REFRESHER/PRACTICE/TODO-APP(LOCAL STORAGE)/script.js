@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
         todoInput.value = "";
     });
 
-    // ✅ CLEAR ALL BUTTON (Now in correct scope)
+    
     clearAllBtn.addEventListener("click", () => {
         if (tasks.length === 0) return;
 
