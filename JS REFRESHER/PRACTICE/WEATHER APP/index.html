@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather App</title>
+
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="shortcut icon" href="./images/icon2.png" type="image/x-icon" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+
+  <script src="./script.js" defer></script>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <h1 class="weather-header">
+      <img src="./images/icon.png" class="weatherHead" alt="Weather Icon">
+      Weather App
+    </h1>
+  </header>
+
+  <!-- MAIN WEATHER SECTION -->
+  <main class="main-container">
+
+    <section class="weather-container">
+
+      <!-- SEARCH FORM -->
+      <form class="search-form">
+        <label for="searchCity" class="city-header">Enter City Name:</label>
+        <input 
+          id="searchCity" 
+          type="text" 
+          placeholder="City Name" 
+          required 
+        />
+        <button class="searchBtn" type="submit">Search</button>
+      </form>
+
+      <!-- ERROR & LOADING -->
+      <p class="error-message"></p>
+      <p class="loading-message"></p>
+
+      <!-- CURRENT WEATHER DETAILS -->
+      <div class="weather-details">
+
+        <div class="weather-details-part1">
+          <p class="city-name"></p>
+          <p class="state-name"></p>
+          <p class="country-name"></p>
+          <p class="timezone-name"></p>
+          <p class="localTime"></p>
+        </div>
+
+        <div class="weather-details-part2">
+          <p class="humidity"></p>
+          <p class="wind-speed"></p>
+          <p class="feels-like"></p>
+          <p class="rain"></p>
+        </div>
+
+        <div class="weather-details-part3">
+          <img 
+            class="weather-icon" 
+            src="" 
+            alt="Weather Icon"
+          />
+          <p class="temperature"></p>
+          <p class="weather-condn"></p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 3 DAY FORECAST SECTION -->
+  <section class="three-dayForecast">
+
+    <div class="forecast-container3">
+      <h2 class="forecast-header">3 DAY FORECAST</h2>
+
+      <!-- Forecast cards will be generated dynamically by JavaScript -->
+      <div class="forecast-cards"></div>
+
+    </div>
+
+  </section>
+
+</body>
+</html> 
