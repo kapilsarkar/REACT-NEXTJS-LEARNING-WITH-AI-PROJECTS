@@ -100,8 +100,5 @@ document.addEventListener('DOMContentLoaded', () => {
         errorMessage.classList.add('hidden');
     }
 
-
-
-
 })
 
