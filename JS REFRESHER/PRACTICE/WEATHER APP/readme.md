@@ -1,57 +1,48 @@
-### 🌤 Weather App
+# 🌤 Weather App
 
-A modern and responsive Weather Application built using HTML, CSS, and Vanilla JavaScript.
+A modern and responsive **Weather Application** built using **HTML, CSS, and Vanilla JavaScript**.
 
-This app fetches real-time weather data and a 3-day forecast using the WeatherAPI and displays dynamic animated backgrounds based on weather conditions.
+This app fetches real-time weather data along with a 3-day forecast using **WeatherAPI** and displays dynamic animated backgrounds based on weather conditions.
 
-![IMG](./images/SCN1.png)
-![IMG](./images/SCN2.png)
-![IMG](./images/SCN3.png)
- 🚀 Features
+🔗 **Live Demo:**  
+[View Live Project](https://forecast-hub-git-main-kapilsarkars-projects.vercel.app/)
 
-- 🌍 Search weather by city name
+---
 
-- 📍 Default weather shows Asansol, West Bengal
+## 📸 Screenshots
 
-- 📅 3-Day Weather Forecast
+![Screenshot 1](./images/SCN1.png)
+![Screenshot 2](./images/SCN2.png)
+![Screenshot 3](./images/SCN3.png)
 
-- 🌦 Dynamic animated backgrounds (Sunny, Rainy, Cloudy, Thunder, Night)
+---
 
-- 💧 Rain animation effect
+## 🚀 Features
 
-- ⏳ Loading & error handling
+- 🌍 Search weather by city name  
+- 📍 Default weather displays **Asansol, West Bengal**  
+- 📅 3-Day Weather Forecast  
+- 🌦 Dynamic animated backgrounds (Sunny, Rainy, Cloudy, Thunder, Night)  
+- 💧 Rain animation effect  
+- ⏳ Loading & error handling  
+- 📱 Fully responsive design  
 
-- 📱 Fully responsive design
+---
 
-🛠 Tech Stack
+## 🛠 Tech Stack
 
-- HTML5
+- **HTML5**
+- **CSS3**
+- **Vanilla JavaScript (ES6+)**
+- **WeatherAPI**
 
-- CSS3
+---
 
-- Vanilla JavaScript (ES6+)
+## 🔌 API Used
 
-- WeatherAPI
+🌐 [WeatherAPI](https://www.weatherapi.com/)
 
-
-🔌 API Used
-
-- 🌐 WeatherAPI
+Endpoint used:
 
 ```js
 https://api.weatherapi.com/v1/forecast.json
-```
-
-📷 How It Works
-
-1. On page load → Shows weather for Asansol.
-
-1. User enters city name in search box.
-
-2. App fetches:
-
-3. Current weather
-
-4. 3-day forecast
-
-5. Background changes automatically based on weather condition.
