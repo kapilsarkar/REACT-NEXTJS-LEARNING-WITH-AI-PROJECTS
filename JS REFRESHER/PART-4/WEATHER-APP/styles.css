@@ -1,74 +1,224 @@
-/* styles.css */
+/* ============================= */
+/*        GLOBAL RESET           */
+/* ============================= */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+/* ============================= */
+/*            BODY               */
+/* ============================= */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: #FFFFFF;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+  transition: background 0.8s ease-in-out;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
+/* ============================= */
+/*          CONTAINER            */
+/* ============================= */
 .container {
-    background-color: #1E1E1E;
-    padding: 20px;
-    border-radius: 10px;
-    width: 400px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    text-align: center;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  padding: 30px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 420px;
+
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  color: #1a1a1a;
 }
 
+/* ============================= */
+/*            TITLE              */
+/* ============================= */
 h1 {
-    margin-bottom: 20px;
-    font-size: 24px;
+  margin-bottom: 25px;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
+/* ============================= */
+/*        INPUT SECTION          */
+/* ============================= */
 .input-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
+/* Input */
 input[type="text"] {
-    width: 70%;
-    padding: 10px;
-    background-color: #333333;
-    border: none;
-    border-radius: 5px;
-    color: #FFF;
-    outline: none;
+  flex: 1 1 100%;
+  padding: 12px 15px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  color: #333;
+  outline: none;
+  font-size: 16px;
+  transition: border 0.3s, box-shadow 0.3s;
 }
 
+input[type="text"]:focus {
+  border: 1px solid #6200ea;
+  box-shadow: 0 0 0 3px rgba(98, 0, 234, 0.15);
+}
+
+/* ============================= */
+/*            BUTTONS            */
+/* ============================= */
 button {
-    width: 25%;
-    padding: 10px;
-    background-color: #6200EA;
-    border: none;
-    border-radius: 5px;
-    color: #FFF;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s, opacity 0.3s;
 }
 
-button:hover {
-    background-color: #3700B3;
+/* Get Weather Button */
+#get-weather-btn {
+  background-color: #6200ea;
 }
 
+#get-weather-btn:hover {
+  background-color: #3700b3;
+  transform: translateY(-2px);
+}
+
+/* Geo Button */
+#geo-btn {
+  background-color: #009688;
+}
+
+#geo-btn:hover {
+  background-color: #00796b;
+  transform: translateY(-2px);
+}
+
+/* Disabled State */
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ============================= */
+/*         WEATHER INFO          */
+/* ============================= */
 #weather-info {
-    margin-top: 20px;
+  margin-top: 20px;
+  animation: fadeIn 0.5s ease-in;
 }
 
-.hidden {
-    display: none;
+#weather-icon {
+  width: 100px;
+  height: 100px;
+  margin: 10px 0;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
 }
 
+#city-name {
+  font-size: 32px;
+  margin-bottom: 5px;
+  font-weight: 900;
+}
+
+#temperature {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 12px 0;
+}
+
+#description {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+  color: rgba(7, 117, 18, 0.9);
+  margin-top: 8px;
+  text-transform: capitalize;
+  display: inline-block;
+  
+
+  /* Animation */
+  opacity: 0;
+  transform: translateY(6px);
+  animation: fadeDescription 0.6s ease forwards;
+}
+
+/* Subtle animation */
+@keyframes fadeDescription {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================= */
+/*          ERROR MSG            */
+/* ============================= */
 #error-message {
-    color: #FF5722;
-    margin-top: 20px;
+  color: #b00020;
+  background: rgba(176, 0, 32, 0.1);
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 20px;
+  font-weight: 600;
+  animation: fadeIn 0.4s ease-in;
+}
+
+/* Hidden Utility */
+.hidden {
+  display: none;
+}
+
+/* ============================= */
+/*          ANIMATIONS           */
+/* ============================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================= */
+/*        MOBILE OPTIMIZATION    */
+/* ============================= */
+@media (max-width: 480px) {
+  .container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  #temperature {
+    font-size: 30px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px;
+  }
 }
