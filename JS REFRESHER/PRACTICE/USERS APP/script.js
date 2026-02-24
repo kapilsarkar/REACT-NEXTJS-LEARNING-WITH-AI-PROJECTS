@@ -4,6 +4,9 @@ const API_URL = "https://api.freeapi.app/api/v1/public/randomusers?page=1&limit=
 
 const usersContainer = document.getElementById("users-container");
 const refreshBtn = document.getElementById("refresh-btn");
+const searchInput = document.getElementById("search-input");
+
+let allUsers = [];
 
 const getUsers = async () => {
     try {
@@ -21,7 +24,11 @@ const getUsers = async () => {
             return;
         }
 
-        renderUsers(users);
+        allUsers = users || [];
+        renderUsers(allUsers);
+
+
+
 
     }
     catch (error) {
@@ -52,6 +59,33 @@ refreshBtn.addEventListener("click", () => {
     getUsers();
 });
 
+function debounce(callback, delay) {
+    let timer;
 
+    return function (...args) {
+        clearTimeout(timer);
+
+        timer = setTimeout(() => {
+            callback.apply(this, args);
+        }, delay);
+    };
+}
+
+const handleSearch = (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    const filteredUsers = allUsers.filter(user => {
+        return (
+            user?.name?.first?.toLowerCase().includes(searchTerm) ||
+            user?.name?.last?.toLowerCase().includes(searchTerm) ||
+            user?.email?.toLowerCase().includes(searchTerm) ||
+            user?.location?.country?.toLowerCase().includes(searchTerm) ||
+            user?.gender?.toLowerCase().includes(searchTerm)
+
+        )
+    });
+    renderUsers(filteredUsers);
+}
+
+searchInput.addEventListener("input", debounce(handleSearch, 300));
 getUsers();
 

@@ -10,7 +10,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(to right, #4e73df, #1cc88a);
   min-height: 100vh;
 }
@@ -67,6 +67,7 @@ button:hover {
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
 .user-card:hover {
@@ -111,6 +112,23 @@ button:hover {
 
 .hidden {
   display: none;
+}
+
+#search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+#search-input:focus {
+  border-color: #4e73df;
+  box-shadow: 0 0 8px rgba(78, 115, 223, 0.3);
 }
 
 @keyframes spin {
