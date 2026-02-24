@@ -198,8 +198,7 @@ body.cloudy {
 
 body.rainy {
   background: linear-gradient(135deg, #4b79a1, #283e51);
-  position: relative;
-  overflow: hidden;
+  
 }
 
 body.night {
@@ -226,13 +225,24 @@ body.thunder {
 
 /* Rain Effect */
 .rain {
-  position: fixed;
+  position: absolute;   /* 🔥 change this */
+  top: -100px;
   width: 2px;
   height: 100px;
   background: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
   animation: rainFall linear infinite;
 }
 
+.rain-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;  /* keeps rain clean */
+}
 @keyframes rainFall {
   from {
     transform: translateY(-100px);

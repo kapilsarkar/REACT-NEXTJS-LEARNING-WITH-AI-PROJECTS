@@ -19,6 +19,7 @@ const forecastContainer = document.querySelector(".forecast-cards");
 
 const errorMessage = document.querySelector(".error-message");
 const loadingMessage = document.querySelector(".loading-message");
+const rainContainer = document.querySelector(".rain-container");
 
 const API_KEY = "f97cc3e5fcb7435d869111902241804"; 
 
@@ -83,7 +84,7 @@ function setWeatherBackground(conditionText) {
   body.classList.remove("sunny", "cloudy", "rainy", "night", "thunder");
 
   // Remove existing rain drops
-  document.querySelectorAll(".rain").forEach(drop => drop.remove());
+  rainContainer.innerHTML = "";
 
   const condition = conditionText.toLowerCase();
 
@@ -109,12 +110,14 @@ function setWeatherBackground(conditionText) {
 
 // ================= CREATE RAIN EFFECT =================
 function createRain() {
+  rainContainer.innerHTML = ""; // clear old rain
+
   for (let i = 0; i < 80; i++) {
     const rainDrop = document.createElement("div");
     rainDrop.classList.add("rain");
     rainDrop.style.left = Math.random() * window.innerWidth + "px";
     rainDrop.style.animationDuration = 0.5 + Math.random() + "s";
-    document.body.appendChild(rainDrop);
+    rainContainer.appendChild(rainDrop);
   }
 }
 
