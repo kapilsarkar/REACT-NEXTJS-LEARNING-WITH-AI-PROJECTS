@@ -62,11 +62,11 @@ refreshBtn.addEventListener("click", () => {
 function debounce(callback, delay) {
     let timer;
 
-    return function (...args) {
+    return function (event) {
         clearTimeout(timer);
 
         timer = setTimeout(() => {
-            callback.apply(this, args);
+            callback(event);
         }, delay);
     };
 }
