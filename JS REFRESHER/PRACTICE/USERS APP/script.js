@@ -50,6 +50,9 @@ const renderUsers = () => {
 
     if (filteredUsers.length === 0) {
         usersContainer.innerHTML = "<p>No users found.</p>";
+        pageNumbersContainer.innerHTML = "";
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
         return;
     }
 
@@ -72,9 +75,11 @@ const renderUsers = () => {
     usersContainer.innerHTML = userHTML;
     updatedPaginationInfo();
 
+    // Smooth scroll to top
     window.scrollTo({
         top: 0,
         behavior: "smooth"
+
     });
 };
 
