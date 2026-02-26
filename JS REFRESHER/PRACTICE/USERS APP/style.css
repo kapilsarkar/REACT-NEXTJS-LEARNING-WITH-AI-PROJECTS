@@ -131,6 +131,16 @@ button:hover {
   box-shadow: 0 0 8px rgba(78, 115, 223, 0.3);
 }
 
+.pagination button {
+    margin: 0 4px;
+    padding: 6px 10px;
+}
+
+.active-page {
+    background-color: #2e59d9;
+    color: white;
+}
+
 @keyframes spin {
   100% {
     transform: rotate(360deg);
