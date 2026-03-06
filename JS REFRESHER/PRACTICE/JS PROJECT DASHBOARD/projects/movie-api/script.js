@@ -20,48 +20,64 @@ searchInput.addEventListener("keypress", (e) => {
   }
 });
 
-function getMovie(movie) {
+function safe(value){
+  return value !== "N/A" ? value : "Not Available";
+}
 
-  fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(movie)}&apikey=${key}`)
-    .then(res => res.json())
-    .then(data => {
+async function getMovie(movie){
 
-      if (data.Response === "True") {
+  movieTitle.innerHTML = "Loading...";
+  movieDetails.innerHTML = "";
 
-        movieTitle.innerHTML = `${data.Title}`;
+  try{
 
-        const poster = data.Poster !== "N/A"
-          ? data.Poster
-          : "https://via.placeholder.com/300x450?text=No+Image";
+    const res = await fetch(
+      `https://www.omdbapi.com/?t=${encodeURIComponent(movie)}&apikey=${key}`
+    );
 
-        movieDetails.innerHTML = `
-        <img class="movieImage" src="${poster}" alt="movie poster"/>
+    const data = await res.json();
 
-        <div class="movieExtraDetails">
+    if(data.Response === "True"){
 
-        <p><strong>Genre:</strong> ${data.Genre}</p>
-        <p><strong>Actors:</strong> ${data.Actors}</p>
-        <p><strong>Plot:</strong> ${data.Plot}</p>
-        <p><strong>IMDB Rating:</strong> ${data.imdbRating}</p>
-        <p><strong>Released:</strong> ${data.Released}</p>
-        <p><strong>Runtime:</strong> ${data.Runtime}</p>
-        <p><strong>Director:</strong> ${data.Director}</p>
-        <p><strong>Language:</strong> ${data.Language}</p>
-        <p><strong>Box Office:</strong> ${data.BoxOffice}</p>
+      const poster = data.Poster !== "N/A"
+      ? data.Poster
+      : "https://via.placeholder.com/300x450?text=No+Image";
 
-        </div>
-        `;
+      movieTitle.innerHTML = data.Title;
 
-      } else {
+      movieDetails.innerHTML = `
+      <img class="movieImage" src="${poster}" alt="movie poster"/>
 
-        movieTitle.innerHTML = "Movie Not Found";
-        movieDetails.innerHTML = "";
+      <div class="movieExtraDetails">
 
-      }
+      <p><strong>Genre:</strong> ${safe(data.Genre)}</p>
+      <p><strong>Actors:</strong> ${safe(data.Actors)}</p>
+      <p><strong>Plot:</strong> ${safe(data.Plot)}</p>
+      <p><strong>IMDB Rating:</strong> ${safe(data.imdbRating)}</p>
+      <p><strong>Released:</strong> ${safe(data.Released)}</p>
+      <p><strong>Runtime:</strong> ${safe(data.Runtime)}</p>
+      <p><strong>Director:</strong> ${safe(data.Director)}</p>
+      <p><strong>Language:</strong> ${safe(data.Language)}</p>
+      <p><strong>Box Office:</strong> ${safe(data.BoxOffice)}</p>
 
-    })
-    .catch(err => {
-      console.log("API Error:", err);
-    });
+      </div>
+      `;
+
+      searchInput.value = "";
+
+    }else{
+
+      movieTitle.innerHTML = "Movie Not Found";
+      movieDetails.innerHTML = "";
+
+    }
+
+  }catch(error){
+
+    movieTitle.innerHTML = "Something went wrong";
+    movieDetails.innerHTML = "";
+    console.error(error);
+
+  }
 
 }
