@@ -15,17 +15,13 @@ This project demonstrates **DOM manipulation, API integration, responsive UI des
 
 # 🚀 Live Demo
 
-👉 Add your deployed link here after deployment
-
-```
-
-```
+👉https://jsdashboard-two.vercel.app/
 
 ---
 
 # 📌 Features
 
-### 🧭 Dashboard Navigation
+## 🧭 Dashboard Navigation
 
 * Sidebar navigation
 * Project cards launcher
@@ -33,7 +29,7 @@ This project demonstrates **DOM manipulation, API integration, responsive UI des
 * Back to dashboard button
 * Responsive mobile layout
 
-### 🎨 UI Features
+## 🎨 UI Features
 
 * Dark theme UI
 * Hover animations
@@ -44,11 +40,11 @@ This project demonstrates **DOM manipulation, API integration, responsive UI des
 
 # 🧩 Included Projects
 
-### 🌤 Weather App
+## 🌤 Weather App
 
 Fetch real-time weather information using a weather API.
 
-Features:
+**Features**
 
 * Search city weather
 * Temperature and weather details
@@ -56,23 +52,23 @@ Features:
 
 ---
 
-### ✅ Todo App
+## ✅ Todo App
 
 A simple **task manager** using LocalStorage.
 
-Features:
+**Features**
 
 * Add tasks
 * Delete tasks
-* Persistent storage
+* Persistent storage using LocalStorage
 
 ---
 
-### 👥 Users App
+## 👥 Users App
 
 Fetch and display user data from an API.
 
-Features:
+**Features**
 
 * API data fetching
 * Dynamic user cards
@@ -80,18 +76,18 @@ Features:
 
 ---
 
-### 💰 Bill Splitter
+## 💰 Bill Splitter
 
 Calculate and split expenses between friends.
 
-Features:
+**Features**
 
 * Expense calculation
 * Simple UI interaction
 
 ---
 
-### 🎬 Movie Search App
+## 🎬 Movie Search App
 
 Search movies using the **OMDb API**.
 
@@ -106,11 +102,11 @@ Displays:
 
 ---
 
-### 📱 Social Media Mini App
+## 📱 Social Media Mini App
 
 Interactive UI inspired by social media platforms.
 
-Features:
+**Features**
 
 * Follow / Following button
 * Like and dislike counters
@@ -122,19 +118,19 @@ Features:
 # 🗂 Project Structure
 
 ```
-javascript-projects-dashboard
+javascript-projects-dashboard/
 │
-├ index.html
-├ style.css
-├ app.js
+├── index.html
+├── style.css
+├── app.js
 │
-└ projects
-     ├ weather
-     ├ todo
-     ├ users
-     ├ bill-splitter
-     ├ movie-api
-     └ social-media
+└── projects/
+     ├── weather/
+     ├── todo/
+     ├── users/
+     ├── bill-splitter/
+     ├── movie-api/
+     └── social-media/
 ```
 
 Each project runs independently but is loaded inside the dashboard using an **iframe**.
@@ -143,40 +139,71 @@ Each project runs independently but is loaded inside the dashboard using an **if
 
 # 🛠 Technologies Used
 
-* HTML5
-* CSS3
-* Vanilla JavaScript
-* Fetch API
-* LocalStorage
-* Responsive Design
+* **HTML5**
+* **CSS3**
+* **Vanilla JavaScript**
+* **Fetch API**
+* **LocalStorage**
+* **Responsive Design**
+
+---
+
+# 🧠 Skills Demonstrated
+
+This project demonstrates several important **frontend development skills**:
+
+* DOM Manipulation
+* API Integration
+* LocalStorage usage
+* Modular project architecture
+* Responsive UI development
+* Multi-project dashboard design
+
+---
+
+# ⚙️ Installation
+
+Clone the repository
+
+```
+git clone https://github.com/yourusername/javascript-projects-dashboard.git
+```
+
+Open the project folder and run **index.html** in your browser.
 
 ---
 
 # 📷 Screenshots
 
-Add screenshots of your dashboard here.
+## Dashboard
 
-Example:
+![Dashboard](./IMG/1.png)
+![Dashboard](./IMG/2.png)
 
+## Weather App
 
-- Dashboard Home
+![Weather](./IMG/3.png)
+![Weather](./IMG/4.png)
 
-![IMG](./IMG/1.png)
-![IMG](./IMG/2.png)
+## Todo App
 
+![Todo](./IMG/5.png)
 
-- Weather App 
+## Users App
 
-![IMG](./IMG/3.png)
-![IMG](./IMG/4.png)
+![Users](./IMG/6.png)
+![Users](./IMG/7.png)
 
-- Movie Search App
+## Bill Splitter
 
-![IMG](./IMG/9.png)
-![IMG](./IMG/10.png)
-```
+![Bill Splitter](./IMG/8.png)
 
+## Movie Search App
 
+![Movie](./IMG/9.png)
+![Movie](./IMG/10.png)
+
+---
 
 # 🎯 Purpose of This Project
 
@@ -198,7 +225,7 @@ Planned enhancements:
 * Loading animations
 * More JavaScript mini apps
 * Improved UI transitions
-* Search for projects inside dashboard
+* Project search inside dashboard
 
 ---
 
@@ -209,6 +236,21 @@ Planned enhancements:
 Frontend / Full Stack Developer
 
 ---
+
+
+## Upcoming Projects
+
+- E-Commerce UI
+
+- Expense Tracker
+
+- Quiz App
+
+- Notes App
+
+- Password Generator
+
+- Kanban Task Board (Trello Clone)
 
 # ⭐ Support
 
