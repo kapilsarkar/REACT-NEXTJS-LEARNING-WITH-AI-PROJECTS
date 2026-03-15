@@ -5,9 +5,9 @@
 ![CSS](https://img.shields.io/badge/CSS-3-blue)
 ![Status](https://img.shields.io/badge/Status-Active-success)
 
-A collection of **interactive Vanilla JavaScript mini-projects** combined into a single **dashboard interface**.
+A collection of **interactive Vanilla JavaScript mini-projects** organized inside a single **dashboard interface**.
 
-Instead of deploying each project separately, all apps are accessible through a **central dashboard with sidebar navigation**.
+Instead of opening each project separately, all applications can be accessed through a **central dashboard with sidebar navigation and project cards**.
 
 This project demonstrates **DOM manipulation, API integration, responsive UI design, and modular project architecture**.
 
@@ -15,7 +15,7 @@ This project demonstrates **DOM manipulation, API integration, responsive UI des
 
 # 🚀 Live Demo
 
-👉https://jsdashboard-two.vercel.app/
+👉 https://jsdashboard-two.vercel.app/
 
 ---
 
@@ -23,14 +23,17 @@ This project demonstrates **DOM manipulation, API integration, responsive UI des
 
 ## 🧭 Dashboard Navigation
 
-* Sidebar navigation
-* Project cards launcher
+* Sidebar navigation for all projects
+* Interactive **project cards launcher**
 * Embedded project viewer using **iframe**
-* Back to dashboard button
+* **Back to dashboard** button
 * Responsive mobile layout
+
+---
 
 ## 🎨 UI Features
 
+* Clean dashboard interface
 * Dark theme UI
 * Hover animations
 * Animated project cards
@@ -42,13 +45,13 @@ This project demonstrates **DOM manipulation, API integration, responsive UI des
 
 ## 🌤 Weather App
 
-Fetch real-time weather information using a weather API.
+Fetch **real-time weather information** using a weather API.
 
 **Features**
 
-* Search city weather
-* Temperature and weather details
-* API integration
+* Search weather by city
+* Temperature and weather conditions
+* API integration using Fetch
 
 ---
 
@@ -83,7 +86,7 @@ Calculate and split expenses between friends.
 **Features**
 
 * Expense calculation
-* Simple UI interaction
+* Simple interactive UI
 
 ---
 
@@ -115,6 +118,30 @@ Interactive UI inspired by social media platforms.
 
 ---
 
+## 🛒 E-Commerce App
+
+Simple product listing interface inspired by modern online stores.
+
+**Features**
+
+* Product listing
+* UI layout for shopping interface
+* Responsive design
+
+---
+
+## 💳 Expense Tracker
+
+Track your expenses and manage your budget.
+
+**Features**
+
+* Add income and expenses
+* Track balance
+* Visual expense management
+
+---
+
 # 🗂 Project Structure
 
 ```
@@ -130,10 +157,12 @@ javascript-projects-dashboard/
      ├── users/
      ├── bill-splitter/
      ├── movie-api/
-     └── social-media/
+     ├── social-media/
+     ├── e-commerce/
+     └── expense-tracker/
 ```
 
-Each project runs independently but is loaded inside the dashboard using an **iframe**.
+Each project runs independently but is loaded inside the dashboard using an **iframe-based viewer**.
 
 ---
 
@@ -158,18 +187,25 @@ This project demonstrates several important **frontend development skills**:
 * Modular project architecture
 * Responsive UI development
 * Multi-project dashboard design
+* Component-based UI thinking
 
 ---
 
 # ⚙️ Installation
 
-Clone the repository
+Clone the repository:
 
 ```
-git clone https://github.com/yourusername/javascript-projects-dashboard.git
+git clone https://github.com/kapilsarkar/javascript-projects-dashboard.git
 ```
 
-Open the project folder and run **index.html** in your browser.
+Navigate into the project folder:
+
+```
+cd javascript-projects-dashboard
+```
+
+Open **index.html** in your browser.
 
 ---
 
@@ -180,23 +216,33 @@ Open the project folder and run **index.html** in your browser.
 ![Dashboard](./IMG/1.png)
 ![Dashboard](./IMG/2.png)
 
+---
+
 ## Weather App
 
 ![Weather](./IMG/3.png)
 ![Weather](./IMG/4.png)
 
+---
+
 ## Todo App
 
 ![Todo](./IMG/5.png)
+
+---
 
 ## Users App
 
 ![Users](./IMG/6.png)
 ![Users](./IMG/7.png)
 
+---
+
 ## Bill Splitter
 
 ![Bill Splitter](./IMG/8.png)
+
+---
 
 ## Movie Search App
 
@@ -217,18 +263,6 @@ This project was created to:
 
 ---
 
-# 🚧 Future Improvements
-
-Planned enhancements:
-
-* Active sidebar project indicator
-* Loading animations
-* More JavaScript mini apps
-* Improved UI transitions
-* Project search inside dashboard
-
----
-
 # 👨‍💻 Author
 
 **Kapil Sarkar**
@@ -236,21 +270,6 @@ Planned enhancements:
 Frontend / Full Stack Developer
 
 ---
-
-
-## Upcoming Projects
-
-- E-Commerce UI
-
-- Expense Tracker
-
-- Quiz App
-
-- Notes App
-
-- Password Generator
-
-- Kanban Task Board (Trello Clone)
 
 # ⭐ Support
 
