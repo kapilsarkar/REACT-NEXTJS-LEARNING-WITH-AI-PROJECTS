@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Background -->
+  <rect width="64" height="64" rx="12" fill="#0f172a"></rect>
+
+  <!-- Left bracket -->
+  <text x="16" y="38" font-size="28" fill="#60a5fa" font-family="monospace">&lt;</text>
+
+  <!-- Slash -->
+  <text x="28" y="38" font-size="28" fill="#a78bfa" font-family="monospace">/</text>
+
+  <!-- Right bracket -->
+  <text x="40" y="38" font-size="28" fill="#f472b6" font-family="monospace">&gt;</text>
+</svg>

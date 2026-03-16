@@ -144,8 +144,9 @@ body {
 
 .section-subtitle {
   font-size: 15px;
-  color: #e1115a;
+  color: #d7186a;
   margin-bottom: 10px;
+  font-weight: 900;
 }
 
 /* WELCOME */
@@ -296,7 +297,9 @@ body {
 .dark .header {
   background: #020617;
 }
-
+.dark .stat p{
+  color: #022408;
+}
 /* ANIMATIONS */
 
 .frame-open {
