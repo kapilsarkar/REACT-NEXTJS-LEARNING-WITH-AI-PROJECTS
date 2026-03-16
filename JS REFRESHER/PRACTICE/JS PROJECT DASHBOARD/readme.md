@@ -209,48 +209,6 @@ Open **index.html** in your browser.
 
 ---
 
-# 📷 Screenshots
-
-## Dashboard
-
-![Dashboard](./IMG/1.png)
-![Dashboard](./IMG/2.png)
-
----
-
-## Weather App
-
-![Weather](./IMG/3.png)
-![Weather](./IMG/4.png)
-
----
-
-## Todo App
-
-![Todo](./IMG/5.png)
-
----
-
-## Users App
-
-![Users](./IMG/6.png)
-![Users](./IMG/7.png)
-
----
-
-## Bill Splitter
-
-![Bill Splitter](./IMG/8.png)
-
----
-
-## Movie Search App
-
-![Movie](./IMG/9.png)
-![Movie](./IMG/10.png)
-
----
-
 # 🎯 Purpose of This Project
 
 This project was created to:

@@ -4,58 +4,75 @@ const backBtn = document.getElementById("back-btn")
 const sidebar = document.getElementById("sidebar")
 const menuBtn = document.getElementById("menu-btn")
 
-function loadProject(path){
+function loadProject(path) {
 
-welcome.style.display = "none"
-frame.style.display = "block"
-backBtn.style.display = "inline-block"
+    welcome.style.display = "none"
+    frame.style.display = "block"
+    backBtn.style.display = "inline-block"
 
-frame.src = path
+    frame.src = path
+    frame.classList.add("frame-open")
 
-if(window.innerWidth < 768){
-sidebar.classList.remove("active")
-menuBtn.textContent = "☰"
+    if (window.innerWidth < 768) {
+        sidebar.classList.remove("active")
+        menuBtn.textContent = "☰"
+    }
 }
 
+function goHome() {
+
+    frame.removeAttribute("src")
+
+    frame.style.display = "none"
+    backBtn.style.display = "none"
+    welcome.style.display = "block"
+
+    sidebar.classList.remove("active")
+    menuBtn.textContent = "☰"
 }
 
-function goHome(){
+function toggleSidebar() {
 
-frame.removeAttribute("src")
-
-frame.style.display = "none"
-backBtn.style.display = "none"
-welcome.style.display = "block"
-
-sidebar.classList.remove("active")
-menuBtn.textContent = "☰"
-
+    const isOpen = sidebar.classList.toggle("active")
+    menuBtn.textContent = isOpen ? "✕" : "☰"
 }
 
-function toggleSidebar(){
-
-const isOpen = sidebar.classList.toggle("active")
-
-menuBtn.textContent = isOpen ? "✕" : "☰"
-
+function toggleDarkMode() {
+    document.body.classList.toggle("dark")
 }
 
-function toggleDarkMode(){
-document.body.classList.toggle("dark")
-}
+document.addEventListener("click", function (event) {
 
-document.addEventListener("click", function(event){
+    if (window.innerWidth < 768) {
 
-if(window.innerWidth < 768){
+        const clickedOutsideSidebar = !sidebar.contains(event.target)
+        const clickedMenuButton = menuBtn.contains(event.target)
 
-const clickedOutsideSidebar = !sidebar.contains(event.target)
-const clickedMenuButton = menuBtn.contains(event.target)
+        if (clickedOutsideSidebar && !clickedMenuButton) {
+            sidebar.classList.remove("active")
+            menuBtn.textContent = "☰"
+        }
+    }
+})
 
-if(clickedOutsideSidebar && !clickedMenuButton){
-sidebar.classList.remove("active")
-menuBtn.textContent = "☰"
-}
+/* LOAD PROJECTS */
 
-}
+document.querySelectorAll("[data-project]").forEach((item) => {
+
+    item.addEventListener("click", () => {
+
+        const projectPath = item.getAttribute("data-project")
+
+        /* remove old highlight */
+        document.querySelectorAll("[data-project]").forEach(btn => {
+            btn.classList.remove("active-project")
+        })
+
+        /* highlight clicked project */
+        item.classList.add("active-project")
+
+        loadProject(projectPath)
+
+    })
 
 })

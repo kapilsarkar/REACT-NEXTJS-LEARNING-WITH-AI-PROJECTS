@@ -1,257 +1,238 @@
 <!doctype html>
 
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JavaScript Projects Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Projects Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
+  <body>
+    <!-- HEADER -->
 
-<!-- HEADER -->
-
-<header class="header">
-
-<button
-id="menu-btn"
-class="menu-btn"
-onclick="toggleSidebar()"
-aria-label="Toggle sidebar menu"
-
->
-
-```
-☰
-```
-
-  </button>
-
-  <div class="title">
-    <h1 class="dashboard-title">⚡ JavaScript Projects Dashboard</h1>
-
-```
-<p class="subtitle">
-  <span class="dev-name">Kapil Sarkar</span>
-  <span class="divider">•</span>
-  <span class="role">Full Stack Developer</span>
-</p>
-```
-
-  </div>
-
-<button
-class="dark-toggle"
-onclick="toggleDarkMode()"
-aria-label="Toggle dark mode"
-
->
-
-```
-🌙
-```
-
-  </button>
-
-</header>
-
-<div class="app">
-
-  <!-- SIDEBAR -->
-
-  <aside class="sidebar" id="sidebar">
-
-```
-<h2 class="sidebar-title">JS Projects</h2>
-
-<nav>
-  <ul>
-
-    <li>
-      <button data-project="projects/weather/index.html">
-        🌤 Weather App
+    <header class="header">
+      <button
+        id="menu-btn"
+        class="menu-btn"
+        onclick="toggleSidebar()"
+        aria-label="Toggle sidebar menu"
+      >
+        ☰
       </button>
-    </li>
 
-    <li>
-      <button data-project="projects/todo/index.html">
-        ✅ Todo App
+      <div class="title">
+        <h1 class="dashboard-title">⚡ JavaScript Projects Dashboard</h1>
+
+        <p class="subtitle">
+          <span class="dev-name">Kapil Sarkar</span>
+          <span class="divider">•</span>
+          <span class="role">Full Stack Developer</span>
+        </p>
+      </div>
+
+      <button
+        class="dark-toggle"
+        onclick="toggleDarkMode()"
+        aria-label="Toggle dark mode"
+      >
+        🌙
       </button>
-    </li>
+    </header>
 
-    <li>
-      <button data-project="projects/users/index.html">
-        👥 Users App
-      </button>
-    </li>
+    <div class="app">
+      <!-- SIDEBAR -->
 
-    <li>
-      <button data-project="projects/bill-splitter/index.html">
-        💰 Bill Splitter
-      </button>
-    </li>
+      <aside class="sidebar" id="sidebar">
+        <h2 class="sidebar-title">JS Projects</h2>
 
-    <li>
-      <button data-project="projects/movie-api/index.html">
-        🎬 Movie API
-      </button>
-    </li>
+        <nav>
+          <ul>
+            <li>
+              <button data-project="projects/weather/index.html">
+                🌤 Weather App
+              </button>
+            </li>
 
-    <li>
-      <button data-project="projects/social-media/index.html">
-        📱 Social Media App
-      </button>
-    </li>
+            <li>
+              <button data-project="projects/todo/index.html">
+                ✅ Todo App
+              </button>
+            </li>
 
-    <li>
-      <button data-project="projects/e-commerce/index.html">
-        🛒 E-Commerce App
-      </button>
-    </li>
+            <li>
+              <button data-project="projects/users/index.html">
+                👥 Users App
+              </button>
+            </li>
 
-    <li>
-      <button data-project="projects/expense-tracker/index.html">
-        💳 Expense Tracker
-      </button>
-    </li>
+            <li>
+              <button data-project="projects/bill-splitter/index.html">
+                💰 Bill Splitter
+              </button>
+            </li>
 
-  </ul>
-</nav>
-```
+            <li>
+              <button data-project="projects/movie-api/index.html">
+                🎬 Movie API
+              </button>
+            </li>
 
-  </aside>
+            <li>
+              <button data-project="projects/social-media/index.html">
+                📱 Social Media App
+              </button>
+            </li>
 
-  <!-- MAIN CONTENT -->
+            <li>
+              <button data-project="projects/e-commerce/index.html">
+                🛒 E-Commerce App
+              </button>
+            </li>
 
-  <main class="content">
+            <li>
+              <button data-project="projects/expense-tracker/index.html">
+                💳 Expense Tracker
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </aside>
 
-```
-<!-- WELCOME SCREEN -->
+      <!-- MAIN CONTENT -->
 
-<div id="welcome-screen">
+      <main class="content">
+        <!-- WELCOME SCREEN -->
 
-  <h2 class="section-title">JavaScript Project Playground</h2>
+        <div id="welcome-screen">
+          <h2 class="section-title">JavaScript Project Playground</h2>
 
-  <p class="section-subtitle">
-    Explore and interact with various JavaScript applications built using modern web technologies.
-  </p>
+          <p class="section-subtitle">
+            Explore and interact with various JavaScript applications built
+            using modern web technologies.
+          </p>
+          <div class="stats">
+            <div class="stat">
+              <h3>8</h3>
+              <p>Projects</p>
+            </div>
 
-  <div class="projects-grid">
+            <div class="stat">
+              <h3>JavaScript</h3>
+              <p>Main Language</p>
+            </div>
 
-    <div
-      class="project-card"
-      data-project="projects/weather/index.html"
-      role="button"
-      tabindex="0"
-    >
-      <h3>🌤 Weather App</h3>
-      <p>Fetch real-time weather data using API</p>
+            <div class="stat">
+              <h3>3 API</h3>
+              <p>Integrated Apps</p>
+            </div>
+          </div>
+          <div class="projects-grid">
+            <div
+              class="project-card"
+              data-project="projects/weather/index.html"
+              role="button"
+              tabindex="0"
+            >
+              <h3>🌤 Weather App</h3>
+              <p>Fetch real-time weather data using API</p>
+            </div>
+
+            <div
+              class="project-card"
+              data-project="projects/todo/index.html"
+              role="button"
+              tabindex="0"
+            >
+              <h3>✅ Todo App</h3>
+              <p>Task manager using LocalStorage</p>
+            </div>
+
+            <div
+              class="project-card"
+              data-project="projects/users/index.html"
+              role="button"
+              tabindex="0"
+            >
+              <h3>👥 Users App</h3>
+              <p>API based user directory</p>
+            </div>
+
+            <div
+              class="project-card"
+              data-project="projects/bill-splitter/index.html"
+              role="button"
+              tabindex="0"
+            >
+              <h3>💰 Bill Splitter</h3>
+              <p>Split expenses easily among friends</p>
+            </div>
+
+            <div
+              class="project-card"
+              data-project="projects/movie-api/index.html"
+              role="button"
+              tabindex="0"
+            >
+              <h3>🎬 Movie API</h3>
+              <p>Search and explore movies using API</p>
+            </div>
+
+            <div
+              class="project-card"
+              data-project="projects/social-media/index.html"
+              role="button"
+              tabindex="0"
+            >
+              <h3>📱 Social Media App</h3>
+              <p>Simple social feed with posts and interactions</p>
+            </div>
+
+            <div
+              class="project-card"
+              data-project="projects/e-commerce/index.html"
+              role="button"
+              tabindex="0"
+            >
+              <h3>🛒 E-Commerce App</h3>
+              <p>Simple product listing and cart system</p>
+            </div>
+
+            <div
+              class="project-card"
+              data-project="projects/expense-tracker/index.html"
+              role="button"
+              tabindex="0"
+            >
+              <h3>💳 Expense Tracker</h3>
+              <p>Track your expenses and manage your budget</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- BACK BUTTON -->
+
+        <button id="back-btn" hidden onclick="goHome()">
+          ⬅ Back to Dashboard
+        </button>
+
+        <!-- PROJECT VIEWER -->
+
+        <iframe
+          id="project-frame"
+          title="Project Viewer"
+          src=""
+          loading="lazy"
+        ></iframe>
+      </main>
     </div>
 
-    <div
-      class="project-card"
-      data-project="projects/todo/index.html"
-      role="button"
-      tabindex="0"
-    >
-      <h3>✅ Todo App</h3>
-      <p>Task manager using LocalStorage</p>
-    </div>
+    <!-- FOOTER -->
 
-    <div
-      class="project-card"
-      data-project="projects/users/index.html"
-      role="button"
-      tabindex="0"
-    >
-      <h3>👥 Users App</h3>
-      <p>API based user directory</p>
-    </div>
+    <footer class="footer">
+      © 2026 Kapil Sarkar — JavaScript Projects Dashboard
+    </footer>
 
-    <div
-      class="project-card"
-      data-project="projects/bill-splitter/index.html"
-      role="button"
-      tabindex="0"
-    >
-      <h3>💰 Bill Splitter</h3>
-      <p>Split expenses easily among friends</p>
-    </div>
-
-    <div
-      class="project-card"
-      data-project="projects/movie-api/index.html"
-      role="button"
-      tabindex="0"
-    >
-      <h3>🎬 Movie API</h3>
-      <p>Search and explore movies using API</p>
-    </div>
-
-    <div
-      class="project-card"
-      data-project="projects/social-media/index.html"
-      role="button"
-      tabindex="0"
-    >
-      <h3>📱 Social Media App</h3>
-      <p>Simple social feed with posts and interactions</p>
-    </div>
-
-    <div
-      class="project-card"
-      data-project="projects/e-commerce/index.html"
-      role="button"
-      tabindex="0"
-    >
-      <h3>🛒 E-Commerce App</h3>
-      <p>Simple product listing and cart system</p>
-    </div>
-
-    <div
-      class="project-card"
-      data-project="projects/expense-tracker/index.html"
-      role="button"
-      tabindex="0"
-    >
-      <h3>💳 Expense Tracker</h3>
-      <p>Track your expenses and manage your budget</p>
-    </div>
-
-  </div>
-
-</div>
-
-<!-- BACK BUTTON -->
-
-<button id="back-btn" hidden onclick="goHome()">
-  ⬅ Back to Dashboard
-</button>
-
-<!-- PROJECT VIEWER -->
-
-<iframe
-  id="project-frame"
-  title="Project Viewer"
-  src=""
-  loading="lazy"
-  sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
->
-</iframe>
-```
-
-  </main>
-
-</div>
-
-<!-- FOOTER -->
-
-<footer class="footer">
-  © 2026 Kapil Sarkar — JavaScript Projects Dashboard
-</footer>
-
-<script src="app.js"></script>
-
-</body>
+    <script src="app.js"></script>
+  </body>
 </html>
