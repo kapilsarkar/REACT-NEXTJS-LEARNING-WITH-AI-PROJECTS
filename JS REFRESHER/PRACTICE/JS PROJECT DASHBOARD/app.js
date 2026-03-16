@@ -38,7 +38,17 @@ function toggleSidebar() {
 }
 
 function toggleDarkMode() {
+
+    const btn = document.getElementById("dark-toggle")
+
     document.body.classList.toggle("dark")
+
+    const isDark = document.body.classList.contains("dark")
+
+    btn.textContent = isDark ? "☀️" : "🌙"
+
+    localStorage.setItem("darkMode", isDark)
+
 }
 
 document.addEventListener("click", function (event) {
@@ -54,7 +64,12 @@ document.addEventListener("click", function (event) {
         }
     }
 })
+const savedMode = localStorage.getItem("darkMode")
 
+if (savedMode === "true") {
+    document.body.classList.add("dark")
+    document.getElementById("dark-toggle").textContent = "☀️"
+}
 /* LOAD PROJECTS */
 
 document.querySelectorAll("[data-project]").forEach((item) => {
