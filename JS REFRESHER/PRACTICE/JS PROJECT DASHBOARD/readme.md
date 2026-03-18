@@ -5,140 +5,159 @@
 ![CSS](https://img.shields.io/badge/CSS-3-blue)
 ![Status](https://img.shields.io/badge/Status-Active-success)
 
-A collection of **interactive Vanilla JavaScript mini-projects** organized inside a single **dashboard interface**.
+A **centralized dashboard** showcasing multiple **interactive JavaScript applications** in one place.
 
-Instead of opening each project separately, all applications can be accessed through a **central dashboard with sidebar navigation and project cards**.
+Instead of opening projects individually, this dashboard provides a **seamless experience** with sidebar navigation, project cards, and an embedded viewer.
 
-This project demonstrates **DOM manipulation, API integration, responsive UI design, and modular project architecture**.
-
----
-
-# 🚀 Live Demo
-
-👉 https://jsdashboard-two.vercel.app/
+> 🚀 Built to demonstrate real-world frontend development skills and scalable project organization.
 
 ---
 
-# 📌 Features
+# 🌐 Live Demo
 
-## 🧭 Dashboard Navigation
+🔗 **Dashboard:** https://jsdashboard-two.vercel.app/
+🔗 **UI Projects:** https://corecssandtailwindcssprojects.vercel.app/
+
+---
+
+# ✨ Highlights
+
+* 📊 Multi-project dashboard architecture
+* ⚡ Instant project loading using iframe
+* 🎯 Clean and responsive UI design
+* 🌙 Dark mode support
+* 🔗 API-integrated applications
+* 💾 LocalStorage-powered apps
+* 📱 Mobile-friendly layout
+
+---
+
+# 🧭 Dashboard Features
 
 * Sidebar navigation for all projects
 * Interactive **project cards launcher**
-* Embedded project viewer using **iframe**
-* **Back to dashboard** button
-* Responsive mobile layout
+* Embedded project viewer (iframe-based)
+* Smooth navigation with **Back to Dashboard**
+* Fully responsive across devices
 
 ---
 
-## 🎨 UI Features
+# 🎨 UI & UX Features
 
-* Clean dashboard interface
-* Dark theme UI
-* Hover animations
-* Animated project cards
-* Responsive layout
+* Modern dashboard layout
+* Smooth hover animations
+* Interactive components
+* Clean typography and spacing
+* Dark theme interface
 
 ---
 
-# 🧩 Included Projects
+# 🧩 Projects Included
 
 ## 🌤 Weather App
 
-Fetch **real-time weather information** using a weather API.
+Fetch real-time weather data using API.
 
 **Features**
 
-* Search weather by city
-* Temperature and weather conditions
-* API integration using Fetch
+* Search by city
+* Temperature & weather conditions
+* Fetch API integration
 
 ---
 
 ## ✅ Todo App
 
-A simple **task manager** using LocalStorage.
+Simple task manager using LocalStorage.
 
 **Features**
 
-* Add tasks
-* Delete tasks
-* Persistent storage using LocalStorage
+* Add / delete tasks
+* Persistent data storage
 
 ---
 
 ## 👥 Users App
 
-Fetch and display user data from an API.
+Displays user data from API.
 
 **Features**
 
-* API data fetching
 * Dynamic user cards
-* Responsive layout
+* API integration
+* Responsive grid layout
 
 ---
 
 ## 💰 Bill Splitter
 
-Calculate and split expenses between friends.
+Split expenses easily among friends.
 
 **Features**
 
 * Expense calculation
-* Simple interactive UI
+* Clean UI interaction
 
 ---
 
 ## 🎬 Movie Search App
 
-Search movies using the **OMDb API**.
+Search movies using OMDb API.
 
-Displays:
+**Displays**
 
-* Movie poster
-* Genre
-* Actors
-* Plot
-* IMDB rating
-* Release date
+* Poster, genre, actors
+* Plot summary
+* IMDB rating & release date
 
 ---
 
 ## 📱 Social Media Mini App
 
-Interactive UI inspired by social media platforms.
+A mini interactive social platform UI.
 
 **Features**
 
-* Follow / Following button
-* Like and dislike counters
-* Comment system
+* Like / dislike system
+* Comment section
+* Follow system
 * Profile switching
 
 ---
 
 ## 🛒 E-Commerce App
 
-Simple product listing interface inspired by modern online stores.
+Basic shopping UI inspired by real platforms.
 
 **Features**
 
 * Product listing
-* UI layout for shopping interface
+* Cart-like interface
 * Responsive design
 
 ---
 
 ## 💳 Expense Tracker
 
-Track your expenses and manage your budget.
+Track and manage your finances.
 
 **Features**
 
-* Add income and expenses
-* Track balance
-* Visual expense management
+* Add income & expenses
+* Balance tracking
+* Visual management
+
+---
+
+## 🧠 Quiz App
+
+Test your knowledge with interactive quizzes.
+
+**Features**
+
+* Multiple choice questions
+* Score tracking
+* Interactive UI feedback
 
 ---
 
@@ -159,14 +178,15 @@ javascript-projects-dashboard/
      ├── movie-api/
      ├── social-media/
      ├── e-commerce/
-     └── expense-tracker/
+     ├── expense-tracker/
+     └── quiz/
 ```
 
-Each project runs independently but is loaded inside the dashboard using an **iframe-based viewer**.
+> Each project runs independently and is rendered inside the dashboard using an **iframe-based viewer**.
 
 ---
 
-# 🛠 Technologies Used
+# 🛠 Tech Stack
 
 * **HTML5**
 * **CSS3**
@@ -179,19 +199,19 @@ Each project runs independently but is loaded inside the dashboard using an **if
 
 # 🧠 Skills Demonstrated
 
-This project demonstrates several important **frontend development skills**:
+This project highlights key **frontend engineering concepts**:
 
 * DOM Manipulation
 * API Integration
+* State Handling (basic)
 * LocalStorage usage
-* Modular project architecture
-* Responsive UI development
-* Multi-project dashboard design
-* Component-based UI thinking
+* Modular project structure
+* UI/UX design principles
+* Multi-project system architecture
 
 ---
 
-# ⚙️ Installation
+# ⚙️ Getting Started
 
 Clone the repository:
 
@@ -199,38 +219,51 @@ Clone the repository:
 git clone https://github.com/kapilsarkar/javascript-projects-dashboard.git
 ```
 
-Navigate into the project folder:
+Navigate into the project:
 
 ```
 cd javascript-projects-dashboard
 ```
 
-Open **index.html** in your browser.
+Open in browser:
+
+```
+index.html
+```
 
 ---
 
-# 🎯 Purpose of This Project
+# 🎯 Purpose
 
-This project was created to:
+This project was built to:
 
-* Practice **JavaScript fundamentals**
-* Build multiple **interactive frontend applications**
-* Learn **API integration**
-* Improve **DOM manipulation skills**
-* Organize mini projects into a **single developer dashboard**
+* Strengthen **JavaScript fundamentals**
+* Build **real-world frontend projects**
+* Practice **API handling**
+* Improve **UI/UX skills**
+* Create a **portfolio-ready dashboard system**
+
+---
+
+# 🚀 Future Improvements
+
+* Convert to **React + Tailwind CSS**
+* Add **project filtering & search**
+* Add **animations (Framer Motion)**
+* Add **user authentication**
+* Deploy as full portfolio site
 
 ---
 
 # 👨‍💻 Author
 
 **Kapil Sarkar**
-
 Frontend / Full Stack Developer
 
 ---
 
 # ⭐ Support
 
-If you like this project, consider giving it a **⭐ star on GitHub**.
+If you like this project, consider giving it a **⭐ on GitHub**.
 
-It helps the project grow and motivates further improvements.
+It helps others discover the project and motivates future improvements.
