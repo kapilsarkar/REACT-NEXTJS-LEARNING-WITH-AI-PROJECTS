@@ -1,9 +1,15 @@
 import Card from "./components/Card.jsx";
+import Header from "./components/Header.jsx";
+import Hero from "./components/Hero.jsx";
+import NavBar from "./components/NavBar.jsx";
 
 function App() {
   return (
     <>
-      <h2 className=" text-2xl border-2 p-5 rounded-xl font-bold bg-violet-900 text-white">
+    <NavBar />
+      <Hero />
+      <Header />
+      <h2 className="text-center text-2xl border-2 p-5 rounded-xl font-bold bg-violet-900 text-white">
         React App
       </h2>
 
