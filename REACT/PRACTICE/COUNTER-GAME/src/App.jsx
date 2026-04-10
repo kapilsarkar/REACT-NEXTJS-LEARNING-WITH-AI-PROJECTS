@@ -5,12 +5,10 @@ function App() {
   const [inputValue, setInputValue] = useState(0);
 
   const increment = () => {
-    setCount(count + inputValue);
+    setCount((prev) => prev + 1);
   };
   const decrement = () => {
-    if (count > 0) {
-      setCount(count - 1);
-    }
+    setCount((prev) => (prev > 0 ? prev - 1 : prev));
   };
   return (
     <>
@@ -26,7 +24,15 @@ function App() {
             onChange={(e) => setInputValue(Number(e.target.value))}
             className="px-2 py-3 rounded-md mt-2 shadow-lg border-2"
           />
-          <h3 className=" text-center px-2 py-3 font-bold">{inputValue}</h3>
+          <button
+            onClick={() => {
+              setCount(Number(inputValue));
+              setInputValue(0);
+            }}
+            className=" rounded-md text-white bg-violet-700  text-center px-2 py-3 font-bold"
+          >
+            Set To {inputValue}
+          </button>
         </div>
         <div className="mt-2 flex justify-center gap-2">
           <button
@@ -40,6 +46,12 @@ function App() {
             className=" border bg-red-600 text-white px-2 py-3 rounded-md"
           >
             Decrement
+          </button>
+          <button
+            onClick={() => setCount(0)}
+            className="border bg-red-600 text-white px-2 py-3 rounded-md"
+          >
+            Reset
           </button>
         </div>
       </div>
