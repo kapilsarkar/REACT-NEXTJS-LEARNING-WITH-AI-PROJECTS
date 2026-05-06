@@ -11,9 +11,11 @@ const QueueDisplay = ({ queue, onUpdateStatus, onRemove }) => {
         return "var(--text)";
     }
   };
+
   return (
     <div className="queue-display">
       <h2>Current Queue</h2>
+
       {queue.length === 0 ? (
         <p className="empty-queue">No Customer Data</p>
       ) : (
@@ -21,8 +23,9 @@ const QueueDisplay = ({ queue, onUpdateStatus, onRemove }) => {
           {queue.map((customer) => (
             <div className="queue-item" key={customer.id}>
               <div className="customer-info">
-                <h3>{customer?.name}</h3>
+                <h3>{customer.name}</h3>
                 <p>{customer.service}</p>
+
                 <span
                   className="status"
                   style={{ color: getStatusColor(customer.status) }}
@@ -30,23 +33,30 @@ const QueueDisplay = ({ queue, onUpdateStatus, onRemove }) => {
                   {customer.status}
                 </span>
               </div>
+
               <div className="actions">
                 {customer.status === "waiting" && (
                   <button
-                    onClick={() => onUpdateStatus(customer.id, "serving")}
+                    onClick={() =>
+                      onUpdateStatus(customer.id, "serving")
+                    }
                     className="serve-btn"
                   >
                     Serve
                   </button>
                 )}
+
                 {customer.status === "serving" && (
-                  <span
-                    onClick={() => onUpdateStatus(customer.id, "completed")}
+                  <button
+                    onClick={() =>
+                      onUpdateStatus(customer.id, "completed")
+                    }
                     className="complete-btn"
                   >
-                    Serve
-                  </span>
+                    Complete
+                  </button>
                 )}
+
                 <button
                   className="remove-btn"
                   onClick={() => onRemove(customer.id)}
