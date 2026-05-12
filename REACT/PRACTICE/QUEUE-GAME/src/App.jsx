@@ -20,7 +20,7 @@ function App() {
     <div className="min-h-screen bg-slate-100 p-6">
       <header className="text-center mb-10">
         <h1 className="text-4xl font-bold text-slate-800">
-          Queue Management System
+          Queue Management Game
         </h1>
 
         <p className="text-slate-600 mt-2">
