@@ -16,6 +16,10 @@ function App() {
     ]);
   };
 
+  const removeFromQueue = (id) => {
+    setQueue((prevQueue) => prevQueue.filter((customer) => customer.id !== id));
+  };
+
   return (
     <div className="min-h-screen bg-slate-100 p-6">
       <header className="text-center mb-10">
@@ -31,7 +35,7 @@ function App() {
       <main className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <QueueForm onAdd={addToQueue} />
 
-        <QueueDisplay queue={queue} />
+        <QueueDisplay queue={queue} onRemove={removeFromQueue} />
       </main>
     </div>
   );
