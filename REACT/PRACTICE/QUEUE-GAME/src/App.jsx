@@ -16,6 +16,14 @@ function App() {
     ]);
   };
 
+  const updateQueueStatus = (id, newStatus) => {
+    setQueue((prevQueue) =>
+      prevQueue.map((customer) =>
+        customer.id === id ? { ...customer, status: newStatus } : customer,
+      ),
+    );
+  };
+
   const removeFromQueue = (id) => {
     setQueue((prevQueue) => prevQueue.filter((customer) => customer.id !== id));
   };
@@ -35,7 +43,11 @@ function App() {
       <main className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <QueueForm onAdd={addToQueue} />
 
-        <QueueDisplay queue={queue} onRemove={removeFromQueue} />
+        <QueueDisplay
+          queue={queue}
+          onRemove={removeFromQueue}
+          onUpdateStatus={updateQueueStatus}
+        />
       </main>
     </div>
   );
