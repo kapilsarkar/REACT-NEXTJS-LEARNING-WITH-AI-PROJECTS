@@ -25,19 +25,24 @@ const QueueDisplay = ({ queue, onRemove, onUpdateStatus }) => {
               </span>
 
               <div className="mt-4 flex space-x-2">
-                <button
-                  onClick={() => onUpdateStatus(customer.id, "in-progress")}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition"
-                >
-                  Start Service
-                </button>
-                <button
-                  onClick={() => onUpdateStatus(customer.id, "completed")}
-                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition"
-                >
-                  Complete Service
-                </button>
-                
+                {customer.status === "waiting" && (
+                  <button
+                    onClick={() => onUpdateStatus(customer.id, "in-progress")}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition"
+                  >
+                    Start Service
+                  </button>
+                )}
+
+                {customer.status === "in-progress" && (
+                  <button
+                    onClick={() => onUpdateStatus(customer.id, "completed")}
+                    className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition"
+                  >
+                    Complete Service
+                  </button>
+                )}
+
                 <button
                   onClick={() => onRemove(customer.id)}
                   className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition"
