@@ -873,3 +873,765 @@ Instead:
 ✅ React Re-rendering
 
 ✅ Dynamic List Updates
+
+---
+
+# 16. Understanding updateQueueStatus()
+
+---
+
+## Function
+
+```js
+const updateQueueStatus = (id, newStatus) => {
+  setQueue((prevQueue) =>
+    prevQueue.map((customer) =>
+      customer.id === id
+        ? { ...customer, status: newStatus }
+        : customer
+    )
+  );
+};
+```
+
+---
+
+# Purpose
+
+This function updates the status of a specific customer inside the queue.
+
+It:
+- checks every customer
+- finds matching customer using id
+- updates only that customer
+- keeps all other customers unchanged
+- creates a new queue array
+- updates React state
+- re-renders UI automatically
+
+---
+
+# How updateQueueStatus() Works
+
+```text
+User Clicks Status Button
+                │
+                ▼
+
+ QueueDisplay.jsx
+                │
+                │ onUpdateStatus(id, newStatus)
+                ▼
+
+ updateQueueStatus(id, newStatus)
+                │
+                ▼
+
+ map() checks every customer
+                │
+                ▼
+
+ Matching customer updated
+                │
+                ▼
+
+ React Creates New Queue Array
+                │
+                ▼
+
+ setQueue() updates state
+                │
+                ▼
+
+ QueueDisplay.jsx Re-renders
+```
+
+---
+
+# Passing Update Function as Props
+
+Inside:
+
+```js
+App.jsx
+```
+
+```js
+<QueueDisplay
+  queue={queue}
+  onRemove={removeFromQueue}
+  onUpdateStatus={updateQueueStatus}
+/>
+```
+
+Here:
+
+```js
+onUpdateStatus
+```
+
+references:
+
+```js
+updateQueueStatus
+```
+
+and passes the function to:
+
+```js
+QueueDisplay.jsx
+```
+
+---
+
+# Child Component Receives Function
+
+Inside:
+
+```js
+QueueDisplay.jsx
+```
+
+```js
+const QueueDisplay = ({
+  queue,
+  onRemove,
+  onUpdateStatus,
+}) => {
+```
+
+Now child component can call:
+
+```js
+onUpdateStatus(customer.id, "completed")
+```
+
+which actually runs:
+
+```js
+updateQueueStatus(customer.id, "completed")
+```
+
+inside:
+
+```js
+App.jsx
+```
+
+---
+
+# Update Button Logic
+
+```js
+<button
+  onClick={() =>
+    onUpdateStatus(customer.id, "in-progress")
+  }
+>
+  Start Service
+</button>
+```
+
+When clicked:
+- customer id is sent upward
+- new status is sent upward
+- parent function executes
+- queue updates
+- UI refreshes automatically
+
+---
+
+# Understanding map()
+
+```js
+prevQueue.map((customer) => ...)
+```
+
+`map()`:
+- loops through every customer
+- checks each customer
+- returns a NEW array
+
+React commonly uses:
+- `map()` for updates
+- `filter()` for deletions
+
+---
+
+# Understanding the Ternary Operator
+
+```js
+customer.id === id
+  ? { ...customer, status: newStatus }
+  : customer
+```
+
+This is shorthand for:
+
+```js
+if (customer.id === id) {
+  return updatedCustomer;
+} else {
+  return originalCustomer;
+}
+```
+
+---
+
+# Step-by-Step Update Logic
+
+---
+
+## STEP 1 — map() Loops Through Queue
+
+Suppose queue:
+
+```js
+[
+  {
+    id: 1,
+    name: "Kapil",
+    status: "waiting"
+  },
+
+  {
+    id: 2,
+    name: "Rahul",
+    status: "waiting"
+  }
+]
+```
+
+Now:
+
+```js
+updateQueueStatus(1, "in-progress")
+```
+
+runs.
+
+---
+
+## STEP 2 — React Checks Every Customer
+
+---
+
+### Customer 1
+
+```js
+customer.id === id
+```
+
+becomes:
+
+```js
+1 === 1
+```
+
+✅ true
+
+So React creates updated object:
+
+```js
+{
+  ...customer,
+  status: "in-progress"
+}
+```
+
+Updated customer:
+
+```js
+{
+  id: 1,
+  name: "Kapil",
+  status: "in-progress"
+}
+```
+
+---
+
+### Customer 2
+
+```js
+2 === 1
+```
+
+❌ false
+
+So React keeps customer unchanged:
+
+```js
+customer
+```
+
+---
+
+# Final Updated Queue
+
+```js
+[
+  {
+    id: 1,
+    name: "Kapil",
+    status: "in-progress"
+  },
+
+  {
+    id: 2,
+    name: "Rahul",
+    status: "waiting"
+  }
+]
+```
+
+Only Kapil gets updated.
+
+---
+
+# Visual Update Flow
+
+```text
+OLD QUEUE
+────────────────
+
+[
+  Kapil → waiting
+  Rahul → waiting
+]
+
+        │
+        │ updateQueueStatus(1, "in-progress")
+        ▼
+
+map() checks every customer
+        │
+        ▼
+
+NEW QUEUE
+────────────────
+
+[
+  Kapil → in-progress
+  Rahul → waiting
+]
+```
+
+---
+
+# Why React Uses map() for Updates
+
+```js
+map()
+```
+
+does NOT modify original array.
+
+Instead:
+- creates new array
+- keeps React state immutable
+- helps React detect changes properly
+
+---
+
+# Understanding Conditional Rendering
+
+Inside:
+
+```js
+QueueDisplay.jsx
+```
+
+buttons are shown conditionally.
+
+---
+
+## Example
+
+```js
+{
+  customer.status === "waiting" && (
+    <button>
+      Start Service
+    </button>
+  )
+}
+```
+
+This means:
+
+```text
+IF customer status is "waiting"
+THEN show button
+ELSE show nothing
+```
+
+---
+
+# Conditional Rendering Flow
+
+```text
+customer.status
+        │
+        ▼
+
+Is status "waiting" ?
+        │
+ ┌──────┴──────┐
+ │             │
+YES           NO
+ │             │
+ ▼             ▼
+
+Show          Show
+Button        Nothing
+```
+
+---
+
+# Status-Based UI Logic
+
+---
+
+## waiting
+
+```text
+✔ Start Service Button
+❌ Complete Service Button
+```
+
+---
+
+## in-progress
+
+```text
+❌ Start Service Button
+✔ Complete Service Button
+```
+
+---
+
+## completed
+
+```text
+❌ Start Service Button
+❌ Complete Service Button
+```
+
+Only Remove button remains visible.
+
+---
+
+# Why Conditional Rendering is Important
+
+React creates dynamic UI based on state.
+
+This means:
+
+```text
+Different state
+=
+Different UI
+```
+
+The interface automatically changes when data changes.
+
+---
+
+# Important React Concepts Used
+
+✅ map()
+
+✅ Ternary Operator
+
+✅ Conditional Rendering
+
+✅ Functional State Updates
+
+✅ Immutable Updates
+
+✅ Dynamic UI Rendering
+
+✅ Callback Props
+
+✅ Child → Parent Communication
+
+✅ React Re-rendering
+
+✅ State-Based UI
+
+---
+
+# 17. Understanding Derived State
+
+---
+
+# What is Derived State?
+
+Derived state means:
+
+```text
+A value calculated from existing state
+instead of creating separate state.
+```
+
+React developers prefer deriving values whenever possible.
+
+---
+
+# Example From This Project
+
+Inside:
+
+```js
+CounterDisplay.jsx
+```
+
+we display total customers using:
+
+```js
+queue.length
+```
+
+---
+
+# CounterDisplay Component
+
+```js
+const CounterDisplay = ({ queue }) => {
+  return (
+    <div>
+      <h2>Total Customers</h2>
+
+      <h1>{queue.length}</h1>
+    </div>
+  );
+};
+```
+
+---
+
+# Why This is Derived State
+
+We are NOT storing:
+
+```js
+const [count, setCount] = useState(0)
+```
+
+Instead:
+
+```js
+queue.length
+```
+
+automatically calculates total customers from existing queue data.
+
+---
+
+# Visual Derived State Flow
+
+```text
+Queue State
+     │
+     ▼
+
+[
+  Customer 1,
+  Customer 2,
+  Customer 3
+]
+
+     │
+     ▼
+
+queue.length
+     │
+     ▼
+
+3
+```
+
+---
+
+# Why Derived State is Better
+
+Instead of manually updating:
+
+```js
+setCount(count + 1)
+```
+
+React can directly calculate:
+
+```js
+queue.length
+```
+
+This avoids:
+- duplicate state
+- inconsistent data
+- unnecessary updates
+- extra complexity
+
+---
+
+# Problem With Separate Counter State
+
+Suppose:
+
+```js
+queue.length = 5
+```
+
+but:
+
+```js
+count = 4
+```
+
+Now UI becomes inconsistent.
+
+This is bad application design.
+
+---
+
+# Better React Thinking
+
+Good React developers ask:
+
+```text
+Can this value be calculated from existing state?
+```
+
+If YES:
+- do NOT create extra state
+
+---
+
+# Real Project Example
+
+❌ Less Optimal Approach
+
+```js
+const [count, setCount] = useState(0)
+```
+
+Manually updating:
+
+```js
+setCount(count + 1)
+setCount(count - 1)
+```
+
+---
+
+✅ Better Approach
+
+```js
+queue.length
+```
+
+Automatically updates when:
+- customer added
+- customer removed
+
+No manual synchronization needed.
+
+---
+
+# Visual React Flow
+
+```text
+Add Customer
+      │
+      ▼
+
+queue state updates
+      │
+      ▼
+
+queue.length changes
+      │
+      ▼
+
+CounterDisplay re-renders
+      │
+      ▼
+
+Updated count shown automatically
+```
+
+---
+
+# Why React Likes Derived State
+
+Derived state:
+- keeps state minimal
+- reduces bugs
+- improves consistency
+- simplifies logic
+- makes applications predictable
+
+---
+
+# Important React Principle
+
+```text
+Store minimal state.
+Derive everything else.
+```
+
+This is a very important React design principle.
+
+---
+
+# Real-World Examples of Derived State
+
+---
+
+## Shopping Cart
+
+```js
+cartItems.length
+```
+
+Total products.
+
+---
+
+## Todo App
+
+```js
+todos.filter(todo => todo.completed).length
+```
+
+Completed tasks count.
+
+---
+
+## Expense Tracker
+
+```js
+expenses.reduce(...)
+```
+
+Total expense amount.
+
+---
+
+# Important React Concepts Used
+
+✅ Derived State
+
+✅ State Calculation
+
+✅ React Re-rendering
+
+✅ Component Reusability
+
+✅ Props
+
+✅ Dynamic UI Rendering
+
+✅ Minimal State Principle
