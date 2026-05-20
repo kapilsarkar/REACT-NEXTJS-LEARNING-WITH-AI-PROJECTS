@@ -2,6 +2,7 @@ import { useState } from "react";
 import QueueForm from "./components/QueueForm";
 import QueueDisplay from "./components/QueueDisplay";
 import CounterDisplay from "./components/CounterDisplay";
+import { FaUsers } from "react-icons/fa";
 
 function App() {
   const [queue, setQueue] = useState([]);
@@ -20,40 +21,34 @@ function App() {
   const updateQueueStatus = (id, newStatus) => {
     setQueue((prevQueue) =>
       prevQueue.map((customer) =>
-        customer.id === id
-          ? { ...customer, status: newStatus }
-          : customer
-      )
+        customer.id === id ? { ...customer, status: newStatus } : customer,
+      ),
     );
   };
 
   const removeFromQueue = (id) => {
-    setQueue((prevQueue) =>
-      prevQueue.filter(
-        (customer) => customer.id !== id
-      )
-    );
+    setQueue((prevQueue) => prevQueue.filter((customer) => customer.id !== id));
   };
 
   return (
     <div className="min-h-screen bg-slate-100">
-      
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-6 py-6">
-          <h1 className="text-4xl font-bold text-slate-800 text-center">
+          <h1 className="flex tracking-wide items-center justify-center gap-3 text-4xl font-bold text-slate-800 text-center">
+            <FaUsers className="text-blue-600" />
             Queue Management Game
+            <FaUsers className="text-blue-600" />
           </h1>
 
-          <p className="text-slate-500 text-center mt-2">
-            Manage customer queues efficiently
+          <p className="text-slate-500 text-center mt-2 text-lg">
+            Manage, track, and update customer queues efficiently
           </p>
         </div>
       </header>
 
       {/* Main Container */}
       <div className="max-w-7xl mx-auto px-6 py-8">
-
         {/* Counter Section */}
         <section className="mb-8">
           <CounterDisplay queue={queue} />
@@ -61,7 +56,6 @@ function App() {
 
         {/* Main Grid */}
         <main className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
           {/* Left Side */}
           <section>
             <QueueForm onAdd={addToQueue} />
@@ -75,7 +69,6 @@ function App() {
               onUpdateStatus={updateQueueStatus}
             />
           </section>
-
         </main>
       </div>
     </div>

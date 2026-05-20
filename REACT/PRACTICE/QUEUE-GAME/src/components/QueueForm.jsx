@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { FaUserPlus } from "react-icons/fa";
 
+import { FaUser, FaClipboardList, FaUserPlus } from "react-icons/fa";
 const QueueForm = ({ onAdd }) => {
   const [name, setName] = useState("");
   const [service, setService] = useState("");
@@ -21,13 +21,12 @@ const QueueForm = ({ onAdd }) => {
 
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6">
-      <h2 className="text-2xl font-bold mb-6 text-slate-800">
-        Add Customer
-      </h2>
+      <h2 className="text-2xl font-bold mb-6 text-slate-800">Add Customer</h2>
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <label className="block mb-2 font-medium text-slate-700">
+          <label className="flex items-center gap-2 mb-2 font-medium text-slate-700">
+            <FaUser />
             Customer Name
           </label>
 
@@ -41,7 +40,8 @@ const QueueForm = ({ onAdd }) => {
         </div>
 
         <div>
-          <label className="block mb-2 font-medium text-slate-700">
+          <label className="flex items-center gap-2 mb-2 font-medium text-slate-700">
+            <FaClipboardList />
             Select Service
           </label>
 
