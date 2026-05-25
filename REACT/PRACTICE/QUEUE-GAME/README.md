@@ -1,4 +1,13 @@
-# Queue Management App — React Data Flow
+# Queue Management App — React Data Flow :
+
+# Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| React.js | Frontend Library |
+| Tailwind CSS | Styling |
+| React Icons | Icons |
+| Vercel | Deployment |
 
 [LIVE LINK](https://queue-game.vercel.app/)
 
