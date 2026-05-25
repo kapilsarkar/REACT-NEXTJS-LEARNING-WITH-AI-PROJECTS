@@ -1,5 +1,11 @@
 # Queue Management App — React Data Flow
 
+[LIVE LINK](#)
+
+### PREVIEW :
+![IMG](./IMG/1.png)
+![IMG](./IMG/2.png)
+
 A beginner-friendly React Queue Management Application built with:
 
 - React.js
@@ -664,7 +670,6 @@ QueueDisplay.jsx Updates UI
 - Add update status feature
 - Add completed queue section
 
-
 ---
 
 # 15. Understanding removeFromQueue()
@@ -688,6 +693,7 @@ const removeFromQueue = (id) => {
 This function removes a customer from the queue using their unique `id`.
 
 It:
+
 - checks all customers
 - removes matching customer
 - creates a new array
@@ -803,6 +809,7 @@ App.jsx
 ```
 
 When clicked:
+
 - customer id is sent upward
 - parent function executes
 - queue updates
@@ -817,6 +824,7 @@ prevQueue.filter((customer) => customer.id !== id)
 ```
 
 `filter()`:
+
 - keeps matching items
 - removes non-matching items
 - returns a NEW array
@@ -928,6 +936,7 @@ filter()
 does NOT modify original array.
 
 Instead:
+
 - creates new array
 - keeps React state immutable
 - triggers proper re-rendering
@@ -977,6 +986,7 @@ const updateQueueStatus = (id, newStatus) => {
 This function updates the status of a specific customer inside the queue.
 
 It:
+
 - checks every customer
 - finds matching customer using id
 - updates only that customer
@@ -1109,6 +1119,7 @@ App.jsx
 ```
 
 When clicked:
+
 - customer id is sent upward
 - new status is sent upward
 - parent function executes
@@ -1124,11 +1135,13 @@ prevQueue.map((customer) => ...)
 ```
 
 `map()`:
+
 - loops through every customer
 - checks each customer
 - returns a NEW array
 
 React commonly uses:
+
 - `map()` for updates
 - `filter()` for deletions
 
@@ -1304,6 +1317,7 @@ map()
 does NOT modify original array.
 
 Instead:
+
 - creates new array
 - keeps React state immutable
 - helps React detect changes properly
@@ -1545,6 +1559,7 @@ queue.length
 ```
 
 This avoids:
+
 - duplicate state
 - inconsistent data
 - unnecessary updates
@@ -1581,6 +1596,7 @@ Can this value be calculated from existing state?
 ```
 
 If YES:
+
 - do NOT create extra state
 
 ---
@@ -1609,6 +1625,7 @@ queue.length
 ```
 
 Automatically updates when:
+
 - customer added
 - customer removed
 
@@ -1643,6 +1660,7 @@ Updated count shown automatically
 # Why React Likes Derived State
 
 Derived state:
+
 - keeps state minimal
 - reduces bugs
 - improves consistency
