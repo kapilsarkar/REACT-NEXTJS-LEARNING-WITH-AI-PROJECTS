@@ -6,6 +6,17 @@
 ![IMG](./IMG/1.png)
 ![IMG](./IMG/2.png)
 
+# Features
+
+- Add Customers to Queue
+- Update Customer Status
+- Remove Customers
+- Dynamic Queue Counter
+- Conditional Rendering
+- Responsive Tailwind UI
+- React Icons Integration
+- Derived State Management
+
 A beginner-friendly React Queue Management Application built with:
 
 - React.js
