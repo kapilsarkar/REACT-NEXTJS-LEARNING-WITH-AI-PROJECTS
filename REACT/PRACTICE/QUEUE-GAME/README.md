@@ -1,6 +1,6 @@
 # Queue Management App — React Data Flow
 
-[LIVE LINK](#)
+[LIVE LINK](https://queue-game.vercel.app/)
 
 ### PREVIEW :
 ![IMG](./IMG/1.png)
