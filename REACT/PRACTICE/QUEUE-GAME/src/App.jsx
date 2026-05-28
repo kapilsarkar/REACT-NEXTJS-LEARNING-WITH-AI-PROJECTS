@@ -37,7 +37,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-6 py-6">
           <h1 className="flex tracking-wide items-center justify-center gap-3 text-4xl font-bold text-slate-800 text-center">
             <FaUsers className="text-blue-600" />
-            Queue Management Game
+            Queue Management App
             <FaUsers className="text-blue-600" />
           </h1>
 
