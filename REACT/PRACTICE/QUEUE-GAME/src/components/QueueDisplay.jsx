@@ -7,12 +7,7 @@ import {
   FaTrash,
 } from "react-icons/fa";
 
-const QueueDisplay = ({
-  queue,
-  onRemove,
-  onUpdateStatus,
-}) => {
-
+const QueueDisplay = ({ queue, onRemove, onUpdateStatus }) => {
   // Dynamic Status Icons
   const getStatusIcon = (status) => {
     switch (status) {
@@ -49,28 +44,20 @@ const QueueDisplay = ({
 
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6">
-      
       {/* Heading */}
-      <h2 className="text-2xl font-bold mb-6 text-slate-800">
-        Current Queue
-      </h2>
+      <h2 className="text-2xl font-bold mb-6 text-slate-800">Current Queue</h2>
 
       {/* Empty Queue */}
       {queue.length === 0 ? (
-        <p className="text-slate-500 text-center">
-          No Customer Data
-        </p>
+        <p className="text-slate-500 text-center">No Customer Data</p>
       ) : (
-
         /* Queue List */
         <div className="space-y-4">
-
           {queue.map((customer) => (
             <div
               key={customer.id}
               className="border-l-4 border-yellow-500 bg-slate-50 p-4 rounded-lg"
             >
-
               {/* Customer Name */}
               <h3 className="text-lg font-semibold text-slate-800">
                 {customer.name}
@@ -78,16 +65,13 @@ const QueueDisplay = ({
 
               {/* Service */}
               <p className="text-slate-600 mt-1">
-                <span className="font-medium">
-                  Service:
-                </span>{" "}
-                {customer.service}
+                <span className="font-medium">Service:</span> {customer.service}
               </p>
 
               {/* Status Badge */}
               <span
                 className={`inline-flex items-center gap-2 mt-3 px-3 py-1 rounded-full text-sm ${getStatusStyle(
-                  customer.status
+                  customer.status,
                 )}`}
               >
                 {getStatusIcon(customer.status)}
@@ -97,16 +81,10 @@ const QueueDisplay = ({
 
               {/* Action Buttons */}
               <div className="mt-4 flex flex-wrap gap-2">
-
                 {/* Start Service Button */}
                 {customer.status === "waiting" && (
                   <button
-                    onClick={() =>
-                      onUpdateStatus(
-                        customer.id,
-                        "in-progress"
-                      )
-                    }
+                    onClick={() => onUpdateStatus(customer.id, "in-progress")}
                     className="bg-blue-600 flex items-center gap-2 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition"
                   >
                     <FaPlay />
@@ -117,12 +95,7 @@ const QueueDisplay = ({
                 {/* Complete Service Button */}
                 {customer.status === "in-progress" && (
                   <button
-                    onClick={() =>
-                      onUpdateStatus(
-                        customer.id,
-                        "completed"
-                      )
-                    }
+                    onClick={() => onUpdateStatus(customer.id, "completed")}
                     className="bg-green-600 flex items-center gap-2 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition"
                   >
                     <FaCheck />
@@ -132,15 +105,12 @@ const QueueDisplay = ({
 
                 {/* Remove Button */}
                 <button
-                  onClick={() =>
-                    onRemove(customer.id)
-                  }
+                  onClick={() => onRemove(customer.id)}
                   className="bg-red-600 flex items-center gap-2 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition"
                 >
                   <FaTrash />
                   Remove
                 </button>
-
               </div>
             </div>
           ))}
