@@ -1,7 +1,7 @@
 const ChildrenProps = ()=>{
     return(
         <div>
-            <h1>Children Props</h1>
+            <h1 className="text-white">Children Props</h1>
         </div>
     )
 }

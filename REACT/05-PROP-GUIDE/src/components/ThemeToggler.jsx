@@ -1,7 +1,7 @@
 const ThemeToggler= ()=>{
     return(
         <div>
-            <h1>Theme Toggler</h1>
+            <h1 className="text-white">Theme Toggler</h1>
         </div>
     )
 }

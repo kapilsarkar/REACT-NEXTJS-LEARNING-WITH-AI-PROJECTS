@@ -1,7 +1,7 @@
 const ComplexProps = ()=>{
     return(
         <div>
-            <h1>Complex Props</h1>
+            <h1 className="text-white">Complex Props</h1>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 const BasicProps = ()=>{
     return(
         <div>
-            <h1>Basic Props</h1>
+            <h1 className="text-white">Basic Props</h1>
         </div>
     )
 }
