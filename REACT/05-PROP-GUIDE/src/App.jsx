@@ -52,27 +52,27 @@ function AppContent() {
           <div id="basic" className="scroll-mt-200">
             <BasicProps />
           </div>
-          <div id="basic" className="scroll-mt-200">
+          <div id="children" className="scroll-mt-200">
             <ChildrenProps />
           </div>
-          <div id="basic" className="scroll-mt-200">
+          <div id="complex" className="scroll-mt-200">
             <ComplexProps />
           </div>
-          <div id="basic" className="scroll-mt-200">
+          <div id="ref" className="scroll-mt-200">
             <RefProps />
           </div>
-          <div id="basic" className="scroll-mt-200">
+          <div id="theme" className="scroll-mt-200">
             <ThemeToggler />
           </div>
-           <footer
-          className={`mt-12 text-center pb-8 transition-colors ${
-            isDark ? "text-gray-400" : "text-gray-600"
-          }`}
-        >
-          <p className="text-sm">
-            Made with ❤️ using Vite, React, and Tailwind CSS
-          </p>
-        </footer>
+          <footer
+            className={`mt-12 text-center pb-8 transition-colors ${
+              isDark ? "text-gray-400" : "text-gray-600"
+            }`}
+          >
+            <p className="text-sm">
+              Made with ❤️ using Vite, React, and Tailwind CSS
+            </p>
+          </footer>
         </div>
       </div>
     </div>
