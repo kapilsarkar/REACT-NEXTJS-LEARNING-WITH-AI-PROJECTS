@@ -1,14 +1,16 @@
 import { createContext, useContext, useState } from "react";
 
 // Create Theme Context
-const ThemeContext = createContext();
+const ThemeContext = createContext(null);
 
 // Theme Provider Component
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState("light");
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    setTheme((prevTheme) =>
+      prevTheme === "light" ? "dark" : "light"
+    );
   };
 
   const value = {
@@ -18,22 +20,28 @@ export function ThemeProvider({ children }) {
   };
 
   return (
-    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>
+      {children}
+    </ThemeContext.Provider>
   );
 }
 
-// Custom hook to use theme
+// Custom Hook
 export function useTheme() {
   const context = useContext(ThemeContext);
+
   if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider");
+    throw new Error(
+      "useTheme must be used within a ThemeProvider"
+    );
   }
+
   return context;
 }
 
 // Theme Toggle Button Component
 function ThemeToggleButton() {
-  const { theme, toggleTheme, isDark } = useTheme();
+  const { toggleTheme, isDark } = useTheme();
 
   return (
     <button
@@ -47,7 +55,7 @@ function ThemeToggleButton() {
         className={`
           absolute top-1 left-1 w-6 h-6 rounded-full bg-white
           transition-transform duration-300 flex items-center justify-center
-          ${isDark ? "transform translate-x-8" : ""}
+          ${isDark ? "translate-x-8" : ""}
         `}
       >
         {isDark ? "🌙" : "☀️"}
@@ -74,26 +82,37 @@ function ThemedCard({ title, children }) {
 }
 
 // Themed Button Component
-function ThemedButton({ children, variant = "primary", onClick }) {
+function ThemedButton({
+  children,
+  variant = "primary",
+  onClick,
+}) {
   const { isDark } = useTheme();
 
   const getButtonClasses = () => {
     if (variant === "primary") {
       return isDark
         ? "bg-blue-600 hover:bg-blue-700 text-white"
-        : "bg-orange-500 hover:bg-blue-600 text-white";
+        : "bg-orange-500 hover:bg-orange-600 text-white";
     }
+
     if (variant === "secondary") {
       return isDark
         ? "bg-gray-700 hover:bg-gray-600 text-white"
         : "bg-gray-200 hover:bg-gray-300 text-gray-800";
     }
+
+    // Fallback
+    return "bg-gray-400 text-white";
   };
 
   return (
     <button
       onClick={onClick}
-      className={`px-4 py-2 rounded-lg font-medium transition-colors ${getButtonClasses()}`}
+      className={`
+        px-4 py-2 rounded-lg font-medium transition-colors
+        ${getButtonClasses()}
+      `}
     >
       {children}
     </button>
@@ -112,23 +131,32 @@ export default function ThemeToggler() {
         ${isDark ? "bg-gray-900 text-white" : "bg-white text-gray-800"}
       `}
     >
+      {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-3xl font-bold">Theme Toggler</h2>
+
         <div className="flex items-center gap-3">
           <span className="text-sm font-medium">
             {isDark ? "Dark Mode" : "Light Mode"}
           </span>
+
           <ThemeToggleButton />
         </div>
       </div>
 
-      <p className={`mb-6 ${isDark ? "text-gray-300" : "text-gray-600"}`}>
-        This section demonstrates theme toggling using Context API and props.
-        The theme state is shared across all child components without prop
-        drilling.
+      {/* Description */}
+      <p
+        className={`mb-6 ${
+          isDark ? "text-gray-300" : "text-gray-600"
+        }`}
+      >
+        This section demonstrates theme toggling using Context API
+        and props. The theme state is shared across all child
+        components without prop drilling.
       </p>
 
       <div className="space-y-6">
+        {/* User Info + Statistics */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ThemedCard title="User Information">
             <p className={isDark ? "text-gray-300" : "text-gray-600"}>
@@ -138,16 +166,22 @@ export default function ThemeToggler() {
               <br />
               Role: Developer
             </p>
+
             <div className="mt-4 flex gap-2">
               <ThemedButton
                 variant="primary"
-                onClick={() => setClickCount(clickCount + 1)}
+                onClick={() =>
+                  setClickCount((prev) => prev + 1)
+                }
               >
                 Edit Profile
               </ThemedButton>
+
               <ThemedButton
                 variant="secondary"
-                onClick={() => setClickCount(clickCount + 1)}
+                onClick={() =>
+                  setClickCount((prev) => prev + 1)
+                }
               >
                 Settings
               </ThemedButton>
@@ -158,44 +192,68 @@ export default function ThemeToggler() {
             <div className="space-y-2">
               <div className="flex justify-between">
                 <span>Total Clicks:</span>
-                <span className="font-bold text-blue-500">{clickCount}</span>
+                <span className="font-bold text-blue-500">
+                  {clickCount}
+                </span>
               </div>
+
               <div className="flex justify-between">
                 <span>Theme:</span>
-                <span className="font-bold">{isDark ? "Dark" : "Light"}</span>
+                <span className="font-bold">
+                  {isDark ? "Dark" : "Light"}
+                </span>
               </div>
+
               <div className="flex justify-between">
                 <span>Status:</span>
-                <span className="font-bold text-green-500">Active</span>
+                <span className="font-bold text-green-500">
+                  Active
+                </span>
               </div>
             </div>
           </ThemedCard>
         </div>
 
+        {/* Interactive Demo */}
         <ThemedCard title="Interactive Demo">
-          <p className={`mb-4 ${isDark ? "text-gray-300" : "text-gray-600"}`}>
-            Try clicking the buttons below to see how they adapt to the current
-            theme:
+          <p
+            className={`mb-4 ${
+              isDark ? "text-gray-300" : "text-gray-600"
+            }`}
+          >
+            Try clicking the buttons below to see how they adapt
+            to the current theme:
           </p>
+
           <div className="flex flex-wrap gap-3">
             <ThemedButton
               variant="primary"
-              onClick={() => setClickCount(clickCount + 1)}
+              onClick={() =>
+                setClickCount((prev) => prev + 1)
+              }
             >
               Primary Action
             </ThemedButton>
+
             <ThemedButton
               variant="secondary"
-              onClick={() => setClickCount(clickCount + 1)}
+              onClick={() =>
+                setClickCount((prev) => prev + 1)
+              }
             >
               Secondary Action
             </ThemedButton>
-            <ThemedButton variant="primary" onClick={() => setClickCount(0)}>
+
+            <ThemedButton
+              variant="primary"
+              onClick={() => setClickCount(0)}
+            >
               Reset Counter
             </ThemedButton>
           </div>
         </ThemedCard>
 
+        {/* Info Box */}
         <div
           className={`
             p-4 rounded-lg border-l-4 transition-colors
@@ -206,13 +264,23 @@ export default function ThemeToggler() {
             }
           `}
         >
-          <h4 className="font-semibold mb-2">Why Context + Props?</h4>
+          <h4 className="font-semibold mb-2">
+            Why Context + Props?
+          </h4>
+
           <ul className="list-disc list-inside space-y-1 text-sm">
-            <li>Avoids "prop drilling" through multiple component layers</li>
-            <li>Makes theme accessible to any component in the tree</li>
-            <li>Components can still receive other props normally</li>
             <li>
-              Combines global state (context) with local configuration (props)
+              Avoids prop drilling through multiple component layers
+            </li>
+            <li>
+              Makes theme accessible to any component in the tree
+            </li>
+            <li>
+              Components can still receive other props normally
+            </li>
+            <li>
+              Combines global state (context) with local configuration
+              (props)
             </li>
           </ul>
         </div>
