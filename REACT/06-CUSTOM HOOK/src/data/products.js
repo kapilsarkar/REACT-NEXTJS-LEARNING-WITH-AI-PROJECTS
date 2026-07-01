@@ -19,4 +19,9 @@ export const products = [
     name: "Ergonomic Laptop Stand",
     price: 29.99,
   },
+   {
+    id: 5,
+    name: "Mac Book Laptop",
+    price: 529.99,
+  },
 ];
