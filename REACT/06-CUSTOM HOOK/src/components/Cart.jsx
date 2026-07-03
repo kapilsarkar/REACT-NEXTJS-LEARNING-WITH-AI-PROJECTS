@@ -1,6 +1,6 @@
-import { CartItem } from "./CartItem.jsx";
+import  CartItem  from "./CartItem.jsx";
 
-const Cart = ({ cart, onUpdateQuantity, onRemove, total }) => {
+const Cart = ({ cart, updateQuantity, removeFromCart, total }) => {
   if (cart.length === 0) {
     return <div className="cart empty">Your cart is Empty</div>;
   }
@@ -11,8 +11,8 @@ const Cart = ({ cart, onUpdateQuantity, onRemove, total }) => {
         <CartItem
           key={item.id}
           item={item}
-          onUpdateQuantity={onUpdateQuantity}
-          onRemove={onRemove}
+          updateQuantity={updateQuantity}
+          removeFromCart={removeFromCart}
         />
       ))}
       <div className="cart-total">
