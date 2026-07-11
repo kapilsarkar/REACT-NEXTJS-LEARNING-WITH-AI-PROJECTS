@@ -1,16 +1,135 @@
-# React + Vite
+# REACT - EXTRA TOPICS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+These are the additional React topics I plan to learn after completing my main React course and before moving to Next.js.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 1. ZUSTAND
 
-## React Compiler
+Topics:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Creating Stores
+* Actions
+* Selectors
+* Multiple Stores
+* Middleware
+* Persist Middleware
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 2. REACT HOOK FORM + ZOD VALIDATION
+
+Topics:
+
+* Form Handling
+* Validation
+* Error Handling
+* Dynamic Forms
+
+---
+
+## 3. REACT ROUTER DOM
+
+Topics:
+
+* Nested Routes
+* Dynamic Routes
+* Protected Routes
+* Layout Routes
+* Navigation
+
+---
+
+## 4. REDUX TOOLKIT
+
+Topics:
+
+* Store Configuration
+* Slices
+* Async Actions
+* Middleware
+* Best Practices
+
+---
+
+## 5. EMPLOYEE MANAGEMENT SYSTEM USING REDUX TOOLKIT
+
+Project Features:
+
+* Add Employee
+* Edit Employee
+* Delete Employee
+* Search Employee
+* Filter Employee
+* Pagination
+
+---
+
+## 6. useRef()
+
+Topics:
+
+* DOM Access
+* Focus Management
+* Storing Mutable Values
+* Previous State Tracking
+* Timers and Intervals
+
+---
+
+## 7. HOC VS CUSTOM HOOK IN REACT
+
+Topics:
+
+* Differences
+* Use Cases
+* Advantages and Disadvantages
+* Modern React Approach
+
+---
+
+## 8. useMemo()
+
+Topics:
+
+* Memoization
+* Expensive Calculations
+* Preventing Unnecessary Computations
+
+---
+
+## 9. useCallback()
+
+Topics:
+
+* Function Memoization
+* Preventing Unnecessary Re-renders
+* Working with React.memo()
+
+---
+
+## 10. LAZY LOADING & CODE SPLITTING
+
+Topics:
+
+* React.lazy()
+* Suspense
+* Route-Based Code Splitting
+* Performance Optimization
+
+---
+
+## 11. BACKEND SOLUTION WITH APP WRITE
+
+Topics:
+
+* Authentication
+* Database
+* File Storage
+* Permissions
+* Backend Integration
+
+Reference:
+https://www.youtube.com/watch?v=Pr57uxrZtoc
+
+---
