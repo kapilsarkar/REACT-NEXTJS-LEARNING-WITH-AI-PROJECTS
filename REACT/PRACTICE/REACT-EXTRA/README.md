@@ -128,8 +128,3 @@ Topics:
 * File Storage
 * Permissions
 * Backend Integration
-
-Reference:
-https://www.youtube.com/watch?v=Pr57uxrZtoc
-
----
