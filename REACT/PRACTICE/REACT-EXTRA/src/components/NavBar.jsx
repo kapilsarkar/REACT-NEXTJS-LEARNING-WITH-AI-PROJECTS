@@ -7,11 +7,12 @@ const NavBar = () => {
   const reset = useMyStore((state) => state.reset);
   const capitalizeName = useMyStore((state) => state.capitalizeName);
   const name = useMyStore((state) => state.name);
+  const noCapitalizeName = useMyStore((state) => state.noCapitalizeName);
   return (
     <>
       <div>
         <h2>Nav - Bar</h2>
-        <p>{name}</p>
+        <p className="text-center font-extrabold font-stretch-100%">{name}</p>
         <p className=" text-center font-extrabold">{count}</p>
         <div className=" flex flex-wrap justify-center p-2 font-bold gap-2">
           <button
@@ -36,6 +37,12 @@ const NavBar = () => {
         <button
           className="bg-fuchsia-600 text-white rounded-2xl p-3 cursor-pointer"
           onClick={capitalizeName}
+        >
+          CapitaLize
+        </button>
+        <button
+          className="bg-purple-900 text-white rounded-2xl p-3 cursor-pointer"
+          onClick={noCapitalizeName}
         >
           CapitaLize
         </button>
