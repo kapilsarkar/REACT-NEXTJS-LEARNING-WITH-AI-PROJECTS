@@ -1,8 +1,8 @@
 import { create } from "zustand";
 
-const useMyStore = create((set) => ({
+const useMyStore = create((set, get) => ({
     count: 0,
-    name: "Kapil",
+    name: "kapil sarkar",
     increment: () => {
         set((state) => ({
             count: state.count + 1
@@ -20,7 +20,10 @@ const useMyStore = create((set) => ({
         }))
     },
     capitalizeName: () => {
-
+        const { name } = get();
+        set({
+            name: name.charAt(0).toUpperCase() + name.slice(1)
+        })
     },
 }))
 
