@@ -8,6 +8,7 @@ const NavBar = () => {
   const capitalizeName = useMyStore((state) => state.capitalizeName);
   const name = useMyStore((state) => state.name);
   const noCapitalizeName = useMyStore((state) => state.noCapitalizeName);
+  
   return (
     <>
       <div>

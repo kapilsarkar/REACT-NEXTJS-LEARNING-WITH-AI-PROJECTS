@@ -1,6 +1,7 @@
 import { create } from "zustand";
+import { persist, createJSONStorage, devtools } from "zustand/middleware";
 
-const useMyStore = create((set, get) => ({
+const store = persist((set, get) => ({
     count: 0,
     name: "kapil sarkar",
     increment: () => {
@@ -32,5 +33,10 @@ const useMyStore = create((set, get) => ({
         })
     }
 }))
+
+const useMyStore = create(devtools(store, {
+    name: "myStore",
+    storage: createJSONStorage(() => localStorage),
+}));
 
 export default useMyStore;
