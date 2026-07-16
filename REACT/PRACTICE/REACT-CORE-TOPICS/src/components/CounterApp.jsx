@@ -43,7 +43,7 @@ const CounterApp = () => {
           <button
             type="button"
             onClick={decrement}
-            className="rounded-xl bg-white/10 px-4 py-3 font-semibold text-white transition hover:bg-white/20"
+            className="cursor-pointer rounded-xl bg-white/10 px-4 py-3 font-semibold text-white transition hover:bg-white/20"
           >
             − Decrement
           </button>
@@ -51,7 +51,7 @@ const CounterApp = () => {
           <button
             type="button"
             onClick={increment}
-            className="rounded-xl bg-white px-4 py-3 font-semibold text-indigo-700 transition hover:bg-indigo-100"
+            className="cursor-pointer rounded-xl bg-white px-4 py-3 font-semibold text-indigo-700 transition hover:bg-indigo-100"
           >
             + Increment
           </button>
@@ -59,7 +59,7 @@ const CounterApp = () => {
           <button
             type="button"
             onClick={reset}
-            className="col-span-2 rounded-xl border border-white/25 px-4 py-3 font-semibold text-white transition hover:bg-white/10"
+            className="cursor-pointer col-span-2 rounded-xl border border-white/25 px-4 py-3 font-semibold text-white transition hover:bg-white/10"
           >
             Reset counter
           </button>
@@ -84,7 +84,7 @@ const CounterApp = () => {
               type="button"
               onClick={() => incrementByAmount(numericAmount)}
               disabled={!isValidAmount}
-              className="rounded-xl bg-emerald-500 px-3 py-3 font-semibold text-white transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-40"
+              className="cursor-pointer rounded-xl bg-emerald-500 px-3 py-3 font-semibold text-white transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-40"
             >
               Add amount
             </button>
@@ -93,7 +93,7 @@ const CounterApp = () => {
               type="button"
               onClick={() => decrementByAmount(numericAmount)}
               disabled={!isValidAmount}
-              className="rounded-xl bg-rose-500 px-3 py-3 font-semibold text-white transition hover:bg-rose-400 disabled:cursor-not-allowed disabled:opacity-40"
+              className="cursor-pointer rounded-xl bg-rose-500 px-3 py-3 font-semibold text-white transition hover:bg-rose-400 disabled:cursor-not-allowed disabled:opacity-40"
             >
               Subtract amount
             </button>
@@ -102,7 +102,7 @@ const CounterApp = () => {
               type="button"
               onClick={() => multiplyByAmount(numericAmount)}
               disabled={!isValidAmount}
-              className="rounded-xl bg-amber-400 px-3 py-3 font-semibold text-slate-900 transition hover:bg-amber-300 disabled:cursor-not-allowed disabled:opacity-40"
+              className="cursor-pointer rounded-xl bg-amber-400 px-3 py-3 font-semibold text-slate-900 transition hover:bg-amber-300 disabled:cursor-not-allowed disabled:opacity-40"
             >
               × Multiply
             </button>
@@ -111,7 +111,7 @@ const CounterApp = () => {
               type="button"
               onClick={() => divideByAmount(numericAmount)}
               disabled={cannotDivide}
-              className="rounded-xl bg-sky-500 px-3 py-3 font-semibold text-white transition hover:bg-sky-400 disabled:cursor-not-allowed disabled:opacity-40"
+              className="cursor-pointer rounded-xl bg-sky-500 px-3 py-3 font-semibold text-white transition hover:bg-sky-400 disabled:cursor-not-allowed disabled:opacity-40"
             >
               ÷ Divide
             </button>
