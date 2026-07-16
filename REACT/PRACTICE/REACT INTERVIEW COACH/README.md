@@ -1,16 +1,123 @@
-# React + Vite
+# REACT INTERVIEW COACH
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Core Features
 
-Currently, two official plugins are available:
+1. Select Role :
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+   - React Developer
+   - MERN Developer
+   - Frontend Developer
+   - Node.js Developer
+   - Full Stack Developer(NEXT-JS)
 
-## React Compiler
+1. Select Experience Level
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+   - Fresher (0-1 Years)
+   - Junior (1-3 Years)
+   - Mid-Level (3-5 Years)
 
-## Expanding the ESLint configuration
+1. Difficulty Level
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+   - Beginner
+
+   - Intermediate
+
+   - Advanced
+
+1. Generate 5 AI Interview Questions(If Time Permits It will be 10 AI Interview Questions)
+
+1. User submits answers.
+
+1. AI evaluates answers.
+
+1. Final Score Generation.
+
+1. Interview Readiness Meter
+
+- 90-100 → Interview Ready
+
+- 75-89 → Almost Ready
+
+- 60-74 → Needs Improvement
+
+- Below 60 → Focus on Fundamentals
+
+Bonus Features :
+
+- Personalized Learning Roadmap.
+
+Example :
+
+Weak Areas:
+
+- Closures
+- Event Loop
+- useMemo
+
+Week 1:
+
+- Closures
+- Scope
+- Hoisting
+
+Week 2:
+
+- React Rendering
+- useMemo
+- useCallback
+
+Week 3:
+
+- Zustand
+- Redux Toolkit
+
+## Tech Stack -
+
+- React + Vite
+
+- Tailwind CSS
+
+- Zustand
+
+- React Hook Form
+
+- Zod
+
+- Gemini API
+
+- jsPDF
+
+- Vercel
+
+## Development Order
+
+- Phase 1 → Project Setup
+- Phase 2 → Interview Setup Screen
+- Phase 3 → Zustand Store
+- Phase 4 → Gemini Integration
+- Phase 5 → Question Screen
+- Phase 6 → Evaluation Screen
+- Phase 7 → Results Page
+- Phase 8 → Learning Roadmap
+- Phase 9 → PDF Generation
+- Phase 10 → Deployment
+
+---
+
+## Application's pages and user Flow
+
+```
+Home Page
+   ↓
+Setup Interview Page
+   ↓
+Question Page
+   ↓
+Evaluation Page
+   ↓
+Results Page
+   ↓
+Roadmap + PDF Download
+```
+
+![IMG](./IMG/DEMO-IMG.png)
