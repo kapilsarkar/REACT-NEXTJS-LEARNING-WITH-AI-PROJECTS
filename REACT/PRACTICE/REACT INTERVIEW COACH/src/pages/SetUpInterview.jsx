@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import useInterViewStore from "../store/interviewStore.js";
 
 const roles = [
   "React Developer",
@@ -42,26 +44,37 @@ const SelectField = ({ id, label, value, onChange, options }) => (
 );
 
 const SetupInterview = () => {
+  const navigate = useNavigate();
+
   const [role, setRole] = useState(roles[0]);
   const [experience, setExperience] = useState(experienceLevels[0]);
   const [difficulty, setDifficulty] = useState(difficultyLevels[0]);
   const [questionCount, setQuestionCount] = useState(5);
   const estimatedDuration = questionCount * 2;
 
+  const setInterViewConfig = useInterViewStore(
+    (state) => state.setInterviewConfig,
+  );
+
+  const handleStartInterview = () => {
+    setInterViewConfig({ role, experience, difficulty, questionCount });
+
+    navigate("/interview");
+  };
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#080f1f] px-5 py-16 text-white sm:px-7">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_10%,rgba(109,81,220,0.2),transparent_26%),radial-gradient(circle_at_85%_90%,rgba(49,91,199,0.18),transparent_25%)]" />
       <div className="relative w-full max-w-2xl">
         <div className="mb-7 text-center">
-          <a
-            href="#top"
+          <Link
+            to="/"
             className="inline-flex items-center gap-2 text-lg font-extrabold tracking-tight text-white"
           >
             <span className="grid h-8 w-8 place-items-center rounded-xl bg-linear-to-br from-violet-400 to-indigo-500 text-slate-950">
               ⚡
             </span>
             DevInterview <span className="text-violet-300">AI</span>
-          </a>
+          </Link>
           <p className="mt-7 text-xs font-bold uppercase tracking-[.18em] text-violet-300">
             Personalized interview practice
           </p>
@@ -157,10 +170,16 @@ const SetupInterview = () => {
 
           <button
             type="button"
+            onClick={handleStartInterview}
             className="mt-7 flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-violet-500 to-indigo-500 px-5 py-4 text-sm font-extrabold text-white shadow-lg shadow-violet-600/25 transition hover:-translate-y-0.5 hover:from-violet-400 hover:to-indigo-400 focus:outline-none focus:ring-4 focus:ring-violet-500/30"
           >
             Start Interview <span aria-hidden="true">→</span>
           </button>
+
+          <p className="mt-4 text-center text-sm text-slate-500">
+            Questions will be generated specifically for your selected role and
+            experience level.
+          </p>
           <p className="mt-4 text-center text-xs text-slate-500">
             You can change your preferences before every session.
           </p>

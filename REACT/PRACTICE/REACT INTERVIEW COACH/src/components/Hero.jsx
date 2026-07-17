@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 const Sparkle = () => <span aria-hidden="true">✦</span>;
 
 const Hero = () => (
@@ -26,12 +27,12 @@ const Hero = () => (
           and get a personalized learning roadmap.
         </p>
         <div className="mt-8 flex flex-wrap items-center gap-4">
-          <a
-            href="#start"
-            className="rounded-xl bg-linear-to-r from-violet-500 to-indigo-500 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition hover:-translate-y-0.5"
+          <Link
+            to="/setup"
+            className="rounded-xl bg-linear-to-r from-violet-500 to-indigo-500 px-5 py-3.5 text-sm font-bold text-white"
           >
             Start Mock Interview →
-          </a>
+          </Link>
           <a
             href="#how-it-works"
             className="text-sm font-bold text-slate-200 transition hover:text-violet-200"
