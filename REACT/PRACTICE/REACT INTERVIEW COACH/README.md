@@ -106,7 +106,7 @@ Week 3:
 
 ## Application's pages and user Flow
 
-```
+```text
 Home Page
    ↓
 Setup Interview Page
