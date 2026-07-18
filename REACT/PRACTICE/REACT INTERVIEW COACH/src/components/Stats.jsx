@@ -2,7 +2,6 @@ const stats = [
   ["5", "interview roles supported"],
   ["5", "questions per session"],
   ["AI", "Personalized AI Roadmaps"],
-  ["PDF", "Downloadable PDF Reports"],
 ];
 
 const Stats = () => (

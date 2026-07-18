@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 const Footer = () => (
   <footer
     id="about"
@@ -13,12 +15,12 @@ const Footer = () => (
       <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
         Ready to ace your next interview?
       </h2>
-      <a
-        href="#top"
+      <Link
+        to="/setup"
         className="mt-6 inline-block rounded-xl bg-linear-to-r from-violet-500 to-indigo-500 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition hover:-translate-y-0.5"
       >
         Get Started Free →
-      </a>
+      </Link>
     </div>
     <div className="mx-auto mt-14 flex max-w-6xl flex-col gap-5 border-t border-white/10 pt-7 text-xs sm:flex-row sm:items-center sm:justify-between">
       <p>© 2026 DevInterview AI. Practice with purpose.</p>

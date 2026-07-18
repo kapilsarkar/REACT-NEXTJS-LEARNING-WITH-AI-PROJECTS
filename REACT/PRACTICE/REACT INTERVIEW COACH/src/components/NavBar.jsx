@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const navLinks = [
   { label: "Home", href: "#top" },
@@ -75,12 +76,12 @@ const NavBar = () => {
           ))}
         </ul>
 
-        <a
-          href="#start"
+        <Link
+          to="/setup"
           className="hidden items-center gap-2 rounded-xl bg-linear-to-r from-violet-500 to-indigo-500 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-violet-600/25 transition hover:-translate-y-0.5 hover:from-violet-400 hover:to-indigo-400 sm:flex"
         >
           Get Started <ArrowIcon />
-        </a>
+        </Link>
 
         <button
           type="button"

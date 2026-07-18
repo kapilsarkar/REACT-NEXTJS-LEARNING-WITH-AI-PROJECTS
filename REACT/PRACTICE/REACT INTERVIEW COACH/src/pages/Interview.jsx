@@ -7,6 +7,7 @@ import AnswerBox from "../components/AnswerBox";
 import NavigationButtons from "../components/NavigationButtons";
 
 import { generateInterviewQuestions } from "../services/geminiService";
+import { evaluateInterview } from "../services/evaluationService";
 import useInterviewStore from "../store/interviewStore";
 
 const Interview = () => {
@@ -17,17 +18,15 @@ const Interview = () => {
     experience,
     difficulty,
     questionCount,
-
     questions,
     currentQuestionIndex,
     answers,
-
     loading,
     error,
-
     setQuestions,
     setLoading,
     setError,
+    setEvaluation,
     nextQuestion,
     previousQuestion,
     updateAnswer,
@@ -51,8 +50,6 @@ const Interview = () => {
           difficulty,
           questionCount,
         });
-
-       
 
         if (!ignore) {
           setQuestions(generatedQuestions);
@@ -110,8 +107,37 @@ const Interview = () => {
     }
   };
 
-  const handleSubmit = () => {
-    navigate("/results");
+  const handleSubmit = async () => {
+    const updatedAnswers = [...answers];
+    updatedAnswers[currentQuestionIndex] = answer;
+
+    // Save the latest answer in Zustand
+    updateAnswer(currentQuestionIndex, answer);
+
+    try {
+      setLoading(true);
+      setError(null);
+
+      const evaluation = await evaluateInterview({
+        questions,
+        answers: updatedAnswers,
+        role,
+        experience,
+      });
+        
+      //console.log("Evaluation:", evaluation);
+
+      // Save evaluation using Zustand action
+      setEvaluation(evaluation);
+
+      navigate("/results");
+    } catch (err) {
+      console.error("Interview evaluation failed:", err);
+
+      setError("We couldn't evaluate your interview. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!role) {
@@ -166,8 +192,10 @@ const Interview = () => {
         {loading && (
           <div className="mt-16 text-center">
             <p className="animate-pulse text-xl text-violet-300">
-              AI is generating interview questions...
+              AI is processing your interview...
             </p>
+
+            <p className="mt-2 text-slate-400">Please wait a few moments.</p>
           </div>
         )}
 

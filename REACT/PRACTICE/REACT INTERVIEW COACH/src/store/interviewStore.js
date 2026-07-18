@@ -19,7 +19,7 @@ const useInterviewStore = create(
       currentQuestionIndex: 0,
       answers: [],
       score: 0,
-
+      evaluation: null,
       // ==========================
       // API State
       // ==========================
@@ -42,6 +42,7 @@ const useInterviewStore = create(
           currentQuestionIndex: 0,
           answers: [],
           score: 0,
+          evaluation: null,
           loading: false,
           error: null,
         }),
@@ -55,6 +56,7 @@ const useInterviewStore = create(
           currentQuestionIndex: 0,
           answers: [],
           score: 0,
+          evaluation: null,
         }),
 
       clearQuestions: () =>
@@ -121,6 +123,19 @@ const useInterviewStore = create(
         }),
 
       // ==========================
+      // Evaluation
+      // ==========================
+      setEvaluation: (evaluation) =>
+        set({
+          evaluation,
+        }),
+
+      clearEvaluation: () =>
+        set({
+          evaluation: null,
+        }),
+
+      // ==========================
       // Loading
       // ==========================
       setLoading: (loading) =>
@@ -155,7 +170,7 @@ const useInterviewStore = create(
           currentQuestionIndex: 0,
 
           answers: [],
-
+          evaluation: null,
           score: 0,
 
           loading: false,

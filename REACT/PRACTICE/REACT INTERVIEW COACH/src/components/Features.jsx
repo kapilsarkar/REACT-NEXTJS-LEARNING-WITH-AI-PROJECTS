@@ -15,11 +15,6 @@ const features = [
     "Get a tailored plan to guide your interview preparation.",
   ],
    [
-    "📄",
-    "Download PDF Report",
-    "Download a comprehensive report of your performance.",
-  ],
-   [
     "🎯",
     "Interview Readiness Score",
     "Get a personalized score indicating your interview readiness.",
