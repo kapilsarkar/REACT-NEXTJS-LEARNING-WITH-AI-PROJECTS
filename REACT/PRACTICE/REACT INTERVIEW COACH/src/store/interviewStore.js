@@ -27,7 +27,7 @@ const useInterviewStore = create(
       error: null,
 
       // ==========================
-      // Configuration Actions
+      // Configuration
       // ==========================
       setInterviewConfig: (config) =>
         set({
@@ -38,21 +38,31 @@ const useInterviewStore = create(
         }),
 
       // ==========================
-      // Questions Actions
+      // Questions
       // ==========================
       setQuestions: (questions) =>
         set({
           questions,
+          currentQuestionIndex: 0,
+          answers: [],
+          score: 0,
         }),
 
-      setCurrentQuestionIndex: (index) =>
+      clearQuestions: () =>
         set({
-          currentQuestionIndex: index,
+          questions: [],
+          currentQuestionIndex: 0,
         }),
 
+      // ==========================
+      // Navigation
+      // ==========================
       nextQuestion: () =>
         set((state) => ({
-          currentQuestionIndex: state.currentQuestionIndex + 1,
+          currentQuestionIndex:
+            state.currentQuestionIndex < state.questions.length - 1
+              ? state.currentQuestionIndex + 1
+              : state.currentQuestionIndex,
         })),
 
       previousQuestion: () =>
@@ -63,16 +73,38 @@ const useInterviewStore = create(
               : 0,
         })),
 
+      setCurrentQuestionIndex: (index) =>
+        set((state) => ({
+          currentQuestionIndex: Math.max(
+            0,
+            Math.min(index, state.questions.length - 1)
+          ),
+        })),
       // ==========================
-      // Answers Actions
+      // Answers
       // ==========================
       addAnswer: (answer) =>
         set((state) => ({
           answers: [...state.answers, answer],
         })),
 
+      updateAnswer: (index, answer) =>
+        set((state) => {
+          const updatedAnswers = [...state.answers];
+          updatedAnswers[index] = answer;
+
+          return {
+            answers: updatedAnswers,
+          };
+        }),
+
+      clearAnswers: () =>
+        set({
+          answers: [],
+        }),
+
       // ==========================
-      // Score Actions
+      // Score
       // ==========================
       setScore: (score) =>
         set({
@@ -80,20 +112,28 @@ const useInterviewStore = create(
         }),
 
       // ==========================
-      // Loading Actions
+      // Loading
       // ==========================
       setLoading: (loading) =>
         set({
           loading,
         }),
 
+      // ==========================
+      // Error
+      // ==========================
       setError: (error) =>
         set({
           error,
         }),
 
+      clearError: () =>
+        set({
+          error: null,
+        }),
+
       // ==========================
-      // Reset Interview
+      // Reset
       // ==========================
       resetInterview: () =>
         set({
@@ -104,16 +144,17 @@ const useInterviewStore = create(
 
           questions: [],
           currentQuestionIndex: 0,
+
           answers: [],
+
           score: 0,
 
           loading: false,
           error: null,
         }),
-        
     }),
     {
-      name: "interview-storage", // Unique name for localStorage key
+      name: "interview-storage",
     }
   )
 );
