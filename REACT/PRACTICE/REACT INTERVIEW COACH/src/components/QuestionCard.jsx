@@ -4,7 +4,7 @@ const QuestionCard = ({ question, questionNumber }) => (
       Question {questionNumber}
     </p>
     <h2 className="mt-4 text-xl font-bold leading-relaxed text-white sm:text-2xl">
-      {question}
+      {question || "Question unavailable"}
     </h2>
   </article>
 );

@@ -56,19 +56,22 @@ Required JSON format:
   }
 ]
 `;
-    const MODEL = "gemini-3-flash-preview";
+    const MODEL = "gemini-3.5-flash";
+    
     const response = await ai.models.generateContent({
+      
       model: MODEL,
       contents: prompt,
     });
-
+    
     let text = response.text;
 
     text = text
       .replace(/```json/g, "")
       .replace(/```/g, "")
       .trim();
-
+    
+    
     return JSON.parse(text);
   } catch (error) {
     console.error("Gemini Error:", error);

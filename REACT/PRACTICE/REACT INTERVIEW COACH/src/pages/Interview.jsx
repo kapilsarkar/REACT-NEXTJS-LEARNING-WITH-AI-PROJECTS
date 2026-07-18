@@ -1,10 +1,17 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import ProgressBar from "../components/ProgressBar";
+import QuestionCard from "../components/QuestionCard";
+import AnswerBox from "../components/AnswerBox";
+import NavigationButtons from "../components/NavigationButtons";
+
 import { generateInterviewQuestions } from "../services/geminiService";
 import useInterviewStore from "../store/interviewStore";
 
 const Interview = () => {
+  const navigate = useNavigate();
+
   const {
     role,
     experience,
@@ -12,23 +19,32 @@ const Interview = () => {
     questionCount,
 
     questions,
+    currentQuestionIndex,
+    answers,
+
     loading,
     error,
 
     setQuestions,
     setLoading,
     setError,
+    nextQuestion,
+    previousQuestion,
+    updateAnswer,
   } = useInterviewStore();
 
-  // ===============================
-  // Generate Interview Questions
-  // ===============================
   useEffect(() => {
-    const loadQuestions = async () => {
-      try {
-        setLoading(true);
-        setError(null);
+    if (!role || questions.length > 0) {
+      return;
+    }
 
+    let ignore = false;
+
+    async function loadQuestions() {
+      setLoading(true);
+      setError(null);
+
+      try {
         const generatedQuestions = await generateInterviewQuestions({
           role,
           experience,
@@ -36,23 +52,68 @@ const Interview = () => {
           questionCount,
         });
 
-        setQuestions(generatedQuestions);
+       
+
+        if (!ignore) {
+          setQuestions(generatedQuestions);
+        }
       } catch (err) {
         console.error(err);
-        setError("Failed to generate interview questions.");
+
+        if (!ignore) {
+          setError("Failed to generate interview questions.");
+        }
       } finally {
         setLoading(false);
       }
-    };
-
-    if (questions.length === 0) {
-      loadQuestions();
     }
-  }, []);
 
-  // ===============================
-  // Route Protection
-  // ===============================
+    loadQuestions();
+
+    return () => {
+      ignore = true;
+    };
+  }, [
+    role,
+    experience,
+    difficulty,
+    questionCount,
+    questions.length,
+    setQuestions,
+    setLoading,
+    setError,
+  ]);
+
+  const currentQuestion = questions[currentQuestionIndex];
+  const totalQuestions = questions.length;
+
+  const isFirstQuestion = currentQuestionIndex === 0;
+  const isLastQuestion =
+    totalQuestions > 0 && currentQuestionIndex === totalQuestions - 1;
+
+  // Derived from Zustand: no local state and no synchronization effect needed.
+  const answer = answers[currentQuestionIndex] ?? "";
+
+  const setAnswer = (nextAnswer) => {
+    updateAnswer(currentQuestionIndex, nextAnswer);
+  };
+
+  const handleNext = () => {
+    if (!isLastQuestion) {
+      nextQuestion();
+    }
+  };
+
+  const handlePrevious = () => {
+    if (!isFirstQuestion) {
+      previousQuestion();
+    }
+  };
+
+  const handleSubmit = () => {
+    navigate("/results");
+  };
+
   if (!role) {
     return (
       <main className="grid min-h-screen place-items-center bg-[#080f1f] px-5 text-white">
@@ -91,31 +152,24 @@ const Interview = () => {
           <span className="rounded-full bg-violet-500/20 px-4 py-2 text-sm text-violet-200">
             {role}
           </span>
-
           <span className="rounded-full bg-violet-500/20 px-4 py-2 text-sm text-violet-200">
             {experience}
           </span>
-
           <span className="rounded-full bg-violet-500/20 px-4 py-2 text-sm text-violet-200">
             {difficulty}
           </span>
-
           <span className="rounded-full bg-violet-500/20 px-4 py-2 text-sm text-violet-200">
             {questionCount} Questions
           </span>
         </div>
 
-        {/* Loading */}
-
         {loading && (
           <div className="mt-16 text-center">
             <p className="animate-pulse text-xl text-violet-300">
-              🤖 AI is generating interview questions...
+              AI is generating interview questions...
             </p>
           </div>
         )}
-
-        {/* Error */}
 
         {error && (
           <div className="mt-10 rounded-xl bg-red-500/10 p-5 text-center text-red-300">
@@ -123,37 +177,40 @@ const Interview = () => {
           </div>
         )}
 
-        {/* Questions */}
+        {!loading && !error && currentQuestion && (
+          <div className="mt-12 space-y-8">
+            <ProgressBar
+              currentQuestion={currentQuestionIndex + 1}
+              totalQuestions={totalQuestions}
+            />
 
-        {!loading && !error && questions.length > 0 && (
-          <div className="mt-12">
-            <h2 className="mb-8 text-2xl font-bold">
-              Generated Interview Questions
-            </h2>
+            <QuestionCard
+              questionNumber={currentQuestionIndex + 1}
+              question={currentQuestion.question}
+            />
 
-            <div className="space-y-5">
-              {questions.map((item) => (
-                <div
-                  key={item.id}
-                  className="rounded-xl border border-white/10 bg-white/5 p-5"
-                >
-                  <h3 className="font-semibold text-violet-300">
-                    Question {item.id}
-                  </h3>
+            <AnswerBox answer={answer} setAnswer={setAnswer} />
 
-                  <p className="mt-3 text-slate-200">
-                    {item.question}
-                  </p>
-                </div>
-              ))}
-            </div>
+            <NavigationButtons
+              isFirstQuestion={isFirstQuestion}
+              isLastQuestion={isLastQuestion}
+              onPrevious={handlePrevious}
+              onNext={handleNext}
+              onSubmit={handleSubmit}
+            />
           </div>
+        )}
+
+        {!loading && !error && questions.length === 0 && (
+          <p className="mt-12 text-center text-slate-400">
+            No interview questions are available yet.
+          </p>
         )}
 
         <div className="mt-12 flex justify-center">
           <Link
             to="/setup"
-            className="rounded-xl border border-white/10 px-6 py-3 font-semibold hover:bg-white/5"
+            className="rounded-xl border border-white/10 px-6 py-3 font-semibold transition hover:bg-white/5"
           >
             Back
           </Link>

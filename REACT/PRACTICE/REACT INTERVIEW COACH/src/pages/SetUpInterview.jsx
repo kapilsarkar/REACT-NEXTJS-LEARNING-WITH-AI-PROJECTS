@@ -171,7 +171,7 @@ const SetupInterview = () => {
           <button
             type="button"
             onClick={handleStartInterview}
-            className="mt-7 flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-violet-500 to-indigo-500 px-5 py-4 text-sm font-extrabold text-white shadow-lg shadow-violet-600/25 transition hover:-translate-y-0.5 hover:from-violet-400 hover:to-indigo-400 focus:outline-none focus:ring-4 focus:ring-violet-500/30"
+            className="mt-7 cursor-pointer flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-violet-500 to-indigo-500 px-5 py-4 text-sm font-extrabold text-white shadow-lg shadow-violet-600/25 transition hover:-translate-y-0.5 hover:from-violet-400 hover:to-indigo-400 focus:outline-none focus:ring-4 focus:ring-violet-500/30"
           >
             Start Interview <span aria-hidden="true">→</span>
           </button>

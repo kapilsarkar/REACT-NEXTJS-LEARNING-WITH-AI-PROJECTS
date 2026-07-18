@@ -31,10 +31,19 @@ const useInterviewStore = create(
       // ==========================
       setInterviewConfig: (config) =>
         set({
+          // Configuration
           role: config.role,
           experience: config.experience,
           difficulty: config.difficulty,
           questionCount: config.questionCount,
+
+          // Reset previous interview
+          questions: [],
+          currentQuestionIndex: 0,
+          answers: [],
+          score: 0,
+          loading: false,
+          error: null,
         }),
 
       // ==========================
