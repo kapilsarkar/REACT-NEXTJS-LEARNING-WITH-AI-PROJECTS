@@ -3,8 +3,7 @@
 ## Project Goal
 
 Build a modern CRM (Customer Relationship Management) application using
-React to demonstrate production-ready frontend development skills before
-moving to Next.js.
+React to demonstrate production-ready frontend development skills.
 
 **Focus:** Learn React deeply. Keep the project clean, maintainable, and
 scalable.
