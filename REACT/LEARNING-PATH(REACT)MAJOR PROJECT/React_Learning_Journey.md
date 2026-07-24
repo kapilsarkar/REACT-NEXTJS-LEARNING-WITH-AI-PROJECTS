@@ -100,5 +100,3 @@ Use Zustand inside the final project wherever appropriate.
 
 Build one production-style React application that combines everything
 above.
-
-After completing the project, begin learning Next.js.
