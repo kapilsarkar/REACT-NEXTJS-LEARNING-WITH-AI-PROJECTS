@@ -1,6 +1,8 @@
 import "./App.css";
 import CapitalizeName from "./components/CapitalizeName";
 import CounterApp from "./components/CounterApp";
+import ReactHookForm from "./components/ReactHookForm";
+import Form from "./components/Form";
 
 function App() {
   return (
@@ -30,6 +32,16 @@ function App() {
         <section className="min-h-screen  from-slate-950 via-indigo-950 to-violet-950 px-4 py-12 sm:px-6 lg:px-8">
           <div className="mx-auto flex max-w-6xl justify-center">
             <CapitalizeName />
+          </div>
+        </section>
+        <section className="min-h-screen  from-slate-950 via-indigo-950 to-violet-950 px-4 py-12 sm:px-6 lg:px-8">
+          <div className="mx-auto flex max-w-6xl justify-center">
+            <ReactHookForm />
+          </div>
+        </section>
+         <section className="min-h-screen  from-slate-950 via-indigo-950 to-violet-950 px-4 py-12 sm:px-6 lg:px-8">
+          <div className="mx-auto flex max-w-6xl justify-center">
+            <Form/>
           </div>
         </section>
         <footer className="mt-10 text-center text-sm text-slate-400">
