@@ -14,7 +14,7 @@ const ReactHookForm = () => {
 
   return (
     <>
-      <h1 className="mt-2  text-6xl font-extrabold text-white">React Hook Form Zod Validation</h1>
+     
       <div className=" flex justify-center">
         <form onSubmit={handleSubmit}>
           <div>
