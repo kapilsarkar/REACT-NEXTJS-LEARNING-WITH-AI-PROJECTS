@@ -1,14 +1,16 @@
-import "./App.css";
 import Login from "./components/Login.jsx";
+import "./App.css";
 
 function App() {
   return (
-    <>
-      <div>
-        <h2>USER SYSTEM</h2>
-        <Login />
-      </div>
-    </>
+    <div className="min-h-screen bg-gray-100">
+      <header className="py-8 text-center">
+        <h2 className="text-3xl font-extrabold text-gray-800 tracking-wide">
+          USER SYSTEM
+        </h2>
+      </header>
+      <Login />
+    </div>
   );
 }
 
