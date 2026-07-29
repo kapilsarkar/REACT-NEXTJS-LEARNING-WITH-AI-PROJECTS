@@ -1,11 +1,45 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+const loginSchema = z.object({
+  userId: z
+    .string()
+    .trim()
+    .min(3, "Minimum Length Should be three")
+    .max(20, "Maximum Length should be 20"),
+  password: z
+    .string()
+    .min(5, "Minimum Length Should be 5")
+    .max(20, "Maximum Length Should be 20")
+    .regex(/[A-Z]/, "One uppercase required")
+    .regex(/[a-z]/, "One lowercase required")
+    .regex(/[0-9]/, "One number required"),
+});
+
 const LoginForm = ({ setIsRegistered }) => {
+  const [success, setSuccess] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ resolver: zodResolver(loginSchema) });
+
+  const submitForm = (data) => {
+    console.log(data);
+    setSuccess(true);
+    reset();
+  };
+
   return (
     <div className="flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-sm bg-white rounded-2xl shadow-md p-8">
         <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
           LOGIN
         </h2>
-        <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
+        <form onSubmit={handleSubmit(submitForm)} className="space-y-5">
           <div className="flex flex-col gap-1">
             <label
               htmlFor="userId"
@@ -18,7 +52,13 @@ const LoginForm = ({ setIsRegistered }) => {
               type="text"
               placeholder="Enter Your User-ID"
               className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              {...register("userId")}
             />
+            {errors.userId && (
+              <span className="text-xs text-red-500">
+                {errors?.userId.message}
+              </span>
+            )}
           </div>
 
           <div className="flex flex-col gap-1">
@@ -33,8 +73,17 @@ const LoginForm = ({ setIsRegistered }) => {
               type="password"
               placeholder="Enter Your Password"
               className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              {...register("password")}
             />
+            {errors?.password && (
+              <span className="text-xs text-red-500">
+                {errors.password.message}
+              </span>
+            )}
           </div>
+          {success && (
+            <p className="text-green-600 text-center">Login SuccessFull</p>
+          )}
 
           <button
             type="submit"
