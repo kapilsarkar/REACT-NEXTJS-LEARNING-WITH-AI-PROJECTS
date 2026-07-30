@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -32,6 +32,18 @@ const LoginForm = ({ setIsRegistered }) => {
     setSuccess(true);
     reset();
   };
+
+  useEffect(() => {
+    if (success === true) {
+      const timer = setTimeout(() => {
+        setSuccess(false);
+      }, 3000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [success]);
 
   return (
     <div className="flex items-center justify-center bg-gray-100 px-4">
