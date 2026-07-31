@@ -6,7 +6,7 @@ function App() {
     <div className="min-h-screen bg-gray-100">
       <header className="py-8 text-center">
         <h2 className="text-3xl font-extrabold text-gray-800 tracking-wide">
-          USER SYSTEM
+          USER SYSTEM(KAPIL SARKAR)
         </h2>
       </header>
       <Login />
