@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
+import useUserStore from "../store/useUserStore.js";
 
 const registrationSchema = z
   .object({
@@ -90,6 +91,8 @@ const registrationSchema = z
   });
 
 const RegisterForm = ({ setIsRegistered }) => {
+  const  setUser  = useUserStore((state)=>state.setUser);
+
   const {
     register,
     handleSubmit,
@@ -120,9 +123,10 @@ const RegisterForm = ({ setIsRegistered }) => {
     name: "experience",
     defaultValue: 0,
   });
-  
+
   const registrationForm = (data) => {
     console.log("Form Data Submitted:", data);
+    setUser(data);
     reset();
   };
 
