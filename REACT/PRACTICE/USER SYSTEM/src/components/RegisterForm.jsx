@@ -91,7 +91,7 @@ const registrationSchema = z
   });
 
 const RegisterForm = ({ setIsRegistered }) => {
-  const  setUser  = useUserStore((state)=>state.setUser);
+  const setUser = useUserStore((state) => state.setUser);
 
   const {
     register,
@@ -125,8 +125,12 @@ const RegisterForm = ({ setIsRegistered }) => {
   });
 
   const registrationForm = (data) => {
-    console.log("Form Data Submitted:", data);
-    setUser(data);
+    const updatedData = {
+      ...data,
+      profilePic: data.profilePic[0],
+    };
+
+    setUser(updatedData);
     reset();
   };
 
