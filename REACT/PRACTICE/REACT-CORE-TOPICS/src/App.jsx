@@ -5,6 +5,16 @@ import ReactHookForm from "./components/ReactHookForm";
 import Form from "./components/Form";
 import ZodForm from "./components/ZodForm";
 import NavBar from "./components/NavBar";
+import { Route, Routes } from "react-router-dom";
+import Home from "./components/Home.jsx";
+import About from "./components/About.jsx";
+import Contact from "./components/Contact.jsx";
+import Help from "./components/Help.jsx";
+import DetailedContact from "./components/DetailedContact.jsx";
+import { Navigate } from "react-router-dom";
+import Registration from "./components/Registration.jsx";
+import AboutOne from "./components/AboutOne.jsx";
+import AboutTwo from "./components/AboutTwo.jsx";
 
 function App() {
   return (
@@ -64,6 +74,22 @@ function App() {
         </section>
         <section className="min-h-screen  from-slate-950 via-indigo-950 to-violet-950 px-4 py-12 sm:px-6 lg:px-8">
           <NavBar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />}>
+              <Route index element={<AboutOne />} />
+              <Route path="aboutOne" element={<AboutOne />} />
+              <Route path="aboutTwo" element={<AboutTwo />} />
+            </Route>
+            <Route path="/contact/" element={<Contact />} />
+            <Route path="/contact/:id" element={<DetailedContact />} />
+            <Route path="/help" element={<Help />} />
+            <Route path="/registration" element={<Registration />} />
+            <Route
+              path="/login"
+              element={<Navigate to={"/registration"} replace />}
+            />
+          </Routes>
         </section>
         <footer className="mt-10 text-center text-sm text-slate-400">
           A simple, fast, and elegant state-management example.
