@@ -1,0 +1,15 @@
+# REACT ROUTER (NEWER VERSION)
+
+1. BASIC SETUP(CREATE BROWSER ROUTER + ROUTER PROVIDED)
+
+1. LINK AND NAVLINK
+
+1. DYNAMIC ROUTING
+
+1. PROGRAMMATIC NAVIGATION (useNavigate)
+
+1. Redirect - Navigate Component
+
+1. Nested Routing
+
+1. Fetch Data Before Component Loads
