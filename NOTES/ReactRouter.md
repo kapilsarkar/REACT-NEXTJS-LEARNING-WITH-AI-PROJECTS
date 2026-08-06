@@ -305,4 +305,150 @@ export default ErrorPage;
 - Use end on Index `<NavLink>`:
 
   - Prevents root links (to="" or to="/") from staying highlighted when users visit nested sub-paths.
-  
+
+## ❓ React Router Interview & Revision FAQ
+
+### 1. Difference between Link and NavLink?
+
+| Feature | `<Link>` | `<NavLink>` |
+| :--- | :--- | :--- |
+| **Primary Role** | Standard client-side navigation. | Navigation with built-in active state awareness. |
+| **Styling** | Accepts standard static `className` or `style`. | Accepts a render function for dynamic `className` or `style` based on `isActive` or `isPending`. |
+| **Use Case** | General links (footers, inline text, cards). | Navigation bars, tabs, and menus where active tabs require visual highlighting. |
+
+```js
+// Link (Static)
+<Link to="/about">About</Link>
+
+// NavLink (Dynamic Active Style)
+<NavLink 
+  to="/about" 
+  className={({ isActive }) => isActive ? "text-blue-500 font-bold" : "text-gray-400"}
+>
+  About
+</NavLink>
+```
+
+### 2. Difference between `useNavigate()` and `<Navigate/>`?
+
+- `useNavigate()` (Imperative Hook): Returns a function `(navigate)` that lets you trigger navigation programmatically inside event handlers, async functions, or callbacks.
+
+- `<Navigate/>` (Declarative Component): A React component that triggers navigation when rendered during the component lifecycle. Ideal for conditional rendering like protected routes or automatic redirects.
+
+```js
+// 1. Imperative (useNavigate) inside an event handler
+const navigate = useNavigate();
+const handleLogin = () => {
+  // perform auth logic
+  navigate("/dashboard");
+};
+
+// 2. Declarative (<Navigate />) inside component JSX
+if (!isAuthenticated) {
+  return <Navigate to="/login" replace />;
+}
+```
+
+### 3. What is Dynamic Routing?
+
+- Dynamic Routing allows you to define routes with variable segments `(placeholders starting with a colon, like :id or :slug)` rather than hardcoded URLs. A single dynamic route configuration can match thousands of unique URLs and load content based on the parameter passed in the path.
+
+```js
+// Definition
+{ path: "products/:category/:id", element: <ProductDetail /> }
+
+// Matches: /products/electronics/101, /products/books/402, etc.
+```
+
+### 4. What is Nested Routing?
+
+- Nested Routing is the practice of defining routes inside other routes. It allows sub-sections of a page to change based on the URL while keeping parent layouts (like sidebars, navigation bars, or tab structures) mounted without re-rendering the whole page.
+
+```js
+{
+  path: "dashboard",
+  element: <DashboardLayout />, // Parent layout remains mounted
+  children: [
+    { index: true, element: <Overview /> },  // /dashboard
+    { path: "settings", element: <Settings /> }, // /dashboard/settings
+  ],
+}
+```
+
+### 5. Why is `<Outlet/>` required?
+
+- `<Outlet/>` is a layout placeholder component provided by React Router. It tells the parent route where to render its child route components. Without `<Outlet/>` inside a parent component, child routes will match in the URL but will not display on the screen.
+
+```js
+// Layout.jsx
+import { Outlet } from "react-router-dom";
+
+const Layout = () => (
+  <div>
+    <Navbar />
+    {/* Child routes (Home, About, Contact) render inside this slot */}
+    <Outlet /> 
+    <Footer />
+  </div>
+);
+```
+
+### 6. What are URL parameters?
+
+- URL parameters (or Route Parameters) are dynamic segments prefixed with a colon (:) in a route path. They allow data to be passed cleanly through the URL path structure instead of using query parameters or hidden state.
+
+- Example Path: /users/:id
+
+- Example URL: /users/42
+
+- Captured Parameter: { id: "42" }
+
+### 7. What is useParams()?
+
+- `useParams()` is a custom React Router hook that returns an object containing key/value pairs of dynamic route parameters extracted from the current URL.
+
+```js
+// Route: path="contact/:id"
+// URL: /contact/alpha
+
+import { useParams } from "react-router-dom";
+
+const DetailedContact = () => {
+  const { id } = useParams(); // id = "alpha"
+  return <h2>Contact ID: {id}</h2>;
+};
+```
+
+### 8. What is a Loader?
+
+- A Loader is an asynchronous function attached directly to a route object in Data Routers `(createBrowserRouter)`. It executes before the route component mounts, pre-fetching the necessary data for that route so the component receives its data immediately upon rendering.
+
+```js
+{
+  path: "users",
+  element: <UserList />,
+  loader: async () => {
+    const res = await fetch("/api/users");
+    return res.json();
+  },
+}
+```
+
+### 9. Difference between useEffect() fetching and React Router Loader?
+
+| Metric | `useEffect()` Fetching | React Router `loader` |
+| :--- | :--- | :--- |
+| **Fetch Timing** | Fetches after the component mounts (creates UI waterfalls). | Fetches before or in parallel as the route is matched. |
+| **Initial State** | Requires loading state handling and initial `null`/`undefined` data checks. | Component renders directly with pre-loaded data via `useLoaderData()`. |
+| **Code Splitting** | Data fetching starts after JavaScript code for the component loads. | Data fetch and component bundle download happen in parallel. |
+| **Error Handling** | Requires manual `try/catch` block and state management per component. | Unhandled errors automatically trigger the route's `errorElement`. |
+
+### 10. 10. When would you use replace: true in navigate()?
+
+- `replace: true` replaces the current entry in the browser history stack instead of pushing a new entry. You should use it when:
+
+1. Redirects after Authentication `/ Login:` When sending a user from `/login to /dashboard`, using `replace: true` prevents them from hitting the browser's "Back" button and landing back on the login form.
+
+1. Form Submissions / Wizards: After completing a multi-step form, replacing the history entry prevents users from accidentally re-submitting data via browser back navigation.
+
+1. Canonical Automatic Forwarding: Forwarding paths like `/login` to `/registration` directly so the user doesn't get stuck in a redirect loop when pressing "Back".
