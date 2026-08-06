@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import useUserStore from "../store/useUserStore.js";
+import { useNavigate } from "react-router-dom";
 
 const registrationSchema = z
   .object({
@@ -91,6 +92,8 @@ const registrationSchema = z
   });
 
 const RegisterForm = ({ setIsRegistered }) => {
+  const navigate = useNavigate();
+
   const setUser = useUserStore((state) => state.setUser);
 
   const {
@@ -132,6 +135,7 @@ const RegisterForm = ({ setIsRegistered }) => {
 
     setUser(updatedData);
     reset();
+    navigate("/login");
   };
 
   return (

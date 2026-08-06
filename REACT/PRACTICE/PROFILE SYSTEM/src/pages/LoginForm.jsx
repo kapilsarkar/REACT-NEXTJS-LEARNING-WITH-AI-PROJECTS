@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 const loginSchema = z.object({
@@ -19,6 +20,9 @@ const loginSchema = z.object({
 });
 
 const LoginForm = ({ setIsRegistered }) => {
+  
+  const navigate = useNavigate();
+
   const [success, setSuccess] = useState(false);
   const {
     register,
@@ -31,6 +35,7 @@ const LoginForm = ({ setIsRegistered }) => {
     console.log(data);
     setSuccess(true);
     reset();
+    navigate("/dashboard");
   };
 
   useEffect(() => {

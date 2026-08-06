@@ -1,16 +1,47 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./pages/Login.jsx";
+import MainLayout from "./layout/MainLayout";
+import NotFound from "./pages/NotFound.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import Profile from "./pages/Profile.jsx";
+import RegisterForm from "./pages/RegisterForm.jsx";
 import "./App.css";
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainLayout />,
+    errorElement: <NotFound />,
+
+    children: [
+      {
+        index: true,
+        element: <Login />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "register",
+        element: <RegisterForm />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
+    ],
+  },
+]);
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100">
-      <header className="py-8 text-center">
-        <h2 className="text-3xl font-extrabold text-gray-800 tracking-wide">
-          PROFILE SYSTEM 
-        </h2>
-      </header>
-      <Login />
-    </div>
+    <>
+      <RouterProvider router={appRouter} />
+    </>
   );
 }
 
