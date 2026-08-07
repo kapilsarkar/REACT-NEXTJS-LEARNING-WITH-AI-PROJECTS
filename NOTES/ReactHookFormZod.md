@@ -1,5 +1,54 @@
 # 📖 REACT HOOK FORM + ZOD NOTEBOOK
 
+## 📌 TABLE OF CONTENTS
+
+- [📄 PAGE 1 – CORE CONCEPTS](#page-1--core-concepts)
+  - [What is React Hook Form?](#what-is-react-hook-form)
+  - [Without React Hook Form](#without-react-hook-form)
+  - [With React Hook Form](#with-react-hook-form)
+  - [Why use React Hook Form?](#why-use-react-hook-form)
+  - [Installation](#installation)
+  - [Basic Setup](#basic-setup)
+  - [Flow](#flow)
+  - [Memory Trick](#memory-trick)
+- [📄 PAGE 2 – API CHEAT SHEET](#page-2--api-cheat-sheet)
+  - [useForm()](#useform)
+  - [register()](#register)
+  - [handleSubmit()](#handlesubmit)
+  - [errors](#errors)
+  - [reset()](#reset)
+  - [watch()](#watch)
+  - [useWatch()](#usewatch)
+- [📄 PAGE 3 – ZOD VALIDATION](#page-3--zod-validation)
+  - [What is Zod?](#what-is-zod)
+  - [Installation](#installation-1)
+  - [React Hook Form + Zod](#react-hook-form--zod)
+  - [Setup](#setup)
+  - [Schema](#schema)
+  - [Connect Schema](#connect-schema)
+  - [Flow](#flow-1)
+- [📄 PAGE 4 – MOST COMMON ZOD METHODS](#page-4--most-common-zod-methods)
+  - [String](#string)
+  - [Required](#required)
+  - [Minimum Length](#minimum-length)
+  - [Maximum Length](#maximum-length)
+  - [Email](#email)
+  - [Number](#number)
+  - [Convert String to Number](#convert-string-to-number)
+  - [Boolean](#boolean)
+  - [Array](#array)
+  - [Optional](#optional)
+  - [Regex](#regex)
+  - [File Validation](#file-validation)
+  - [Custom Validation](#custom-validation)
+  - [Password Match](#password-match)
+- [📄 PAGE 5 – COMPLETE FLOW](#page-5--complete-flow)
+- [📄 PAGE 6 – INTERVIEW QUESTIONS](#page-6--interview-questions)
+- [📄 PAGE 7 – COMMON ZOD METHODS SUMMARY TABLE](#page-7--common-zod-methods-summary-table)
+- [⭐ FINAL ONE-PAGE REVISION (2 Minutes)](#-final-one-page-revision-2-minutes)
+
+---
+
 ## 📄 PAGE 1 – CORE CONCEPTS
 
 ## What is React Hook Form?
@@ -557,87 +606,20 @@ Q. Difference between Yup and Zod
 ## ⭐ FINAL ONE-PAGE REVISION (2 Minutes)
 
 ```js
-useForm()
+useForm()          → Create Form Instance
+register()         → Connect Input to Form
+handleSubmit()     → Validate & Execute Submit Callback
+errors             → Access Field Validation Errors
+reset()            → Reset Form Inputs & Errors
+watch()            → Observe Form Field Values
+useWatch()         → Isolate Watcher Re-renders
+Zod                → Declarative Schema Validation
+zodResolver()      → Connect RHF with Zod
+Schema             → Object Rules Structure
+refine()           → Custom Logic (e.g. Password Match)
 
-↓
-
-Create Form
-
-register()
-
-↓
-
-Connect Input
-
-handleSubmit()
-
-↓
-
-Validate + Submit
-
-errors
-
-↓
-
-Show Errors
-
-reset()
-
-↓
-
-Clear Form
-
-watch()
-
-↓
-
-Watch Values
-
-useWatch()
-
-↓
-
-Watch Specific Field
-
-Zod
-
-↓
-
-Validation
-
-zodResolver()
-
-↓
-
-Connect RHF + Zod
-
-Schema
-
-↓
-
-Rules
-
-refine()
-
-↓
-
-Custom Validation
-
-React Hook Form
-
-↓
-
-Fast
-
-↓
-
-Less Boilerplate
-
-↓
-
-Less Re-render
-
-↓
-
-Easy Validation
+React Hook Form Summary:
+Fast ⚡ | Less Boilerplate 📝 | Minimal Re-renders 🚀 | Clean Validation ✅
 ```
+
+
