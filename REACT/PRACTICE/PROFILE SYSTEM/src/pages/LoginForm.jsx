@@ -20,7 +20,6 @@ const loginSchema = z.object({
 });
 
 const LoginForm = ({ setIsRegistered }) => {
-  
   const navigate = useNavigate();
 
   const [success, setSuccess] = useState(false);
@@ -51,16 +50,19 @@ const LoginForm = ({ setIsRegistered }) => {
   }, [success]);
 
   return (
-    <div className="flex items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-sm bg-white rounded-2xl shadow-md p-8">
-        <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
+    <div className="flex min-h-[75vh] items-center justify-center py-8 px-4">
+      {/* Login Card Container */}
+      <div className="w-full max-w-md bg-slate-900/80 border border-slate-800 rounded-2xl shadow-2xl p-6 sm:p-8 backdrop-blur-xl">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-white text-center mb-6 tracking-wide">
           LOGIN
         </h2>
+
         <form onSubmit={handleSubmit(submitForm)} className="space-y-5">
-          <div className="flex flex-col gap-1">
+          {/* User ID */}
+          <div className="flex flex-col gap-1.5">
             <label
               htmlFor="userId"
-              className="text-sm font-medium text-gray-600"
+              className="text-xs font-semibold uppercase tracking-wider text-slate-300"
             >
               User ID :
             </label>
@@ -68,20 +70,21 @@ const LoginForm = ({ setIsRegistered }) => {
               id="userId"
               type="text"
               placeholder="Enter Your User-ID"
-              className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full bg-slate-800/80 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all"
               {...register("userId")}
             />
             {errors.userId && (
-              <span className="text-xs text-red-500">
+              <span className="text-xs text-red-400 font-medium">
                 {errors?.userId.message}
               </span>
             )}
           </div>
 
-          <div className="flex flex-col gap-1">
+          {/* Password */}
+          <div className="flex flex-col gap-1.5">
             <label
               htmlFor="password"
-              className="text-sm font-medium text-gray-600"
+              className="text-xs font-semibold uppercase tracking-wider text-slate-300"
             >
               Password :
             </label>
@@ -89,32 +92,38 @@ const LoginForm = ({ setIsRegistered }) => {
               id="password"
               type="password"
               placeholder="Enter Your Password"
-              className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full bg-slate-800/80 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all"
               {...register("password")}
             />
             {errors?.password && (
-              <span className="text-xs text-red-500">
+              <span className="text-xs text-red-400 font-medium">
                 {errors.password.message}
               </span>
             )}
           </div>
+
+          {/* Success Banner */}
           {success && (
-            <p className="text-green-600 text-center">Login SuccessFull</p>
+            <p className="text-xs font-semibold text-emerald-400 text-center bg-emerald-500/10 border border-emerald-500/20 py-2.5 rounded-xl">
+              Login Successful
+            </p>
           )}
 
+          {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition-colors"
+            className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-semibold text-sm rounded-xl shadow-lg shadow-indigo-500/20 transition-all duration-200 cursor-pointer active:scale-[0.99] mt-2"
           >
             Login
           </button>
 
+          {/* Register Link */}
           <p
             onClick={() => setIsRegistered(false)}
-            className="text-center text-sm text-gray-500 hover:text-blue-600 cursor-pointer transition-colors"
+            className="text-center text-xs text-slate-400 hover:text-indigo-400 cursor-pointer transition-colors mt-3"
           >
             Don't have an Account -{" "}
-            <span className="font-medium underline">Register</span>
+            <span className="font-semibold text-indigo-400 underline">Register</span>
           </p>
         </form>
       </div>
