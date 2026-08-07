@@ -1,5 +1,40 @@
 # 📖 ZUSTAND NOTEBOOK
 
+## 📌 TABLE OF CONTENTS
+- [📄 PAGE 1 – CORE CONCEPTS](#page-1--core-concepts)
+  - [1. What is Zustand?](#1-what-is-zustand)
+  - [2. Why do we need Zustand?](#2why-do-we-need-zustand)
+  - [Prop Drilling](#prop-drilling)
+  - [Advantages](#advantages)
+  - [Installation](#installation)
+  - [Basic Store Structure](#basic-store-structure)
+  - [Store Consists of](#store-consists-of)
+  - [Flow](#flow)
+  - [Memory Trick](#memory-trick)
+- [📄 PAGE 2 – API CHEAT SHEET](#page-2--api-cheat-sheet)
+  - [create()](#create)
+  - [set()](#set)
+  - [get()](#get)
+  - [useStore()](#usestore)
+  - [State Example](#state-example)
+  - [Action Example](#action-example)
+  - [Difference](#difference)
+- [📄 PAGE 3 – MIDDLEWARE](#page-3--middleware)
+  - [What is Middleware?](#what-is-middleware)
+  - [1. persist ⭐⭐⭐⭐⭐](#1-persist-)
+  - [createJSONStorage()](#createjsonstorage)
+  - [2. devtools ⭐⭐⭐⭐⭐](#2-devtools-)
+  - [Benefits](#benefits)
+  - [3. subscribeWithSelector ⭐⭐⭐⭐☆](#3-subscribewithselector-)
+  - [4. immer ⭐⭐⭐⭐☆](#4-immer-)
+  - [Middleware Combination](#middleware-combination)
+- [📄 PAGE 4 – COMPLETE STORE EXAMPLE](#page-4--complete-store-example)
+  - [Using Store](#using-store)
+- [📄 PAGE 5 – INTERVIEW QUESTIONS](#page-5--interview-questions)
+- [⭐ FINAL ONE-PAGE REVISION (2 Minutes)](#-final-one-page-revision-2-minutes)
+
+---
+
 ## 📄 PAGE 1 – CORE CONCEPTS
 
 `1. What is Zustand?`
@@ -717,55 +752,19 @@ Q. `When should you choose Zustand over Redux Toolkit?`
 ## ⭐ FINAL ONE-PAGE REVISION (Revise in 2 Minutes)
 
 ```js
-create()
-      ↓
-Creates Store
+create()               → Creates Store
+set()                  → Updates State
+get()                  → Reads State
+useStore()             → Uses Store in Components
+persist()              → Saves State to Local/Session Storage
+devtools()             → Connects to Redux DevTools
+subscribeWithSelector()→ Listens to Specific State Changes
+immer()                → Enables Mutable-style Immutable Updates
 
-set()
-      ↓
-Updates State
+State                  → Data (e.g. count, user, theme)
+Actions                → Functions (e.g. increment(), login())
+Store                  → Global State Container
 
-get()
-      ↓
-Reads State
-
-useStore()
-      ↓
-Uses Store in Components
-
-persist()
-      ↓
-Saves State
-
-devtools()
-      ↓
-Debug Store
-
-subscribeWithSelector()
-      ↓
-Listen Selected State
-
-immer()
-      ↓
-Easy Immutable Updates
-
-State
-      ↓
-Data
-
-Actions
-      ↓
-Functions
-
-Store
-      ↓
-Global State
-
-Zustand
-      ↓
-No Provider
-Less Boilerplate
-Fast
-Lightweight
-Easy
+Zustand Summary:
+No Provider ⚡ | Less Boilerplate 📝 | Fast & Lightweight 🚀 | Easy API ✅
 ```
