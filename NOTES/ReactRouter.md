@@ -1,5 +1,35 @@
 # 📖 REACT ROUTER V6 & V7: COMPLETE REVISION MANUAL
 
+## 📌 TABLE OF CONTENTS
+- [🔹 PART 1: THE TWO ARCHITECTURES](#-part-1-the-two-architectures)
+  - [1. Old Syntax: Component-Based Routing (JSX)](#1-old-syntax-component-based-routing-jsx)
+  - [2. Modern Syntax: Data Router](#2-modern-syntax-data-router)
+- [🔹 PART 2: CORE CONCEPT BREAKDOWN](#-part-2-core-concept-breakdown)
+  - [Concept 1: Root Layout & Base `<Outlet/>`](#concept-1-root-layout--base-outlet)
+  - [Concept 2: `Links`, `NavLinks` & The `end` Prop](#concept-2-links-navlinks--the-end-prop)
+  - [Concept 3: Dynamic Routing & `useParams`](#concept-3-dynamic-routing--useparams)
+  - [Concept 4: Programmatic Navigation (`useNavigate`)](#concept-4-programmatic-navigation-usenavigate)
+  - [Concept 5: Redirects (`<Navigate/>`)](#concept-5-redirects-navigate)
+  - [Concept 6: Data Fetching Before Render (`loader` + `useLoaderData`)](#concept-6-data-fetching-before-render-loader--useloaderdata)
+  - [Concept 7: Route Error Handling (`errorElement` + `useRouteError`)](#concept-7-route-error-handling-errorelement--userouteerror)
+- [🔹 PART 3: REVISION CHEAT SHEET](#-part-3-revision-cheat-sheet)
+- [🔹 PART 4: GOLDEN RULES FOR WRITING CODE](#-part-4-golden-rules-for-writing-code)
+- [❓ REACT ROUTER INTERVIEW & REVISION FAQ](#-react-router-interview--revision-faq)
+  - [1. Difference between Link and NavLink?](#1-difference-between-link-and-navlink)
+  - [2. Difference between `useNavigate()` and `<Navigate/>`?](#2-difference-between-usenavigate-and-navigate)
+  - [3. What is Dynamic Routing?](#3-what-is-dynamic-routing)
+  - [4. What is Nested Routing?](#4-what-is-nested-routing)
+  - [5. Why is `<Outlet/>` required?](#5-why-is-outlet-required)
+  - [6. What are URL parameters?](#6-what-are-url-parameters)
+  - [7. What is useParams()?](#7-what-is-useparams)
+  - [8. What is useParams() vs Loader?](#8-what-is-useparams-vs-loader)
+  - [9. What is a Loader?](#9-what-is-a-loader)
+  - [10. Difference between useEffect() fetching and React Router Loader?](#10-difference-between-useeffect-fetching-and-react-router-loader)
+  - [11. When would you use replace: true in navigate()?](#11-when-would-you-use-replace-true-in-navigate)
+
+---
+
+
 ## 🔹 PART 1: THE TWO ARCHITECTURES
 
 ### 1. Old Syntax: Component-Based Routing (JSX)
