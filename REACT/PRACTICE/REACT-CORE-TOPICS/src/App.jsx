@@ -15,6 +15,7 @@ import { Navigate } from "react-router-dom";
 import Registration from "./components/Registration.jsx";
 import AboutOne from "./components/AboutOne.jsx";
 import AboutTwo from "./components/AboutTwo.jsx";
+import HookLearning from "./components/HookLearning.jsx";
 
 function App() {
   return (
@@ -90,6 +91,11 @@ function App() {
               element={<Navigate to={"/registration"} replace />}
             />
           </Routes>
+        </section>
+        <section className="min-h-screen  from-slate-950 via-indigo-950 to-violet-950 px-4 py-12 sm:px-6 lg:px-8">
+          <div className="mx-auto flex max-w-6xl justify-center">
+            <HookLearning />
+          </div>
         </section>
         <footer className="mt-10 text-center text-sm text-slate-400">
           A simple, fast, and elegant state-management example.
