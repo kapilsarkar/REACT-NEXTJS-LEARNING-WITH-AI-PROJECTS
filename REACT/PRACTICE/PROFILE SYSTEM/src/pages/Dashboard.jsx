@@ -1,8 +1,15 @@
+import { useEffect, useRef } from "react";
 import { useLoaderData, Link } from "react-router-dom";
 
 const DashBoard = () => {
   // Safely fallback to an empty array if data isn't loaded yet
   const users = useLoaderData() || [];
+
+  const focusRef = useRef(null);
+
+  useEffect(() => {
+    focusRef.current?.focus();
+  }, []);
 
   return (
     <div className="space-y-6">
@@ -16,6 +23,12 @@ const DashBoard = () => {
             Overview of user accounts loaded via React Router Loader.
           </p>
         </div>
+        <input
+          ref={focusRef}
+          type="text"
+          placeholder="Search Users By Name..."
+          className="border border-slate-700  rounded-lg px-3 py-2 text-black font-bold"
+        />
         <div className="flex items-center gap-2.5 self-start sm:self-auto bg-slate-900 border border-slate-800 px-4 py-2 rounded-xl">
           <span className="text-xs text-slate-400 uppercase font-semibold tracking-wider">
             Total Users

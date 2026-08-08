@@ -123,7 +123,9 @@ const LoginForm = ({ setIsRegistered }) => {
             className="text-center text-xs text-slate-400 hover:text-indigo-400 cursor-pointer transition-colors mt-3"
           >
             Don't have an Account -{" "}
-            <span className="font-semibold text-indigo-400 underline">Register</span>
+            <span className="font-semibold text-indigo-400 underline">
+              Register
+            </span>
           </p>
         </form>
       </div>
