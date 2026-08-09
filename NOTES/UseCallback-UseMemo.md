@@ -666,7 +666,7 @@ Memoization Invalidated
 New Value / Function
 ```
 
-📄 PAGE 10 – FINAL 2-MINUTE REVISION ⭐
+## 📄 PAGE 10 – FINAL 2-MINUTE REVISION ⭐
 
 ```js
                  MEMOIZATION
