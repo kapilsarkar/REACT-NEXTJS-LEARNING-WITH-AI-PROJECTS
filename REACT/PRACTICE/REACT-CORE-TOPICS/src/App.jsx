@@ -17,6 +17,8 @@ import AboutOne from "./components/AboutOne.jsx";
 import AboutTwo from "./components/AboutTwo.jsx";
 import HookLearning from "./components/HookLearning.jsx";
 import HookLearning2 from "./components/HookLearning2.jsx";
+import CustomHook from "./components/CustomHook.jsx";
+import MyCounter from "./components/MyCounter.jsx";
 
 function App() {
   return (
@@ -100,7 +102,17 @@ function App() {
         </section>
         <section className="min-h-screen  from-slate-950 via-indigo-950 to-violet-950 px-4 py-12 sm:px-6 lg:px-8">
           <div className="mx-auto flex max-w-6xl justify-center">
-            <HookLearning2/>
+            <HookLearning2 />
+          </div>
+        </section>
+        <section className="min-h-screen  from-slate-950 via-indigo-950 to-violet-950 px-4 py-12 sm:px-6 lg:px-8">
+          <div className="mx-auto flex max-w-6xl justify-center">
+            <CustomHook />
+          </div>
+        </section>
+        <section className="min-h-screen  from-slate-950 via-indigo-950 to-violet-950 px-4 py-12 sm:px-6 lg:px-8">
+          <div className="mx-auto flex max-w-6xl justify-center">
+            <MyCounter />
           </div>
         </section>
         <footer className="mt-10 text-center text-sm text-slate-400">
