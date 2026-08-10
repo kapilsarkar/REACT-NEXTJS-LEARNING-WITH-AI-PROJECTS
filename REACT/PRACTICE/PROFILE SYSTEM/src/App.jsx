@@ -7,6 +7,7 @@ import Profile from "./pages/Profile.jsx";
 import RegisterForm from "./pages/RegisterForm.jsx";
 import "./App.css";
 import UserDetails from "./pages/UserDetails.jsx";
+import Destination from "./pages/Destination.jsx";
 
 const appRouter = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const appRouter = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+      },
+      {
+        path: "destination",
+        element: <Destination />,
       },
       {
         path: "user/:id",
