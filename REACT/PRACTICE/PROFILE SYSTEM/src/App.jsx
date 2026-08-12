@@ -1,3 +1,4 @@
+import React, { Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./pages/Login.jsx";
 import MainLayout from "./layout/MainLayout";
@@ -8,6 +9,7 @@ import RegisterForm from "./pages/RegisterForm.jsx";
 import "./App.css";
 import UserDetails from "./pages/UserDetails.jsx";
 import Destination from "./pages/Destination.jsx";
+const LazyLoading = React.lazy(() => import("./pages/LazyLoading.jsx"));
 
 const appRouter = createBrowserRouter([
   {
@@ -46,6 +48,10 @@ const appRouter = createBrowserRouter([
         element: <Destination />,
       },
       {
+        path: "lazy-loading",
+        element: <LazyLoading />,
+      },
+      {
         path: "user/:id",
         element: <UserDetails />,
         loader: async ({ params }) => {
@@ -80,7 +86,13 @@ function App() {
 
       {/* Router Viewport Layer */}
       <div className="relative z-10">
-        <RouterProvider router={appRouter} />
+        <Suspense
+          fallback={
+            <div className="text-white text-2xl font-bold">Loading...</div>
+          }
+        >
+          <RouterProvider router={appRouter} />
+        </Suspense>
       </div>
     </div>
   );

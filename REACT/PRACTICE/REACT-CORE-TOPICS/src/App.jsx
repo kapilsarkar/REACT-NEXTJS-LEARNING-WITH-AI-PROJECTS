@@ -19,6 +19,10 @@ import HookLearning from "./components/HookLearning.jsx";
 import HookLearning2 from "./components/HookLearning2.jsx";
 import CustomHook from "./components/CustomHook.jsx";
 import MyCounter from "./components/MyCounter.jsx";
+import { Suspense } from "react";
+//import LazyLoading from "./components/LazyLoading.jsx";
+import React from "react";
+const LazyLoading = React.lazy(() => import("./components/LazyLoading.jsx"));
 
 function App() {
   return (
@@ -113,6 +117,14 @@ function App() {
         <section className="min-h-screen  from-slate-950 via-indigo-950 to-violet-950 px-4 py-12 sm:px-6 lg:px-8">
           <div className="mx-auto flex max-w-6xl justify-center">
             <MyCounter />
+          </div>
+        </section>
+        <section className="min-h-screen  from-slate-950 via-indigo-950 to-violet-950 px-4 py-12 sm:px-6 lg:px-8">
+          <div className="mx-auto flex max-w-6xl justify-center">
+            <Suspense fallback={<div className="text-white text-2xl font-bold">Loading...</div>}>
+                  <LazyLoading />
+            </Suspense>
+           
           </div>
         </section>
         <footer className="mt-10 text-center text-sm text-slate-400">

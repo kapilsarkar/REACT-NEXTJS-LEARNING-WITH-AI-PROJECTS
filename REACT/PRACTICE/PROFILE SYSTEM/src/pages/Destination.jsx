@@ -15,7 +15,7 @@ const Destination = () => {
   return (
     <div className="p-4">
       <h1 className="text-white font-bold text-2xl mb-4">
-        Famous Destination Page
+        Famous Destination Page-Using Custom Hook (useFetch) and Tailwind CSS for Styling
       </h1>
 
       {/* Fix 2: Safe mapping using data?.map */}

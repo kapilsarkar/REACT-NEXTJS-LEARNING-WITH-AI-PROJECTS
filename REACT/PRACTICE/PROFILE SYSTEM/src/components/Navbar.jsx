@@ -19,6 +19,7 @@ const Navbar = () => {
     { name: "Login", path: "/login" },
     { name: "Register", path: "/register" },
     { name: "Destination", path: "/destination" },
+    { name: "Lazy Loading", path: "/lazy-loading" },
   ];
 
   return (
