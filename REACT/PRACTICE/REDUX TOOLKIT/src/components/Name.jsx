@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeName } from "../features/counter/counterSlice";
+import { changeName } from "../store/features/counter/counterSlice";
 
 const Name = () => {
   const stateName = useSelector((state) => state.counter.name);

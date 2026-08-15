@@ -1,6 +1,7 @@
 import "./App.css";
-import Counter from "./store/components/Counter";
-import Name from "./store/components/Name";
+import Counter from "./components/Counter.jsx";
+import Name from "./components/Name.jsx";
+import Users from "./components/Users.jsx";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
         <h2>REDUX TOOLKIT</h2>
         <Counter />
         <Name />
+        <Users/>
       </div>
     </>
   );

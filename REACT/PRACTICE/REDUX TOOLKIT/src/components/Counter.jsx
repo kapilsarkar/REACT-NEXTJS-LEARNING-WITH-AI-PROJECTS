@@ -4,7 +4,7 @@ import {
   decrement,
   increment,
   reset,
-} from "../features/counter/counterSlice";
+} from "../store/features/counter/counterSlice.js";
 import { useState } from "react";
 
 const Counter = () => {
