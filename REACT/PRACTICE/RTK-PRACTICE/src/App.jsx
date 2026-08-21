@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import Home from "./components/Home.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/Layout.jsx";
-import Error from "./components/Error.jsx";
-import { createBrowserRouter, RouterProvider } from "react-router";
+import Home from "./components/Home.jsx";
 import Products from "./components/Products.jsx";
+import Error from "./components/Error.jsx";
 
 const appRouter = createBrowserRouter([
   {
@@ -27,6 +27,7 @@ const appRouter = createBrowserRouter([
 function App() {
   const darkMode = useSelector((state) => state.theme.darkMode);
 
+  // Syncs Redux theme state with the root <html> tag for Tailwind CSS
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
