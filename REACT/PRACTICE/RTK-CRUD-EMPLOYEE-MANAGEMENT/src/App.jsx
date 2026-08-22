@@ -1,10 +1,11 @@
-import NavBar from "./components/navbar/NavBar.jsx";
 import "./App.css";
 
 function App() {
   return (
     <>
-      <NavBar />
+      <div>
+        <h2>EMPLOYEE MANAGEMENT SYSTEM</h2>
+      </div>
     </>
   );
 }
