@@ -21,20 +21,23 @@ const Register = () => {
 
     const { name, email, password } = formData;
 
-    if (!name || !email || !password) {
-      alert("Please fill in all details");
-      return;
-    }
-
     setLoading(true);
 
     try {
-      // 1. Create account
-      const response = await account.create(ID.unique(), email, password, name);
-      console.log("Account created:", response);
+      // Create account
+      await account.create({
+        userId: ID.unique(),
+        email,
+        password,
+        name,
+      });
 
-      // 2. Create session (log in)
-      await account.createEmailPasswordSession(email, password);
+      // Automatically log in
+      await account.createEmailPasswordSession({
+        email,
+        password,
+      });
+
       alert("Registered successfully!");
     } catch (err) {
       setError(err.message || "Registration failed");
