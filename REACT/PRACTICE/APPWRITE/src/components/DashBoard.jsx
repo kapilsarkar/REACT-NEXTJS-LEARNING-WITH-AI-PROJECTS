@@ -81,6 +81,10 @@ const DashBoard = () => {
                 {user?.email}
               </span>
             </div>
+            <div>
+              <input placeholder="Add Your Todo..."/>
+              <button>Add Todo</button>
+            </div>
           </div>
         </div>
       </main>
