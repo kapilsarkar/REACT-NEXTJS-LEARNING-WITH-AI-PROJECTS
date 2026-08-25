@@ -1,30 +1,24 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { ID } from "appwrite";
 import { account } from "../appwrite/config.js";
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-  const [loading, setLoading] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
-    const { name, email, password } = formData;
-
     setLoading(true);
 
     try {
-      // Create account
+      // 1. Create account
       await account.create({
         userId: ID.unique(),
         email,
@@ -32,13 +26,14 @@ const Register = () => {
         name,
       });
 
-      // Automatically log in
+      // 2. Log in
       await account.createEmailPasswordSession({
         email,
         password,
       });
 
-      alert("Registered successfully!");
+      // 3. Go to dashboard
+      navigate("/dashboard");
     } catch (err) {
       setError(err.message || "Registration failed");
     } finally {
@@ -52,41 +47,34 @@ const Register = () => {
         onSubmit={handleSubmit}
         className="w-full max-w-sm bg-white p-6 rounded-xl shadow-md space-y-4"
       >
-        <h2 className="text-2xl font-bold text-center text-gray-800">
-          Register
-        </h2>
+        <h2 className="text-2xl font-bold text-center text-gray-800">Register</h2>
 
-        {error && (
-          <p className="text-sm text-red-600 bg-red-50 p-2 rounded">{error}</p>
-        )}
+        {error && <p className="text-sm text-red-600 bg-red-50 p-2 rounded">{error}</p>}
 
         <input
-          name="name"
           type="text"
           placeholder="Full Name"
-          value={formData.name}
-          onChange={handleChange}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           required
           className="w-full border rounded-lg p-2 text-sm focus:outline-blue-500"
         />
 
         <input
-          name="email"
           type="email"
           placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
           className="w-full border rounded-lg p-2 text-sm focus:outline-blue-500"
         />
 
         <input
-          name="password"
           type="password"
           placeholder="Password (min 8 chars)"
           minLength={8}
-          value={formData.password}
-          onChange={handleChange}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           required
           className="w-full border rounded-lg p-2 text-sm focus:outline-blue-500"
         />
@@ -101,9 +89,9 @@ const Register = () => {
 
         <p className="text-center text-xs text-gray-500">
           Already registered?{" "}
-          <a href="/login" className="text-blue-600 hover:underline">
+          <Link to="/login" className="text-blue-600 hover:underline">
             Login
-          </a>
+          </Link>
         </p>
       </form>
     </div>
