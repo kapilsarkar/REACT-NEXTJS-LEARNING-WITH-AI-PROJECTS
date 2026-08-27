@@ -21,20 +21,27 @@ const Register = () => {
       // 1. Create account
       await account.create({
         userId: ID.unique(),
-        email,
+        email: email.trim(),
         password,
-        name,
+        name: name.trim(),
       });
 
-      // 2. Log in
+      // 2. Log in (creates active session required for sending verification)
       await account.createEmailPasswordSession({
-        email,
+        email: email.trim(),
         password,
       });
 
-      // 3. Go to dashboard
+      // 3. Send verification email pointing to your /verify route
+      const verifyRedirectUrl = `${window.location.origin}/verify`;
+      await account.createVerification({
+        url: verifyRedirectUrl,
+      });
+
+      // 4. Go to dashboard
       navigate("/dashboard");
     } catch (err) {
+      console.error("Registration/Verification error:", err);
       setError(err.message || "Registration failed");
     } finally {
       setLoading(false);
@@ -47,9 +54,13 @@ const Register = () => {
         onSubmit={handleSubmit}
         className="w-full max-w-sm bg-white p-6 rounded-xl shadow-md space-y-4"
       >
-        <h2 className="text-2xl font-bold text-center text-gray-800">Register</h2>
+        <h2 className="text-2xl font-bold text-center text-gray-800">
+          Register
+        </h2>
 
-        {error && <p className="text-sm text-red-600 bg-red-50 p-2 rounded">{error}</p>}
+        {error && (
+          <p className="text-sm text-red-600 bg-red-50 p-2 rounded">{error}</p>
+        )}
 
         <input
           type="text"
@@ -84,7 +95,7 @@ const Register = () => {
           disabled={loading}
           className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg text-sm disabled:opacity-50 transition-colors"
         >
-          {loading ? "Signing up..." : "Register"}
+          {loading ? "Registering & Sending Email..." : "Register"}
         </button>
 
         <p className="text-center text-xs text-gray-500">
