@@ -1,3 +1,10 @@
+import { useState } from "react";
+
+const [title, setTitle] = useState("");
+const [method, setMethod] = useState("");
+const [rating, setRating] = useState("");
+const [formError,setFormError] = useState(null);
+
 const Create = () => {
   return (
     <div className="w-full max-w-md mx-auto p-6 bg-white rounded-2xl border border-slate-100 shadow-xl shadow-slate-200/50 text-center">
