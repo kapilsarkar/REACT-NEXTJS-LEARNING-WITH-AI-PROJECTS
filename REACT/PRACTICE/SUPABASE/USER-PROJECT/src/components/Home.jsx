@@ -28,8 +28,8 @@ const Home = () => {
     <div className="max-w-4xl mx-auto p-6">
       {/* Simple Header */}
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">Smoothies</h2>
-        <p className="text-sm text-gray-500">All available smoothie recipes.</p>
+        <h2 className="text-2xl font-bold text-gray-800">Data</h2>
+        <p className="text-sm text-gray-500">All available Data are here.</p>
       </div>
 
       {/* Error Message */}

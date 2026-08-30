@@ -14,7 +14,7 @@ function App() {
             {/* Logo / Brand */}
             <div className="flex items-center gap-2">
               <span className="text-xl font-black tracking-tight text-indigo-600">
-                Supa Smoothies
+                User Data
               </span>
               <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100">
                 USER-SYSTEM

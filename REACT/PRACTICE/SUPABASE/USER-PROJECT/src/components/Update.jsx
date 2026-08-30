@@ -1,12 +1,134 @@
+import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { supabase } from "../supabse-client.js";
+
 const Update = () => {
+  const [title, setTitle] = useState("");
+  const [method, setMethod] = useState("");
+  const [rating, setRating] = useState("");
+  const [formError, setFormError] = useState(null);
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!title || !method || !rating) {
+      setFormError("Please fill in all fields correctly.");
+      return;
+    }
+
+    // 1. Fixed typo: supabase (not supabse)
+    const { error } = await supabase
+      .from("newuser")
+      .update({ title, method, rating })
+      .eq("id", id);
+
+    // 2. Fixed check: navigate when there is no error
+    if (error) {
+      console.log(error);
+      setFormError("Could not update the record.");
+    } else {
+      setFormError(null);
+      navigate("/");
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data, error } = await supabase
+        .from("newuser")
+        .select()
+        .eq("id", id)
+        .single();
+
+      if (error) {
+        navigate("/", { replace: true });
+      }
+      if (data) {
+        setTitle(data.title);
+        setMethod(data.method);
+        setRating(data.rating);
+      }
+    };
+
+    fetchData();
+  }, [id, navigate]);
+
   return (
-    <div className="w-full max-w-md mx-auto p-6 bg-white rounded-2xl border border-slate-100 shadow-xl shadow-slate-200/50 text-center">
-      <h2 className="text-xl font-bold tracking-tight text-slate-800 sm:text-2xl">
-        Update
-      </h2>
-      <p className="mt-1 text-sm text-slate-500">
-        Modify or update your existing details.
-      </p>
+    <div className="max-w-md mx-auto p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+      {/* Header */}
+      <div className="mb-6">
+        <h2 className="text-xl font-bold text-gray-800">Update Smoothie</h2>
+        <p className="text-sm text-gray-500">Modify the smoothie details below.</p>
+      </div>
+
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="space-y-4 text-left">
+        <div>
+          <label
+            htmlFor="title"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Title:
+          </label>
+          <input
+            type="text"
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
+            placeholder="e.g. Banana Boost"
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="method"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Method:
+          </label>
+          <textarea
+            id="method"
+            rows="3"
+            value={method}
+            onChange={(e) => setMethod(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
+            placeholder="e.g. Blend banana, milk, and oats..."
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="rating"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Rating:
+          </label>
+          <input
+            type="number"
+            id="rating"
+            value={rating}
+            onChange={(e) => setRating(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
+            placeholder="e.g. 5"
+          />
+        </div>
+
+        {formError && (
+          <p className="text-sm text-red-500 bg-red-50 p-2 rounded border border-red-200">
+            {formError}
+          </p>
+        )}
+
+        <button
+          type="submit"
+          className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm rounded-md transition"
+        >
+          Update Data
+        </button>
+      </form>
     </div>
   );
 };
