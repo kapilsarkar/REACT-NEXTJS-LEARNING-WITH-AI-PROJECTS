@@ -17,9 +17,19 @@ const Create = () => {
       return;
     }
 
+    const {
+      data: { user },
+      error: useError,
+    } = await supabase.auth.getUser();
+
+    if (useError || !user) {
+      setFormError("You Must be logged in to create data");
+      return;
+    }
+
     const { error } = await supabase
       .from("newuser")
-      .insert([{ title, method, rating }]);
+      .insert([{ title, method, rating:Number(rating), user_id: user.id }]);
 
     if (error) {
       console.log(error);
@@ -41,7 +51,10 @@ const Create = () => {
       {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-4 text-left">
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="title"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
             Title:
           </label>
           <input
@@ -55,7 +68,10 @@ const Create = () => {
         </div>
 
         <div>
-          <label htmlFor="method" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="method"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
             Method:
           </label>
           <textarea
@@ -69,7 +85,10 @@ const Create = () => {
         </div>
 
         <div>
-          <label htmlFor="rating" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="rating"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
             Rating:
           </label>
           <input

@@ -7,6 +7,7 @@ import Update from "./components/Update.jsx";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import SignUp from "./components/SignUp.jsx";
 import Login from "./components/Login.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 function App() {
   const [session, setSession] = useState(null);
@@ -86,7 +87,7 @@ function App() {
                 to="/create"
                 className="px-3.5 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm shadow-indigo-500/20 transition-colors"
               >
-                Create New Smoothie
+                Create New Data
               </Link>
               {!session && (
                 <Link
@@ -111,11 +112,32 @@ function App() {
         {/* Main Content Area */}
         <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute session={session}>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/login" element={<Login />} />
-            <Route path="/create" element={<Create />} />
+            <Route
+              path="/create"
+              element={
+                <ProtectedRoute session={session}>
+                  <Create />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/:id" element={<Update />} />
+            <Route
+              path="/:id"
+              element={
+                <ProtectedRoute session={session}>
+                  <Update />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </main>
       </BrowserRouter>

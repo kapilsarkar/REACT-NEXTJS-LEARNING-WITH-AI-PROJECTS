@@ -12,25 +12,37 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const fetchNewUser = async () => {
-      const { data, error } = await supabase
-        .from("newuser")
-        .select()
-        .order(orderBy, { ascending: false });
+  const fetchNewUser = async () => {
+    const {
+      data: { user },
+      error: useError,
+    } = await supabase.auth.getUser();
 
-      if (error) {
-        setFetchError("Could not fetch data");
-        setNewUser(null);
-        console.error(error);
-      }
-      if (data) {
-        setNewUser(data);
-        setFetchError(null);
-      }
-    };
+    if (useError || !user) {
+      setFetchError("You must be logged in to view your data.");
+      setNewUser(null);
+      return;
+    }
 
-    fetchNewUser();
-  }, [orderBy]);
+    const { data, error } = await supabase
+      .from("newuser")
+      .select()
+      .eq("user_id", user.id)
+      .order(orderBy, { ascending: false });
+
+    if (error) {
+      setFetchError("Could not fetch data");
+      setNewUser(null);
+      console.error(error);
+      return;
+    }
+
+    setNewUser(data);
+    setFetchError(null);
+  };
+
+  fetchNewUser();
+}, [orderBy]);
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -95,7 +107,7 @@ const Home = () => {
           </div>
         ) : (
           <p className="text-gray-500 text-sm">
-            No smoothies found. Add one to get started!
+            No Data found. Add one to get started!
           </p>
         )
       ) : (
