@@ -8,9 +8,11 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import SignUp from "./components/SignUp.jsx";
 import Login from "./components/Login.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import Storage from "./components/Storage.jsx";
 
 function App() {
   const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getSession = async () => {
@@ -23,6 +25,7 @@ function App() {
 
       console.log("GET SESSION:", data.session);
       setSession(data.session);
+      setLoading(false);
     };
 
     getSession();
@@ -78,6 +81,12 @@ function App() {
                 Home
               </Link>
               <Link
+                to="/storage"
+                className="px-3.5 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
+              >
+                Storage
+              </Link>
+              <Link
                 to="/signup"
                 className="px-3.5 py-2 text-sm font-medium text-slate-600 hover:text-slate-900"
               >
@@ -115,7 +124,7 @@ function App() {
             <Route
               path="/"
               element={
-                <ProtectedRoute session={session}>
+                <ProtectedRoute session={session} loading={loading}>
                   <Home />
                 </ProtectedRoute>
               }
@@ -124,8 +133,16 @@ function App() {
             <Route
               path="/create"
               element={
-                <ProtectedRoute session={session}>
+                <ProtectedRoute session={session} loading={loading}>
                   <Create />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/storage"
+              element={
+                <ProtectedRoute session={session} loading={loading}>
+                  <Storage />
                 </ProtectedRoute>
               }
             />
@@ -133,7 +150,7 @@ function App() {
             <Route
               path="/:id"
               element={
-                <ProtectedRoute session={session}>
+                <ProtectedRoute session={session} loading={loading}>
                   <Update />
                 </ProtectedRoute>
               }
