@@ -1,16 +1,15 @@
-import NavBar from "../components/NavBar.jsx";
 import Hero from "../components/Hero.jsx";
 import Features from "../components/Features.jsx";
-import Footer from "../components/Footer.jsx";
+import HowItWorks from "../components/HowItWorks.jsx";
 
 const LandingPage = () => {
   return (
     <div>
       <h2>Welcome to the Landing Page</h2>
-      <NavBar />
+
       <Hero />
+      <HowItWorks />
       <Features />
-      <Footer />
     </div>
   );
 };

@@ -1,9 +1,14 @@
 const Hero = () => {
   return (
     <div>
-      <h1 className="text-4xl font-bold">
-        AI Application & Letter Assistant
-      </h1>
+      <h1>Create Professional Applications & Letters</h1>
+
+      <p>
+        Create polished applications, letters, emails, and formal documents
+        through simple guided steps.
+      </p>
+
+      <button>Create an Application</button>
     </div>
   );
 };
