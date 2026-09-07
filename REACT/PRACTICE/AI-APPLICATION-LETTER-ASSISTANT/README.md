@@ -1,16 +1,154 @@
-# React + Vite
+# AI-APPLICATION LETTER ASSISTANT
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+```js
+                    Landing Page
+                         ↓
+                  "Create Application"
+                         ↓
+                  Choose Category
+                         ↓
+                  Choose Document
+                         ↓
+                   Guided Form
+                         ↓
+                   Generate AI
+                         ↓
+                ✨ Generated Document
+                    ↙          ↘
+                 Edit          Improve
+                    ↓
+             ┌──────┴───────┐
+             ↓              ↓
+           Copy          Download
+             ↓
+       Save Application
+             ↓
+       🔐 Login / Register
+             ↓
+          My Documents
+```
 
-Currently, two official plugins are available:
+## AUTHENTICATION : 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- It becomes necessary when the user wants persistent personal data.
 
-## React Compiler
+## For example:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Guest user
 
-## Expanding the ESLint configuration
+### CAN
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Can:
+
+- visit website
+- choose category
+- fill guided form
+- generate a document
+- edit it
+- improve it
+- potentially copy/download it
+
+### Authenticated user
+
+### Can additionally:
+
+- save documents
+
+- see application history
+
+- edit saved documents
+
+- delete documents
+
+- access documents from another device
+
+- maintain their profile
+
+That fits database architecture extremely well
+
+- So authentication has a real purpose rather than being a gate placed in front of the product.
+
+## Our architecture:
+
+```js
+                  PUBLIC
+                    │
+                    ▼
+              Landing Page
+                    │
+                    ▼
+            Create Application
+                    │
+                    ▼
+             Guided Workflow
+                    │
+                    ▼
+              AI Generation
+                    │
+                    ▼
+            Generated Document
+                    │
+             ┌──────┼──────┐
+             ▼      ▼      ▼
+           Edit    Copy   Download
+                    │
+                    ▼
+                  Save
+                    │
+                    ▼
+              Authentication
+                    │
+                    ▼
+              User Dashboard
+                    │
+                    ▼
+             Saved Applications
+```
+
+### Conceptually:
+
+```js
+PUBLIC
+│
+├── Landing
+│
+└── Create
+      │
+      └── Generate
+            │
+            ├── Copy
+            ├── Download
+            └── Save ──────► LOGIN
+                              │
+                              ▼
+                         DASHBOARD
+                              │
+                              ▼
+                       MY APPLICATION
+```
+
+## V1 user experience
+
+```js
+Landing
+   ↓
+Try the product
+   ↓
+Guided Application Builder
+   ↓
+AI Generation
+   ↓
+Edit / Improve
+   ↓
+Copy / Download
+   ↓
+        ┌───────────────┐
+        │ Want to Save? │
+        └───────┬───────┘
+                ↓
+             Login
+                ↓
+           Dashboard
+                ↓
+        My Applications
+```
