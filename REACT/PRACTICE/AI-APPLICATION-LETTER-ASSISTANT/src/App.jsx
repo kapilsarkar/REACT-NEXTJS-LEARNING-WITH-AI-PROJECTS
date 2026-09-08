@@ -3,6 +3,7 @@ import LandingPage from "./pages/LandingPage.jsx";
 import Layout from "./pages/Layout.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import CreateApplication from "./pages/CreateApplication.jsx";
+
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -17,6 +18,7 @@ const appRouter = createBrowserRouter([
         path: "create",
         element: <CreateApplication />,
       },
+      
     ],
   },
 ]);
