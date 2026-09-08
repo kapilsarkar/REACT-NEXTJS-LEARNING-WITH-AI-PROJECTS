@@ -65,7 +65,7 @@ const NavBar = () => {
   };
 
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-amber-50/95 backdrop-blur">
       <nav
         className="mx-auto flex h-[76px] max-w-6xl items-center justify-between px-5 sm:px-7"
         aria-label="Main navigation"

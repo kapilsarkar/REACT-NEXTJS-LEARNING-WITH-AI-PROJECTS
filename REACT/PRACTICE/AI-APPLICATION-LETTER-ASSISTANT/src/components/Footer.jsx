@@ -18,7 +18,7 @@ const Footer = () => (
             AI WriteAssist
           </Link>
 
-          <p className="mt-4 max-w-sm text-sm leading-6 text-slate-400">
+          <p className="mt-4 max-w-sm text-sm leading-6 font-bold text-slate-300">
             A practical writing assistant for professional applications,
             letters, emails, and formal documents.
           </p>
@@ -33,11 +33,11 @@ const Footer = () => (
       </div>
 
       <div className="flex flex-col gap-3 pt-7 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-        <p>© 2026 AI WriteAssist. All rights reserved.</p>
+        <p className="font-bold text-slate-300">© 2026 AI WriteAssist. All rights reserved.</p>
 
         <a
           href="#top"
-          className="w-fit font-semibold text-slate-400 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-400"
+          className="w-fit font-bold text-slate-300 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-400"
         >
           Back to top
         </a>
