@@ -262,3 +262,272 @@ Tone
 ### PART 13 — Application State
 
 - At some point we'll need to manage information such as:
+
+```js
+selectedCategory
+selectedDocumentType
+formData
+language
+tone
+generatedContent
+```
+
+- Status
+
+🔴 Not started
+
+## PART 14 — Supabase
+
+- After the frontend workflow is working, we'll introduce the backend/data layer.
+
+```js
+Supabase Auth
+        ↓
+PostgreSQL
+        ↓
+Applications
+        ↓
+Row Level Security
+```
+
+- The V1 data model includes:
+
+```js
+profiles
+applications
+```
+
+- with applications belonging to individual users.
+
+We'll learn:
+
+- Authentication
+- Login/register
+- Persistent sessions
+- Protected routes
+- PostgreSQL
+- CRUD
+- RLS
+- User-specific data
+
+- Status
+
+🔴 Not started
+
+## PART 15 — AI Integration
+
+- Only after the application data flow is understood.
+
+- Architecture
+
+```js
+React
+  ↓
+Supabase Edge Function
+  ↓
+AI Provider
+  ↓
+Generated document
+  ↓
+React
+```
+
+- The AI API key must not be placed directly in the React frontend.
+
+We'll cover:
+
+- Structured AI input
+- Prompt construction
+- AI response handling
+- Preventing invented facts
+- Loading states
+- Error handling
+- Improve Draft
+- Translation
+
+- Status
+
+🔴 Not started
+
+## PART 16 — Generated Document Editor
+
+- After generation:
+
+```js
+AI output
+   ↓
+Editable document
+```
+
+- The user should be able to modify the generated content before saving.
+
+- Then:
+
+```js
+Improve
+Translate
+Save
+Copy
+```
+
+- Status
+
+🔴 Not started
+
+## PART 17 — History / Saved Applications
+
+- We'll implement
+
+```js
+My Applications
+       ↓
+Saved documents
+       ↓
+Open
+Edit
+Delete
+Filter
+Sort
+```
+
+- This connects directly to Supabase CRUD.
+
+- Status
+
+🔴 Not started
+
+## PART 18 — PDF / Print / Download
+
+- V1 also requires:
+
+- Copy
+- Download PDF
+- Print
+
+- This comes later, once the document itself works.
+
+- Status
+
+🔴 Not started
+
+## PART 19 — Authentication & Protected Routes
+
+- We'll eventually have:
+
+```js
+Landing
+   ↓
+Login / Register
+   ↓
+Dashboard
+   ↓
+Create Application
+```
+
+- and users shouldn't be able to access another user's applications.
+
+- This connects authentication with database security/RLS.
+
+- Status
+
+🔴 Not started
+
+## PART 20 — Dashboard
+
+- The dashboard becomes the user's central workspace:
+
+```js
+Dashboard
+├── Create New
+├── Recent Applications
+└── My Applications
+```
+
+- Status
+
+🔴 Not started
+
+## PART 21 — Testing, Polish & Deployment
+
+- Only after the V1 functionality works:
+
+- Responsive testing
+- Error handling
+- Empty states
+- Loading states
+- Accessibility checks
+- UI polish
+- Build testing
+- Git/GitHub
+- Vercel deployment
+
+- Status
+
+🔴 Not started
+
+## 🗺️  Complete Roadmap
+
+- Here's the sequence
+
+```js
+                    COMPLETED
+                        │
+                        ▼
+              1. Project Foundation
+                        ↓
+              2. React Components
+                        ↓
+              3. Page Composition
+                        ↓
+              4. React Router
+                        ↓
+              5. Layout + Outlet
+                        ↓
+              6. Navigation
+                        ↓
+              7. Landing Page UI
+                        │
+════════════════════════════════════
+                    YOU ARE HERE
+════════════════════════════════════
+                        │
+                        ▼
+                  NEXT
+                        │
+              8. Create Workflow
+                        ↓
+              9. Category Selection
+                        ↓
+             10. Document Type
+                        ↓
+             11. Guided Questions
+                        ↓
+             12. Form Validation
+                        ↓
+             13. Application State
+                        ↓
+             14. Authentication
+                        ↓
+             15. Supabase Database
+                        ↓
+             16. CRUD + RLS
+                        ↓
+             17. AI Integration
+                        ↓
+             18. Generated Document
+                        ↓
+             19. Improve / Translate
+                        ↓
+             20. History / Dashboard
+                        ↓
+             21. PDF / Print / Copy
+                        ↓
+             22. Testing + Polish
+                        ↓
+             23. Deployment
+                        ↓
+                    V1 COMPLETE
+                        │
+                        ▼
+                    V2 LATER
+```
