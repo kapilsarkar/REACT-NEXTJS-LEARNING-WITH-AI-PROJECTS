@@ -3,8 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 
 const navLinks = [
   { label: "Home", href: "/", id: "top" },
-  { label: "How It Works", href: "#how-it-works", id: "how-it-works" },
-  { label: "Features", href: "#features", id: "features" },
+  { label: "How It Works", href: "/how-it-works", id: "how-it-works" },
+  { label: "Features", href: "/features", id: "features" },
 ];
 
 const MenuIcon = ({ open }) => (

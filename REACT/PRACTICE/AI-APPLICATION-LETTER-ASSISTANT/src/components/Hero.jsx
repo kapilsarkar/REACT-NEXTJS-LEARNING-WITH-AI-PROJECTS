@@ -26,12 +26,12 @@ const Hero = () => (
           >
             Create an Application
           </Link>
-          <a
-            href="#how-it-works"
+          <Link
+            to="/how-it-works"
             className="text-sm font-bold text-slate-700 underline decoration-emerald-300 decoration-2 underline-offset-4 hover:text-emerald-800"
           >
             See how it works
-          </a>
+          </Link>
         </div>
         <p className="mt-6 text-xs font-medium text-slate-500">
           Start with your ideas. Leave with a document you can use.
