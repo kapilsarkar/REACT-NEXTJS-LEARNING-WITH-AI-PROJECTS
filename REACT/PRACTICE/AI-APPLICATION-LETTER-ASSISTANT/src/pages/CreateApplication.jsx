@@ -1,30 +1,51 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { categories } from "../constants/categories.js";
 import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createApplicationSchema } from "../validation/applicationSchema.js";
+
 import {
   setLanguage,
   setTone,
   setSelectedCategory,
   setSelectedDocumentType,
-  setFormField,
+  setFormData,
   resetToCategories,
   resetToDocumentTypes,
 } from "../features/applicationSlice.js";
 
 const CreateApplication = () => {
-  // Step tracker remains local UI state
   const [currentStep, setCurrentStep] = useState(1);
+  const [showModal, setShowModal] = useState(false);
+  const [submittedPayload, setSubmittedPayload] = useState(null);
 
   const dispatch = useDispatch();
 
-  // All application data read directly from Redux
+  const { language, tone, selectedCategory, selectedDocumentType, formData } =
+    useSelector((state) => state.application);
+
+  const schema = useMemo(() => {
+    return selectedDocumentType?.fields
+      ? createApplicationSchema(selectedDocumentType.fields)
+      : null;
+  }, [selectedDocumentType]);
+
   const {
-    language,
-    tone,
-    selectedCategory,
-    selectedDocumentType,
-    formData,
-  } = useSelector((state) => state.application);
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: schema ? zodResolver(schema) : undefined,
+    values: formData,
+  });
+
+  useEffect(() => {
+    if (selectedDocumentType) {
+      reset({});
+    }
+  }, [selectedDocumentType, reset]);
 
   const handleCategorySelect = (category) => {
     dispatch(setSelectedCategory(category));
@@ -39,35 +60,34 @@ const CreateApplication = () => {
   const goToStep = (stepNumber) => {
     if (stepNumber === 1) {
       dispatch(resetToCategories());
+      reset({});
       setCurrentStep(1);
     } else if (stepNumber === 2) {
       dispatch(resetToDocumentTypes());
+      reset({});
       setCurrentStep(2);
     }
   };
 
-  const handleInputChange = (fieldId, value) => {
-    dispatch(setFormField({ fieldId, value }));
-  };
+  const onValidSubmit = (data) => {
+    dispatch(setFormData(data));
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Submitted Application:", {
+    const payload = {
       categoryId: selectedCategory?.id,
       categoryName: selectedCategory?.name,
       documentTypeId: selectedDocumentType?.id,
       documentTypeName: selectedDocumentType?.name,
       language,
       tone,
-      fields: formData,
-    });
-    alert(
-      "Application submitted successfully! Check the console for the complete payload.",
-    );
+      fields: data,
+    };
+
+    setSubmittedPayload(payload);
+    setShowModal(true);
   };
 
   return (
-    <div className="mx-auto min-h-screen max-w-3xl bg-white p-6">
+    <div className="relative mx-auto min-h-screen max-w-3xl bg-white p-6">
       {/* Stepper Header */}
       <div className="mb-8">
         <h1 className="mb-4 text-2xl font-extrabold tracking-tight text-slate-950">
@@ -256,7 +276,11 @@ const CreateApplication = () => {
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form
+            onSubmit={handleSubmit(onValidSubmit)}
+            noValidate
+            className="space-y-6"
+          >
             {/* Tone and Language Selection */}
             <div className="grid grid-cols-1 gap-5 rounded-2xl border border-emerald-100 bg-emerald-50/70 p-5 sm:grid-cols-2 sm:p-6">
               <div className="flex flex-col gap-2">
@@ -289,44 +313,56 @@ const CreateApplication = () => {
             </div>
 
             {/* Dynamic Fields */}
-            {selectedDocumentType.fields.map((field) => (
-              <div key={field.id} className="flex flex-col gap-2">
-                <label className="text-sm font-bold text-slate-800">
-                  {field.label}{" "}
-                  {!field.optional ? (
-                    <span className="text-rose-600">*</span>
-                  ) : (
-                    <span className="text-xs font-medium text-slate-400">
-                      (Optional)
-                    </span>
-                  )}
-                </label>
+            {selectedDocumentType.fields.map((field) => {
+              const fieldError = errors[field.id];
+              const placeholderText =
+                field.placeholder || `Enter ${field.label.toLowerCase()}`;
 
-                {field.type === "textarea" ? (
-                  <textarea
-                    rows={3}
-                    placeholder={`Enter ${field.label.toLowerCase()}`}
-                    value={formData[field.id] || ""}
-                    required={!field.optional}
-                    onChange={(e) =>
-                      handleInputChange(field.id, e.target.value)
-                    }
-                    className="min-h-28 w-full resize-y rounded-xl border border-slate-300 bg-white px-3.5 py-3 text-sm leading-6 text-slate-800 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100"
-                  />
-                ) : (
-                  <input
-                    type={field.type || "text"}
-                    placeholder={`Enter ${field.label.toLowerCase()}`}
-                    value={formData[field.id] || ""}
-                    required={!field.optional}
-                    onChange={(e) =>
-                      handleInputChange(field.id, e.target.value)
-                    }
-                    className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-3 text-sm text-slate-800 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100"
-                  />
-                )}
-              </div>
-            ))}
+              return (
+                <div key={field.id} className="flex flex-col gap-2">
+                  <label className="text-sm font-bold text-slate-800">
+                    {field.label}{" "}
+                    {!field.optional ? (
+                      <span className="text-rose-600">*</span>
+                    ) : (
+                      <span className="text-xs font-medium text-slate-400">
+                        (Optional)
+                      </span>
+                    )}
+                  </label>
+
+                  {field.type === "textarea" ? (
+                    <textarea
+                      rows={3}
+                      placeholder={placeholderText}
+                      {...register(field.id)}
+                      className={`min-h-28 w-full resize-y rounded-xl border bg-white px-3.5 py-3 text-sm leading-6 text-slate-800 shadow-sm outline-none transition placeholder:text-slate-400 focus:ring-4 ${
+                        fieldError
+                          ? "border-rose-500 focus:border-rose-600 focus:ring-rose-100"
+                          : "border-slate-300 focus:border-emerald-600 focus:ring-emerald-100"
+                      }`}
+                    />
+                  ) : (
+                    <input
+                      type={field.type || "text"}
+                      placeholder={placeholderText}
+                      {...register(field.id)}
+                      className={`w-full rounded-xl border bg-white px-3.5 py-3 text-sm text-slate-800 shadow-sm outline-none transition placeholder:text-slate-400 focus:ring-4 ${
+                        fieldError
+                          ? "border-rose-500 focus:border-rose-600 focus:ring-rose-100"
+                          : "border-slate-300 focus:border-emerald-600 focus:ring-emerald-100"
+                      }`}
+                    />
+                  )}
+
+                  {fieldError && (
+                    <p className="mt-1 text-xs font-semibold text-rose-600">
+                      {fieldError.message}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
 
             <div className="flex flex-col-reverse gap-3 border-t border-slate-200 pt-6 sm:flex-row sm:items-center sm:justify-between">
               <button
@@ -345,6 +381,87 @@ const CreateApplication = () => {
             </div>
           </form>
         </section>
+      )}
+
+      {/* POPUP CONFIRMATION MODAL */}
+      {showModal && submittedPayload && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm">
+          <div className="w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl transition-all">
+            {/* Modal Header */}
+            <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
+              <div className="grid h-10 w-10 place-items-center rounded-full bg-emerald-100 text-emerald-800 font-bold text-lg">
+                ✓
+              </div>
+              <div>
+                <h3 className="text-lg font-extrabold text-slate-950">
+                  Application Ready
+                </h3>
+                <p className="text-xs text-slate-500">
+                  All fields passed validation and saved to Redux.
+                </p>
+              </div>
+            </div>
+
+            {/* Modal Body: Summary Details */}
+            <div className="my-4 max-h-72 space-y-3 overflow-y-auto pr-1 text-sm">
+              <div className="rounded-xl bg-slate-50 p-3.5 space-y-2 border border-slate-200/60">
+                <div className="flex justify-between">
+                  <span className="text-xs font-semibold text-slate-500">Category:</span>
+                  <span className="font-bold text-slate-800">{submittedPayload.categoryName}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-xs font-semibold text-slate-500">Document:</span>
+                  <span className="font-bold text-slate-800">{submittedPayload.documentTypeName}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-xs font-semibold text-slate-500">Language / Tone:</span>
+                  <span className="font-medium text-slate-800">
+                    {submittedPayload.language} ({submittedPayload.tone})
+                  </span>
+                </div>
+              </div>
+
+              <div className="space-y-2 pt-1">
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                  Entered Values
+                </p>
+                {selectedDocumentType?.fields.map((f) => (
+                  <div
+                    key={f.id}
+                    className="flex flex-col rounded-lg border border-slate-100 bg-slate-50/50 p-2.5"
+                  >
+                    <span className="text-xs font-semibold text-slate-500">{f.label}</span>
+                    <span className="mt-0.5 text-sm font-medium text-slate-800 break-words">
+                      {submittedPayload.fields[f.id] || "—"}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Modal Footer Actions */}
+            <div className="mt-5 flex flex-col-reverse gap-2 border-t border-slate-100 pt-4 sm:flex-row sm:justify-end">
+              <button
+                type="button"
+                onClick={() => setShowModal(false)}
+                className="rounded-xl border border-slate-300 px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 transition"
+              >
+                Close & Review
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowModal(false);
+                  // Ready for Next Phase: Navigate to AI generation or Auth step
+                  console.log("Proceeding with payload:", submittedPayload);
+                }}
+                className="rounded-xl bg-emerald-700 px-5 py-2.5 text-xs font-bold text-white shadow-sm hover:bg-emerald-800 transition"
+              >
+                Proceed to Generate →
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
