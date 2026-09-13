@@ -34,7 +34,7 @@
    Redux Toolkit
    Application state
         ↓
-6. FORM VALIDATION                            ⏳ LEFT
+6. FORM VALIDATION                            ✅ DONE
    Required fields
    Invalid input
    Error messages

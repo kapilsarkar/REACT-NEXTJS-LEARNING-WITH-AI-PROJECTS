@@ -1,90 +1,25 @@
-import { useState, useEffect, useMemo } from "react";
 import { categories } from "../constants/categories.js";
-import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createApplicationSchema } from "../validation/applicationSchema.js";
-
-import {
-  setLanguage,
-  setTone,
-  setSelectedCategory,
-  setSelectedDocumentType,
-  setFormData,
-  resetToCategories,
-  resetToDocumentTypes,
-} from "../features/applicationSlice.js";
+import { useApplication } from "../hooks/useApplicationForm.js";
 
 const CreateApplication = () => {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [showModal, setShowModal] = useState(false);
-  const [submittedPayload, setSubmittedPayload] = useState(null);
-
-  const dispatch = useDispatch();
-
-  const { language, tone, selectedCategory, selectedDocumentType, formData } =
-    useSelector((state) => state.application);
-
-  const schema = useMemo(() => {
-    return selectedDocumentType?.fields
-      ? createApplicationSchema(selectedDocumentType.fields)
-      : null;
-  }, [selectedDocumentType]);
-
   const {
+    currentStep,
+    showModal,
+    setShowModal,
+    submittedPayload,
+    language,
+    tone,
+    selectedCategory,
+    selectedDocumentType,
+    errors,
     register,
     handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({
-    resolver: schema ? zodResolver(schema) : undefined,
-    values: formData,
-  });
-
-  useEffect(() => {
-    if (selectedDocumentType) {
-      reset({});
-    }
-  }, [selectedDocumentType, reset]);
-
-  const handleCategorySelect = (category) => {
-    dispatch(setSelectedCategory(category));
-    setCurrentStep(2);
-  };
-
-  const handleDocumentTypeSelect = (doc) => {
-    dispatch(setSelectedDocumentType(doc));
-    setCurrentStep(3);
-  };
-
-  const goToStep = (stepNumber) => {
-    if (stepNumber === 1) {
-      dispatch(resetToCategories());
-      reset({});
-      setCurrentStep(1);
-    } else if (stepNumber === 2) {
-      dispatch(resetToDocumentTypes());
-      reset({});
-      setCurrentStep(2);
-    }
-  };
-
-  const onValidSubmit = (data) => {
-    dispatch(setFormData(data));
-
-    const payload = {
-      categoryId: selectedCategory?.id,
-      categoryName: selectedCategory?.name,
-      documentTypeId: selectedDocumentType?.id,
-      documentTypeName: selectedDocumentType?.name,
-      language,
-      tone,
-      fields: data,
-    };
-
-    setSubmittedPayload(payload);
-    setShowModal(true);
-  };
+    handleCategorySelect,
+    handleDocumentTypeSelect,
+    goToStep,
+    updateLanguage,
+    updateTone,
+  } = useApplication();
 
   return (
     <div className="relative mx-auto min-h-screen max-w-3xl bg-white p-6">
@@ -276,11 +211,7 @@ const CreateApplication = () => {
             </button>
           </div>
 
-          <form
-            onSubmit={handleSubmit(onValidSubmit)}
-            noValidate
-            className="space-y-6"
-          >
+          <form onSubmit={handleSubmit} noValidate className="space-y-6">
             {/* Tone and Language Selection */}
             <div className="grid grid-cols-1 gap-5 rounded-2xl border border-emerald-100 bg-emerald-50/70 p-5 sm:grid-cols-2 sm:p-6">
               <div className="flex flex-col gap-2">
@@ -289,7 +220,7 @@ const CreateApplication = () => {
                 </label>
                 <select
                   value={language}
-                  onChange={(e) => dispatch(setLanguage(e.target.value))}
+                  onChange={(e) => updateLanguage(e.target.value)}
                   className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-3 text-sm font-medium text-slate-800 shadow-sm outline-none transition focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100"
                 >
                   <option value="English">English</option>
@@ -302,7 +233,7 @@ const CreateApplication = () => {
                 <label className="text-sm font-bold text-slate-800">Tone</label>
                 <select
                   value={tone}
-                  onChange={(e) => dispatch(setTone(e.target.value))}
+                  onChange={(e) => updateTone(e.target.value)}
                   className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-3 text-sm font-medium text-slate-800 shadow-sm outline-none transition focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100"
                 >
                   <option value="Professional">Professional</option>
@@ -406,15 +337,25 @@ const CreateApplication = () => {
             <div className="my-4 max-h-72 space-y-3 overflow-y-auto pr-1 text-sm">
               <div className="rounded-xl bg-slate-50 p-3.5 space-y-2 border border-slate-200/60">
                 <div className="flex justify-between">
-                  <span className="text-xs font-semibold text-slate-500">Category:</span>
-                  <span className="font-bold text-slate-800">{submittedPayload.categoryName}</span>
+                  <span className="text-xs font-semibold text-slate-500">
+                    Category:
+                  </span>
+                  <span className="font-bold text-slate-800">
+                    {submittedPayload.categoryName}
+                  </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-xs font-semibold text-slate-500">Document:</span>
-                  <span className="font-bold text-slate-800">{submittedPayload.documentTypeName}</span>
+                  <span className="text-xs font-semibold text-slate-500">
+                    Document:
+                  </span>
+                  <span className="font-bold text-slate-800">
+                    {submittedPayload.documentTypeName}
+                  </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-xs font-semibold text-slate-500">Language / Tone:</span>
+                  <span className="text-xs font-semibold text-slate-500">
+                    Language / Tone:
+                  </span>
                   <span className="font-medium text-slate-800">
                     {submittedPayload.language} ({submittedPayload.tone})
                   </span>
@@ -430,7 +371,9 @@ const CreateApplication = () => {
                     key={f.id}
                     className="flex flex-col rounded-lg border border-slate-100 bg-slate-50/50 p-2.5"
                   >
-                    <span className="text-xs font-semibold text-slate-500">{f.label}</span>
+                    <span className="text-xs font-semibold text-slate-500">
+                      {f.label}
+                    </span>
                     <span className="mt-0.5 text-sm font-medium text-slate-800 break-words">
                       {submittedPayload.fields[f.id] || "—"}
                     </span>
@@ -452,7 +395,6 @@ const CreateApplication = () => {
                 type="button"
                 onClick={() => {
                   setShowModal(false);
-                  // Ready for Next Phase: Navigate to AI generation or Auth step
                   console.log("Proceeding with payload:", submittedPayload);
                 }}
                 className="rounded-xl bg-emerald-700 px-5 py-2.5 text-xs font-bold text-white shadow-sm hover:bg-emerald-800 transition"
