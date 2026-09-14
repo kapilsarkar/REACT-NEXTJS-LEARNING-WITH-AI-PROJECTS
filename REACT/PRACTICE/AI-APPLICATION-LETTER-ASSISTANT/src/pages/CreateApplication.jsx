@@ -1,7 +1,20 @@
 import { categories } from "../constants/categories.js";
 import { useApplication } from "../hooks/useApplicationForm.js";
+import { supabase } from "../services/supabaseClient.js";
+import { useEffect } from "react";
 
 const CreateApplication = () => {
+  useEffect(() => {
+    const testSupabase = async () => {
+      const { data, error } = await supabase.auth.getSession();
+
+      console.log("Supabase session:", data);
+      console.log("Supabase error:", error);
+    };
+
+    testSupabase();
+  }, []);
+
   const {
     currentStep,
     showModal,
