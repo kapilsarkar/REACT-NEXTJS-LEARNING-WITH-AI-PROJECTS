@@ -40,7 +40,7 @@
    Error messages
    Zod
         ↓
-7. AUTHENTICATION                             ⏳ LEFT
+7. AUTHENTICATION                             ✅ DONE
    Register
    Login
    Logout

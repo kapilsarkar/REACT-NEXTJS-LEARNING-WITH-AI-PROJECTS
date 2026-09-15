@@ -5,20 +5,21 @@ import ErrorPage from "./pages/ErrorPage.jsx";
 import CreateApplication from "./pages/CreateApplication.jsx";
 import HowItWorks from "./components/HowItWorks.jsx";
 import Features from "./components/Features.jsx";
+import Register from "./pages/Register.jsx";
+import Login from "./pages/Login.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import { AuthProvider } from "./context/AuthContext.jsx";
+import DemoPreview from "./pages/DemoPreview.jsx";
 
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />, //Root Layout Component
-    errorElement: <ErrorPage />, // Global Error Boundary (404s + Runtime errors)
+    element: <Layout />, // Root Layout Component
+    errorElement: <ErrorPage />, // Global Error Boundary
     children: [
       {
-        index: true, // Default view for "/"
+        index: true,
         element: <LandingPage />,
-      },
-      {
-        path: "create",
-        element: <CreateApplication />,
       },
       {
         path: "how-it-works",
@@ -28,12 +29,40 @@ const appRouter = createBrowserRouter([
         path: "features",
         element: <Features />,
       },
+      {
+        path: "register",
+        element: <Register />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "demo",
+        element: <DemoPreview />,
+      },
+
+      /* Protected Routes Section */
+      {
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "create",
+            element: <CreateApplication />,
+          },
+          // Any other private routes (e.g., dashboard, history) go here
+        ],
+      },
     ],
   },
 ]);
 
 function App() {
-  return <RouterProvider router={appRouter} />;
+  return (
+    <AuthProvider>
+      <RouterProvider router={appRouter} />
+    </AuthProvider>
+  );
 }
 
 export default App;

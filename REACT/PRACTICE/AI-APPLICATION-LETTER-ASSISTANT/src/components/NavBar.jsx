@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth.js";
 
 const navLinks = [
   { label: "Home", href: "/", id: "top" },
   { label: "How It Works", href: "/how-it-works", id: "how-it-works" },
+  { label: "Demo", href: "/demo", id: "demo" },
   { label: "Features", href: "/features", id: "features" },
 ];
 
@@ -28,6 +30,7 @@ const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("top");
   const location = useLocation();
+  const { user, signOut } = useAuth();
 
   const isHomePage = location.pathname === "/";
   const closeMenu = () => setIsOpen(false);
@@ -50,7 +53,7 @@ const NavBar = () => {
         });
       },
       {
-        rootMargin: "-20% 0px -65% 0px", // Triggers when section passes navbar height
+        rootMargin: "-20% 0px -65% 0px",
         threshold: 0,
       }
     );
@@ -63,6 +66,9 @@ const NavBar = () => {
     if (!isHomePage) return false;
     return activeSection === link.id;
   };
+
+  const displayName =
+    user?.user_metadata?.full_name || user?.email?.split("@")[0] || "User";
 
   return (
     <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-amber-50/95 backdrop-blur">
@@ -85,7 +91,7 @@ const NavBar = () => {
           AI WriteAssist
         </Link>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation Links */}
         <ul className="hidden items-center gap-8 lg:flex">
           {navLinks.map((link) => {
             const isActive = checkIsActive(link);
@@ -119,13 +125,45 @@ const NavBar = () => {
           })}
         </ul>
 
-        {/* Create Application */}
-        <Link
-          to="/create"
-          className="hidden rounded-xl bg-emerald-700 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-emerald-800 sm:inline-flex"
-        >
-          Create an Application
-        </Link>
+        {/* Desktop Auth Controls & CTA */}
+        <div className="hidden items-center gap-4 sm:flex">
+          {user ? (
+            <div className="flex items-center gap-3">
+              <span className="max-w-[150px] truncate text-xs font-semibold text-slate-700">
+                Hi, {displayName}
+              </span>
+              <button
+                type="button"
+                onClick={() => signOut()}
+                className="rounded-xl border border-slate-300 px-3.5 py-2 text-xs font-bold text-slate-700 transition hover:border-rose-300 hover:bg-rose-50 hover:text-rose-700"
+              >
+                Sign Out
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <Link
+                to="/login"
+                className="rounded-xl px-3.5 py-2 text-xs font-bold text-slate-700 transition hover:text-emerald-800"
+              >
+                Log In
+              </Link>
+              <Link
+                to="/register"
+                className="rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-xs font-bold text-slate-800 shadow-sm transition hover:border-emerald-300 hover:bg-emerald-50"
+              >
+                Sign Up
+              </Link>
+            </div>
+          )}
+
+          <Link
+            to="/create"
+            className="rounded-xl bg-emerald-700 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-emerald-800"
+          >
+            Create an Application
+          </Link>
+        </div>
 
         {/* Mobile Menu Button */}
         <button
@@ -140,12 +178,18 @@ const NavBar = () => {
         </button>
       </nav>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation Dropdown */}
       {isOpen && (
         <div
           id="mobile-navigation"
           className="absolute inset-x-3 top-[calc(100%+.5rem)] rounded-2xl border border-slate-200 bg-white p-3 shadow-xl lg:hidden"
         >
+          {user && (
+            <div className="mb-2 rounded-xl bg-slate-50 px-4 py-2.5 text-xs text-slate-600">
+              Signed in as <span className="font-bold text-slate-900">{displayName}</span>
+            </div>
+          )}
+
           <ul className="grid gap-1">
             {navLinks.map((link) => {
               const isActive = checkIsActive(link);
@@ -180,13 +224,45 @@ const NavBar = () => {
             })}
           </ul>
 
-          <Link
-            to="/create"
-            onClick={closeMenu}
-            className="mt-2 flex justify-center rounded-xl bg-emerald-700 px-4 py-3 text-sm font-bold text-white"
-          >
-            Create an Application
-          </Link>
+          <div className="mt-3 flex flex-col gap-2 border-t border-slate-100 pt-3">
+            {user ? (
+              <button
+                type="button"
+                onClick={() => {
+                  closeMenu();
+                  signOut();
+                }}
+                className="w-full rounded-xl border border-rose-200 bg-rose-50/50 py-2.5 text-center text-xs font-bold text-rose-700 hover:bg-rose-100/70 transition"
+              >
+                Sign Out
+              </button>
+            ) : (
+              <div className="grid grid-cols-2 gap-2">
+                <Link
+                  to="/login"
+                  onClick={closeMenu}
+                  className="rounded-xl border border-slate-200 py-2.5 text-center text-xs font-bold text-slate-700 hover:bg-slate-50"
+                >
+                  Log In
+                </Link>
+                <Link
+                  to="/register"
+                  onClick={closeMenu}
+                  className="rounded-xl bg-slate-900 py-2.5 text-center text-xs font-bold text-white hover:bg-slate-800"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
+
+            <Link
+              to="/create"
+              onClick={closeMenu}
+              className="mt-1 flex justify-center rounded-xl bg-emerald-700 px-4 py-3 text-sm font-bold text-white shadow-sm hover:bg-emerald-800 transition"
+            >
+              Create an Application
+            </Link>
+          </div>
         </div>
       )}
     </header>
