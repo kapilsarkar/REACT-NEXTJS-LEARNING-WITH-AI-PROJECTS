@@ -88,7 +88,7 @@ const Dashboard = () => {
                 AI WriteAssist
               </p>
               <h1 className="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
-                Welcome back, {displayName} 👋
+                Welcome  {displayName} 👋
               </h1>
               <p className="mt-2 text-sm leading-6 text-slate-600 sm:text-base">
                 Create professional applications and letters with ease.
