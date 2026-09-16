@@ -10,6 +10,7 @@ import Login from "./pages/Login.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import DemoPreview from "./pages/DemoPreview.jsx";
+import DashBoard from "./pages/DashBoard.jsx";
 
 const appRouter = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ const appRouter = createBrowserRouter([
             element: <CreateApplication />,
           },
           // Any other private routes (e.g., dashboard, history) go here
+          {
+            path: "dashboard",
+            element: <DashBoard />,
+          },
         ],
       },
     ],

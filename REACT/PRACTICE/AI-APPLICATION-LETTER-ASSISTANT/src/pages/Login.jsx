@@ -14,7 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const returnPath = location.state?.from || "/create";
+  const returnPath = location.state?.from || "/dashboard";
 
   const {
     register,
@@ -38,7 +38,7 @@ const Login = () => {
     if (error) {
       if (error.message.toLowerCase().includes("email not confirmed")) {
         setAuthError(
-          "Your email address has not been confirmed yet. Please check your inbox and click the verification link."
+          "Your email address has not been confirmed yet. Please check your inbox and click the verification link.",
         );
       } else {
         setAuthError(error.message);
@@ -164,7 +164,9 @@ const Login = () => {
                 onClick={handleModalProceed}
                 className="w-full rounded-xl bg-emerald-700 py-2.5 text-sm font-bold text-white shadow-sm hover:bg-emerald-800 transition"
               >
-                Continue to Application →
+                {returnPath === "/dashboard"
+                  ? "Continue to Dashboard →"
+                  : "Continue to Application →"}
               </button>
             </div>
           </div>
