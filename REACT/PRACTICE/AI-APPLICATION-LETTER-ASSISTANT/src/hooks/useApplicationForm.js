@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createApplicationSchema } from "../validation/applicationSchema";
+import { createApplication } from "../services/applicationService.js";
+import { useAuth } from "./useAuth.js";
 import {
   setLanguage,
   setTone,
@@ -18,6 +20,7 @@ export const useApplication = () => {
   const [showModal, setShowModal] = useState(false);
   const [submittedPayload, setSubmittedPayload] = useState(null);
 
+  const { user } = useAuth();
   const dispatch = useDispatch();
 
   // Redux state
@@ -75,19 +78,35 @@ export const useApplication = () => {
   const updateLanguage = (val) => dispatch(setLanguage(val));
   const updateTone = (val) => dispatch(setTone(val));
 
-  // Submit handler
-  const onValidSubmit = (data) => {
-    dispatch(setFormData(data));
-    setSubmittedPayload({
-      categoryId: selectedCategory?.id,
-      categoryName: selectedCategory?.name,
-      documentTypeId: selectedDocumentType?.id,
-      documentTypeName: selectedDocumentType?.name,
-      language,
-      tone,
-      fields: data,
-    });
-    setShowModal(true);
+  // Submit handler saving to Supabase
+  const onValidSubmit = async (data) => {
+    if (!user) {
+      setShowModal(false);
+      return;
+    }
+
+    try {
+      const savedApplication = await createApplication({
+        userId: user.id,
+        title: selectedDocumentType?.name || "Untitled Application",
+        category: selectedCategory?.name || "",
+        documentType: selectedDocumentType?.name || "",
+        language,
+        tone,
+        formData: data,
+      });
+
+      dispatch(setFormData(data));
+
+      setSubmittedPayload({
+        ...savedApplication,
+        fields: data,
+      });
+
+      setShowModal(true);
+    } catch (error) {
+      console.error("Error saving application:", error);
+    }
   };
 
   return {

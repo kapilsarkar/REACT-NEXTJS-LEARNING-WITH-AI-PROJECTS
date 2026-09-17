@@ -11,6 +11,8 @@ import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import DemoPreview from "./pages/DemoPreview.jsx";
 import DashBoard from "./pages/DashBoard.jsx";
+import EditApplication from "./pages/EditApplication.jsx";
+
 
 const appRouter = createBrowserRouter([
   {
@@ -56,6 +58,10 @@ const appRouter = createBrowserRouter([
             path: "dashboard",
             element: <DashBoard />,
           },
+          {
+            path: "edit/:applicationId",
+            element: <EditApplication />,
+         },
         ],
       },
     ],

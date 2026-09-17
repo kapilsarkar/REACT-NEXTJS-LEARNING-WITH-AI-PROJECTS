@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth.js";
 
-const navLinks = [
+const baseNavLinks = [
   { label: "Home", href: "/", id: "top" },
   { label: "How It Works", href: "/how-it-works", id: "how-it-works" },
   { label: "Demo", href: "/demo", id: "demo" },
@@ -35,6 +35,12 @@ const NavBar = () => {
   const isHomePage = location.pathname === "/";
   const closeMenu = () => setIsOpen(false);
 
+  // Dynamically include Dashboard if user is authenticated
+  const navLinks = [
+    ...baseNavLinks,
+    ...(user ? [{ label: "Dashboard", href: "/dashboard", id: "dashboard" }] : []),
+  ];
+
   useEffect(() => {
     if (!isHomePage) return;
 
@@ -63,7 +69,15 @@ const NavBar = () => {
   }, [isHomePage]);
 
   const checkIsActive = (link) => {
-    if (!isHomePage) return false;
+    if (link.href === "/dashboard") {
+      return location.pathname === "/dashboard";
+    }
+    if (link.href === "/demo") {
+      return location.pathname === "/demo";
+    }
+    if (!isHomePage) {
+      return location.pathname === link.href;
+    }
     return activeSection === link.id;
   };
 
@@ -129,9 +143,12 @@ const NavBar = () => {
         <div className="hidden items-center gap-4 sm:flex">
           {user ? (
             <div className="flex items-center gap-3">
-              <span className="max-w-[150px] truncate text-xs font-semibold text-slate-700">
+              <Link
+                to="/dashboard"
+                className="max-w-[150px] truncate text-xs font-semibold text-slate-700 hover:text-emerald-700 transition"
+              >
                 Hi, {displayName}
-              </span>
+              </Link>
               <button
                 type="button"
                 onClick={() => signOut()}
@@ -185,9 +202,13 @@ const NavBar = () => {
           className="absolute inset-x-3 top-[calc(100%+.5rem)] rounded-2xl border border-slate-200 bg-white p-3 shadow-xl lg:hidden"
         >
           {user && (
-            <div className="mb-2 rounded-xl bg-slate-50 px-4 py-2.5 text-xs text-slate-600">
-              Signed in as <span className="font-bold text-slate-900">{displayName}</span>
-            </div>
+            <Link
+              to="/dashboard"
+              onClick={closeMenu}
+              className="mb-2 block rounded-xl bg-slate-50 px-4 py-2.5 text-xs text-slate-600 hover:bg-emerald-50 transition"
+            >
+              Signed in as <span className="font-bold text-slate-900">{displayName}</span> (View Dashboard)
+            </Link>
           )}
 
           <ul className="grid gap-1">
