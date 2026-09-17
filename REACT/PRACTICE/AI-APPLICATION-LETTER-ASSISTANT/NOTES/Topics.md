@@ -52,7 +52,7 @@
    Applications
    PostgreSQL
         ↓
-9. CRUD + SECURITY                            ⏳ LEFT
+9. CRUD + SECURITY                            ✅ DONE
    Create
    Read
    Update
