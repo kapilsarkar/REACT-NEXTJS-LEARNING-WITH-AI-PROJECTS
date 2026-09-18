@@ -86,3 +86,42 @@ export const getApplicationById = async (applicationId) => {
 
   return data;
 };
+
+export const generateDocument = async ({
+  category,
+  documentType,
+  language,
+  tone,
+  formData,
+}) => {
+  // 1. Get the current active session
+  const { data: { session } } = await supabase.auth.getSession();
+
+  if (!session?.access_token) {
+    throw new Error("You must be logged in to generate a document.");
+  }
+
+  // 2. Pass the Authorization header explicitly
+  const { data, error } = await supabase.functions.invoke("generate-document", {
+    body: {
+      category,
+      documentType,
+      language,
+      tone,
+      formData,
+    },
+    headers: {
+      Authorization: `Bearer ${session.access_token}`,
+    },
+  });
+
+  if (error) {
+    throw error;
+  }
+
+  if (!data?.success) {
+    throw new Error(data?.error || "Failed to generate document.");
+  }
+
+  return data.document;
+};

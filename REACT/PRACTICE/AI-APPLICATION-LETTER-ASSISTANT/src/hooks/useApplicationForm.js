@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createApplicationSchema } from "../validation/applicationSchema";
-import { createApplication } from "../services/applicationService.js";
+import {
+  createApplication,
+  generateDocument,
+  updateApplication,
+} from "../services/applicationService.js";
 import { useAuth } from "./useAuth.js";
 import {
   setLanguage,
@@ -19,6 +23,10 @@ export const useApplication = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [submittedPayload, setSubmittedPayload] = useState(null);
+  const [generatedDocument, setGeneratedDocument] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generationError, setGenerationError] = useState("");
+  const [isSavingDocument, setIsSavingDocument] = useState(false); // <--- Added
 
   const { user } = useAuth();
   const dispatch = useDispatch();
@@ -78,7 +86,7 @@ export const useApplication = () => {
   const updateLanguage = (val) => dispatch(setLanguage(val));
   const updateTone = (val) => dispatch(setTone(val));
 
-  // Submit handler saving to Supabase
+  // Submit handler saving raw inputs to Supabase
   const onValidSubmit = async (data) => {
     if (!user) {
       setShowModal(false);
@@ -109,6 +117,59 @@ export const useApplication = () => {
     }
   };
 
+  // Trigger Gemini AI generation via Edge Function
+  const handleGenerateDocument = async () => {
+    if (!submittedPayload) return;
+
+    try {
+      setIsGenerating(true);
+      setGenerationError("");
+
+      const document = await generateDocument({
+        category: submittedPayload.category,
+        documentType: submittedPayload.document_type,
+        language: submittedPayload.language,
+        tone: submittedPayload.tone,
+        formData: submittedPayload.fields,
+      });
+
+      setGeneratedDocument(document);
+
+      // Persist the generated letter back to Supabase
+      if (submittedPayload.id) {
+        await updateApplication(submittedPayload.id, {
+          generated_document: document,
+        });
+      }
+
+      setShowModal(false);
+    } catch (error) {
+      console.error("Error generating document:", error);
+      setGenerationError(
+        error.message || "Failed to generate document. Please try again."
+      );
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  // Persist manual inline edits to Supabase
+  const saveEditedDocument = async (updatedText) => { // <--- Added
+    if (!submittedPayload?.id) return;
+
+    try {
+      setIsSavingDocument(true);
+      await updateApplication(submittedPayload.id, {
+        generated_document: updatedText,
+      });
+      setGeneratedDocument(updatedText);
+    } catch (error) {
+      console.error("Failed to save edited document:", error);
+    } finally {
+      setIsSavingDocument(false);
+    }
+  };
+
   return {
     // State
     currentStep,
@@ -120,6 +181,11 @@ export const useApplication = () => {
     selectedCategory,
     selectedDocumentType,
     errors,
+    generatedDocument,
+    setGeneratedDocument,
+    isGenerating,
+    generationError,
+    isSavingDocument, // <--- Added
 
     // Actions & Handlers
     register,
@@ -129,5 +195,7 @@ export const useApplication = () => {
     goToStep,
     updateLanguage,
     updateTone,
+    handleGenerateDocument,
+    saveEditedDocument, // <--- Added
   };
 };
