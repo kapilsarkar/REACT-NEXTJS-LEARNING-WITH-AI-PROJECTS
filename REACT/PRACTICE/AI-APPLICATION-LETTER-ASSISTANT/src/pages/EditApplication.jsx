@@ -16,9 +16,17 @@ const EditApplication = () => {
 
   const [application, setApplication] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const [savingForm, setSavingForm] = useState(false);
+  const [savingDocument, setSavingDocument] = useState(false);
   const [error, setError] = useState("");
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  // Document Editing States
+  const [generatedDocument, setGeneratedDocument] = useState("");
+  const [isEditingDoc, setIsEditingDoc] = useState(false);
+  const [hasDocChanges, setHasDocChanges] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [docSaveSuccess, setDocSaveSuccess] = useState(false);
 
   // 1. Resolve Category & Document Type from constants
   const selectedCategory = useMemo(() => {
@@ -56,14 +64,28 @@ const EditApplication = () => {
         const data = await getApplicationById(applicationId);
 
         let parsed = {};
-        const rawContent = data.content || data.form_data;
-        if (typeof rawContent === "string") {
-          parsed = JSON.parse(rawContent);
-        } else if (rawContent && typeof rawContent === "object") {
+        const rawContent = data.form_data || data.content;
+
+        if (rawContent && typeof rawContent === "object") {
           parsed = rawContent;
+        } else if (typeof rawContent === "string") {
+          try {
+            parsed = JSON.parse(rawContent);
+          } catch {
+            parsed = {};
+          }
         }
 
+        // Detect saved document text
+        const docText =
+          data.generated_document ||
+          data.generated_text ||
+          (typeof data.content === "string" && !data.content.trim().startsWith("{")
+            ? data.content
+            : "");
+
         setApplication(data);
+        setGeneratedDocument(docText);
         reset(parsed);
       } catch (err) {
         console.error("Error fetching application:", err);
@@ -76,9 +98,9 @@ const EditApplication = () => {
     loadApplication();
   }, [applicationId, reset]);
 
-  // 5. Submit updated fields & trigger confirmation modal
-  const onSubmit = async (data) => {
-    setSaving(true);
+  // 5. Submit updated form fields
+  const onFormSubmit = async (data) => {
+    setSavingForm(true);
     setError("");
 
     try {
@@ -88,17 +110,100 @@ const EditApplication = () => {
 
       setShowSuccessModal(true);
     } catch (err) {
-      console.error("Error updating application:", err);
-      setError("Failed to save changes. Please try again.");
+      console.error("Error updating form data:", err);
+      setError("Failed to save form fields. Please try again.");
     } finally {
-      setSaving(false);
+      setSavingForm(false);
     }
   };
 
-  const handleModalProceed = () => {
-    setShowSuccessModal(false);
-    navigate("/dashboard");
+  // 6. Save document edits directly (NO GEMINI CALL)
+  const handleSaveDocument = async () => {
+    if (!applicationId) return;
+
+    try {
+      setSavingDocument(true);
+      setError("");
+
+      await updateApplication(applicationId, {
+        generated_document: generatedDocument,
+        //content: generatedDocument, // Keep backward compatibility if content column is used
+      });
+
+      setHasDocChanges(false);
+      setIsEditingDoc(false);
+      setDocSaveSuccess(true);
+      setTimeout(() => setDocSaveSuccess(false), 3000);
+    } catch (err) {
+      console.error("Error saving document changes:", err);
+      setError("Failed to save document edits.");
+    } finally {
+      setSavingDocument(false);
+    }
   };
+
+  const handleCopyText = async () => {
+    if (!generatedDocument) return;
+    try {
+      await navigator.clipboard.writeText(generatedDocument);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy text:", err);
+    }
+  };
+
+  const handlePrint = () => {
+  if (!generatedDocument) return;
+
+  const printWindow = window.open("", "_blank");
+
+  if (!printWindow) {
+    alert("Please allow pop-ups to print the document.");
+    return;
+  }
+
+  printWindow.document.open();
+
+  printWindow.document.write(`
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>${application?.title || "Application"}</title>
+        <style>
+          body {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 12pt;
+            line-height: 1.6;
+            margin: 1in;
+            color: #111;
+            white-space: pre-wrap;
+          }
+
+          @media print {
+            body {
+              margin: 1in;
+            }
+          }
+        </style>
+      </head>
+      <body></body>
+    </html>
+  `);
+
+  printWindow.document.close();
+
+  // Insert document as plain text
+  // instead of treating it as HTML.
+  printWindow.document.body.textContent = generatedDocument;
+
+  printWindow.focus();
+
+  printWindow.onload = () => {
+    printWindow.print();
+    printWindow.close();
+  };
+};
 
   if (loading) {
     return (
@@ -154,7 +259,7 @@ const EditApplication = () => {
                 {application?.title || selectedDocumentType?.name || "Edit Application"}
               </h1>
               <p className="mt-1 text-sm text-slate-600">
-                Update the document parameters below. Your changes will sync directly to your dashboard.
+                Update form inputs or modify the generated document text below without regenerating.
               </p>
             </div>
 
@@ -162,7 +267,7 @@ const EditApplication = () => {
               to="/dashboard"
               className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-xs font-bold text-slate-700 shadow-sm transition hover:border-slate-400 hover:bg-slate-50"
             >
-              Cancel & Return
+              Back to Dashboard
             </Link>
           </div>
 
@@ -184,19 +289,118 @@ const EditApplication = () => {
           </div>
         </section>
 
-        {/* Edit Form Section */}
+        {/* SECTION 1: EDITABLE GENERATED DOCUMENT */}
+        <section className="rounded-2xl border border-emerald-200 bg-white p-6 shadow-sm sm:p-8">
+          <div className="flex flex-col gap-4 border-b border-slate-100 pb-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center rounded-md bg-emerald-100 px-2.5 py-0.5 text-xs font-bold text-emerald-800">
+                  Document Content
+                </span>
+                {hasDocChanges && (
+                  <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-bold text-amber-800">
+                    Unsaved Edits
+                  </span>
+                )}
+                {docSaveSuccess && (
+                  <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-800">
+                    ✓ Document Saved
+                  </span>
+                )}
+              </div>
+              <h2 className="mt-1 text-xl font-bold text-slate-900">
+                Generated Document
+              </h2>
+            </div>
+
+            {/* Quick Document Actions */}
+            <div className="flex flex-wrap items-center gap-2">
+              {isEditingDoc ? (
+                <button
+                  type="button"
+                  onClick={() => setIsEditingDoc(false)}
+                  className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-bold text-slate-700 transition hover:bg-slate-50"
+                >
+                  Preview Formatted
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setIsEditingDoc(true)}
+                  className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-bold text-slate-700 transition hover:bg-slate-50"
+                >
+                  ✏️ Edit Text
+                </button>
+              )}
+
+              <button
+                type="button"
+                onClick={handleCopyText}
+                className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 shadow-sm transition hover:bg-slate-50"
+              >
+                {copied ? "✓ Copied" : "📋 Copy"}
+              </button>
+
+              <button
+                type="button"
+                onClick={handlePrint}
+                className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 shadow-sm transition hover:bg-slate-50"
+              >
+                🖨️ Print
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-4">
+            {isEditingDoc ? (
+              <div className="space-y-3">
+                <textarea
+                  value={generatedDocument}
+                  onChange={(e) => {
+                    setGeneratedDocument(e.target.value);
+                    setHasDocChanges(true);
+                  }}
+                  rows={14}
+                  placeholder="Paste or write your application text here..."
+                  className="w-full resize-y rounded-xl border border-emerald-400 bg-white p-5 font-serif text-sm leading-relaxed text-slate-800 shadow-inner outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100"
+                />
+                <div className="flex items-center justify-between text-xs text-slate-500">
+                  <span>Characters: {generatedDocument.length}</span>
+                  <button
+                    type="button"
+                    disabled={savingDocument || !hasDocChanges}
+                    onClick={handleSaveDocument}
+                    className="inline-flex items-center justify-center rounded-xl bg-emerald-700 px-4 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-emerald-800 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {savingDocument ? "Saving to Database..." : "Save Document Edits"}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="relative rounded-xl border border-slate-200 bg-slate-50/60 p-6 font-serif text-sm leading-relaxed whitespace-pre-wrap text-slate-800 shadow-inner">
+                {generatedDocument || (
+                  <p className="font-sans italic text-slate-400">
+                    No document has been generated yet for this record.
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* SECTION 2: EDITABLE FORM INPUT VALUES */}
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <div className="border-b border-slate-100 pb-5">
             <h2 className="text-xl font-bold text-slate-900">
-              Application Details
+              Form Input Parameters
             </h2>
             <p className="mt-1 text-sm text-slate-600">
-              Update the fields and click save to apply changes.
+              Update stored values in case you need to regenerate or archive updated parameters.
             </p>
           </div>
 
           <form
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(onFormSubmit)}
             noValidate
             className="mt-6 space-y-5"
           >
@@ -253,20 +457,20 @@ const EditApplication = () => {
               </Link>
               <button
                 type="submit"
-                disabled={saving}
+                disabled={savingForm}
                 className="inline-flex w-full items-center justify-center rounded-xl bg-amber-400 px-6 py-2.5 text-sm font-bold text-slate-950 shadow-sm transition hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
               >
-                {saving ? "Saving Changes..." : "Update Application →"}
+                {savingForm ? "Saving Fields..." : "Update Form Values →"}
               </button>
             </div>
           </form>
         </section>
       </div>
 
-      {/* Success Modal Popup */}
+      {/* Success Modal Popup for Form Fields */}
       {showSuccessModal && (
         <div
-          onClick={handleModalProceed}
+          onClick={() => setShowSuccessModal(false)}
           className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm"
         >
           <div
@@ -278,24 +482,33 @@ const EditApplication = () => {
             </div>
 
             <h2 className="text-xl font-extrabold text-slate-900">
-              Application Updated!
+              Form Parameters Saved!
             </h2>
 
             <p className="mt-2 text-sm text-slate-600">
-              Your changes to{" "}
+              Your field values for{" "}
               <strong className="text-slate-900">
                 &quot;{application?.title || "Untitled Application"}&quot;
               </strong>{" "}
-              have been saved successfully.
+              have been updated in your database.
             </p>
 
-            <button
-              type="button"
-              onClick={handleModalProceed}
-              className="mt-6 w-full rounded-xl bg-emerald-700 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-200"
-            >
-              Continue to Dashboard →
-            </button>
+            <div className="mt-6 flex flex-col gap-2">
+              <button
+                type="button"
+                onClick={() => setShowSuccessModal(false)}
+                className="w-full rounded-xl bg-emerald-700 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-800"
+              >
+                Stay on Edit Page
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate("/dashboard")}
+                className="w-full rounded-xl border border-slate-300 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50 transition"
+              >
+                Go to Dashboard →
+              </button>
+            </div>
           </div>
         </div>
       )}
