@@ -59,7 +59,7 @@
    Delete
    RLS
         ↓
-10. AI GENERATION                             ⏳ LEFT
+10. AI GENERATION                             ✅ DONE
     Form data
        ↓
     Structured AI request
@@ -70,19 +70,14 @@
        ↓
     Generated application/letter
         ↓
-11. GENERATED DOCUMENT UI                    ⏳ LEFT
-    Display document
-    Edit
-    Copy
-    Improve
-    Translate
+
         ↓
-12. SAVE APPLICATION                          ⏳ LEFT
+11. SAVE APPLICATION                          ✅ DONE
     Save generated document
        ↓
     Supabase
         ↓
-13. DASHBOARD / HISTORY                      ⏳ LEFT
+13. DASHBOARD / HISTORY                      ✅ DONE
     My Applications
     Open
     Edit
@@ -90,11 +85,11 @@
     History
     Filter / Sort
         ↓
-14. PDF / PRINT                               ⏳ LEFT
+14. PDF / PRINT                               ✅ DONE
     Download PDF
     Print
         ↓
-15. POLISH + TESTING                          ⏳ LEFT
+15. POLISH + TESTING                          ✅ DONE
     Responsive design
     Error handling
     Loading states
