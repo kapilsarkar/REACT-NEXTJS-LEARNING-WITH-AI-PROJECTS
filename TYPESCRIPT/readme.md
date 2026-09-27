@@ -50,3 +50,24 @@ Introduction
  Uncontrolled elements
  Context and UseContext
  
+
+ ## FOR RUNNING A FILE
+
+### 1. Compile TypeScript
+
+```bash
+npx tsc
+```
+
+### 2. Run the compiled JavaScript file
+
+```bash
+node dist/FILE-NAME
+```
+
+### Example:
+
+```bash
+node dist/02_primitive.js
+```
+

@@ -1,3 +1,5 @@
+//01_inference.ts
+
 //goal -> understand when to let TypeScript infer types
 //ts -> js very well
 //when ts will writes the types / you rae are going to write
