@@ -1,3 +1,5 @@
+//014_optional_default.ts
+
 function greetPersonOptional(name?:string) : string {
  const upperRes = name? name?.toUpperCase() : 'Guest'
 

@@ -1,3 +1,5 @@
+//011_readonly_arrays.ts
+
 const xss = [1,2,3,4,5]
 const ys : readonly number[] = [1,2,3]
 const yss : ReadonlyArray<number> = [1,2,3]

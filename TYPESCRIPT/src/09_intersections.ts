@@ -1,3 +1,5 @@
+//09_intersection.ts
+
 //value must be everything from A to from B
 
 type Inter1 = {id: string}
