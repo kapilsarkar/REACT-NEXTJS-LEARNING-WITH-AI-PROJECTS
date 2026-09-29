@@ -103,3 +103,11 @@ async function loadCountInferred() {
 loadCountInferred().then(n => console.log(n)); // n is inferred as number
 ```
 
+### Explicit async return type
+
+An async function's return type should be written as `Promise<T>`, not simply `T`.
+
+```ts
+async function getNumber(): Promise<number> {
+  return 42;
+}
