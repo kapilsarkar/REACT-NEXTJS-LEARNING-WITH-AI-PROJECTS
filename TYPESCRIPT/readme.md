@@ -1,5 +1,13 @@
 # TYPESCRIPT LEARNING
 
+## TYPESCRIPT LEARNING TABLE
+
+| **TOPIC NAME** | **LINK** |
+|:---|:---|
+| **TypeScript Core Fundamentals — Revision Guide** | [Open Revision Guide](https://github.com/kapilsarkar/REACT-NEXTJS-LEARNING-WITH-AI-PROJECTS/blob/main/TYPESCRIPT/TypeScript_Core_Fundamentals.md) |
+| **TypeScript Intermediate Types & Functions — Revision Guide** | [Open Revision Guide](https://github.com/kapilsarkar/REACT-NEXTJS-LEARNING-WITH-AI-PROJECTS/blob/main/TYPESCRIPT/TypeScript_Intermediate_Types_%26_Functions.md) |
+| **TypeScript Advanced Functions & Rest Tuples — Revision Guide** | [Open Revision Guide](https://github.com/kapilsarkar/REACT-NEXTJS-LEARNING-WITH-AI-PROJECTS/blob/main/TYPESCRIPT/Typescript_Advanced_Functions_%26_Rest_Tuples.md) |
+
 Introduction
 
  Installation and setup
